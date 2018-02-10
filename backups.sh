@@ -7,8 +7,6 @@ cp -r ../scaffolds/ ./
 cp ../package.json ./
 cp ../.gitignore ./
 
-DATE=`date`
-echo ${DATE}
 git add . 
-git commit -m ${DATE}
-#git push origin save
+git commit -m "`date`"
+git push origin save
