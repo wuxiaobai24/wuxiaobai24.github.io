@@ -138,6 +138,121 @@
           <div id="js-content" class="content-ll">
             
   
+    <article id="post-LongestPalindromicSubString" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/10/03/LongestPalindromicSubString/">LongestPalindromicSubString</a>
+    </h1>
+  
+
+        
+        <a href="/2017/10/03/LongestPalindromicSubString/" class="archive-article-date">
+  	<time datetime="2017-10-03T03:14:39.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-10-03</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>打卡，第10天</p>
+<p>今天刷的题是<a href="https://leetcode.com/problems/longest-palindromic-substring/description/" target="_blank" rel="noopener">Longest Palindromic Substring</a>,开始想着用动态规划做，但是我好像连动态规划是什么我都不知道。。。</p>
+<p>题目:</p>
+<blockquote>
+<p>Given a string s, find the longest palindromic substring in s. You may assume that the maximum length of s is 1000.</p>
+<p>Example:</p>
+<p>Input: “babad”</p>
+<p>Output: “bab”</p>
+<p>Note: “aba” is also a valid answer.<br>Example:</p>
+<p>Input: “cbbd”</p>
+<p>Output: “bb”</p>
+</blockquote>
+<p>所以一如既往的想到了分治法:</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">bool</span> <span class="title">isPalindrome</span><span class="params">(<span class="built_in">string</span> &amp;s,<span class="keyword">int</span> first,<span class="keyword">int</span> last)</span></span>&#123;</span><br><span class="line">    <span class="keyword">while</span>(first &lt; last &amp;&amp; s[first] == s[last])&#123;</span><br><span class="line">        first++;</span><br><span class="line">        last--;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span> (first &gt;= last) <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">    <span class="keyword">else</span> <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="built_in">string</span> <span class="title">longestPalindrome</span><span class="params">(<span class="built_in">string</span> s)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">int</span> retF,retL;</span><br><span class="line">    <span class="keyword">int</span> l = longestPalindrome(s,<span class="number">0</span>,s.size() <span class="number">-1</span> ,retF);</span><br><span class="line">    <span class="keyword">return</span> s.substr(retF,l);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">longestPalindrome</span><span class="params">(<span class="built_in">string</span> &amp;s,<span class="keyword">int</span> first,<span class="keyword">int</span> last,<span class="keyword">int</span> &amp;retF)</span></span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (first &lt; last)&#123;</span><br><span class="line">        <span class="keyword">int</span> lF,rF,mF;</span><br><span class="line">        <span class="keyword">int</span> mid = (first + last)/<span class="number">2</span>;   <span class="comment">//分</span></span><br><span class="line">        <span class="comment">//治</span></span><br><span class="line">        <span class="keyword">int</span> l = longestPalindrome(s,first,mid,lF);</span><br><span class="line">        <span class="keyword">int</span> r = longestPalindrome(s,mid + <span class="number">1</span>,last,rF);</span><br><span class="line">        <span class="keyword">int</span> ret = max(l,r);</span><br><span class="line">        <span class="comment">//合，已知</span></span><br><span class="line">        <span class="keyword">int</span> midMax = ret;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = first;i &lt;=mid ;i++)</span><br><span class="line">            <span class="keyword">for</span>(<span class="keyword">int</span> j = mid + <span class="number">1</span>;j &lt;= last;j++)&#123;</span><br><span class="line">                <span class="keyword">if</span> (j-i +<span class="number">1</span> &gt; midMax &amp;&amp; isPalindrome(s,i,j))&#123;</span><br><span class="line">                    midMax = j-i+<span class="number">1</span>;</span><br><span class="line">                    mF = i;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        <span class="keyword">if</span> (midMax &gt; ret)&#123;</span><br><span class="line">            retF = mF;</span><br><span class="line">            <span class="keyword">return</span> midMax;</span><br><span class="line">        &#125; <span class="keyword">else</span> <span class="keyword">if</span> (ret == l)&#123;</span><br><span class="line">            retF = lF;</span><br><span class="line">        &#125; <span class="keyword">else</span>&#123;</span><br><span class="line">            retF = rF;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> ret;</span><br><span class="line">    &#125; <span class="keyword">else</span> <span class="keyword">if</span> (first == last ) &#123;</span><br><span class="line">        retF = first;</span><br><span class="line">        <span class="keyword">return</span> <span class="number">1</span>;</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        retF = first;</span><br><span class="line">        <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>大概的思路是：</p>
+<ul>
+<li>先用分治法将问题规模不断减半，那么现在只需要考虑如何“合”了</li>
+<li>这里”合”的时间复杂度是O(n^2)，没能找出更快的，嗯，不对，好像是O(n^3)….</li>
+<li>whatever，这里的合就是用穷举法去做的，不过不知道为什么还是过了测试</li>
+</ul>
+<p>然后是<code>dicuss</code>中的解法：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="built_in">string</span> <span class="title">longestPalindrome</span><span class="params">(<span class="built_in">string</span> s)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (s.empty()) <span class="keyword">return</span> <span class="string">""</span>;</span><br><span class="line">    <span class="keyword">if</span> (s.size() == <span class="number">1</span>) <span class="keyword">return</span> s;</span><br><span class="line">    <span class="keyword">int</span> min_start = <span class="number">0</span>, max_len = <span class="number">1</span>;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; s.size();) &#123;</span><br><span class="line">      <span class="keyword">if</span> (s.size() - i &lt;= max_len / <span class="number">2</span>) <span class="keyword">break</span>;</span><br><span class="line">      <span class="keyword">int</span> j = i, k = i;</span><br><span class="line">      <span class="keyword">while</span> (k &lt; s.size()<span class="number">-1</span> &amp;&amp; s[k+<span class="number">1</span>] == s[k]) ++k; <span class="comment">// Skip duplicate characters.</span></span><br><span class="line">      i = k+<span class="number">1</span>;</span><br><span class="line">      <span class="keyword">while</span> (k &lt; s.size()<span class="number">-1</span> &amp;&amp; j &gt; <span class="number">0</span> &amp;&amp; s[k + <span class="number">1</span>] == s[j - <span class="number">1</span>]) &#123; ++k; --j; &#125; <span class="comment">// Expand.</span></span><br><span class="line">      <span class="keyword">int</span> new_len = k - j + <span class="number">1</span>;</span><br><span class="line">      <span class="keyword">if</span> (new_len &gt; max_len) &#123; min_start = j; max_len = new_len; &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> s.substr(min_start, max_len);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>emmm,这里好像也是用点穷举的感觉。</p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">LeetCode</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">串</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">分治法</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+	<div class="article-category tagcloud">
+		<i class="icon-book icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="/categories/LeetCode//" class="article-tag-list-link color4">LeetCode</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2017/10/03/LongestPalindromicSubString/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
     <article id="post-MaximumProductSubarray" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -1135,108 +1250,6 @@
 
 
   
-    <article id="post-LongestCommonPrefix" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2017/09/25/LongestCommonPrefix/">Longest Common Prefix</a>
-    </h1>
-  
-
-        
-        <a href="/2017/09/25/LongestCommonPrefix/" class="archive-article-date">
-  	<time datetime="2017-09-25T01:59:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-09-25</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>恩，今天早上1,2节没课，闲来无事就先把今天的题刷了（你的算法分析实验呢？）今天的题目是<a href="https://leetcode.com/problems/longest-common-prefix/description/" target="_blank" rel="noopener">Longest Common Prefix</a>,恩，比那个什么最长公共子串简单多了，很容易就可以找到思路（虽然写出来的代码很难看）</p>
-<p>大概的解题思路是：</p>
-<ul>
-<li>先找出最短的字符串，假定他就是我们要的答案</li>
-<li>遍历所有字符串，看他们是否有这个字符串<ul>
-<li>如果有就直接返回</li>
-<li>如果没有就把子串长度减小，再进行重复操作</li>
-</ul>
-</li>
-</ul>
-<p>思路很简单，但我写的很渣（直接过，我也是很懵，我还想再敲多一下的）</p>
-<p>先上我的代码吧：</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="built_in">string</span> <span class="title">longestCommonPrefix</span><span class="params">(<span class="built_in">vector</span>&lt;<span class="built_in">string</span>&gt;&amp; strs)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (strs.empty()) <span class="keyword">return</span> <span class="string">""</span>;</span><br><span class="line">    <span class="keyword">else</span> <span class="keyword">if</span> (strs.size() == <span class="number">1</span>) <span class="keyword">return</span> strs[<span class="number">0</span>];</span><br><span class="line">    <span class="built_in">string</span> ret =  strs[<span class="number">0</span>];</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">auto</span> &amp;s:strs) &#123;</span><br><span class="line">        <span class="keyword">if</span> (ret.size() &gt; s.size())</span><br><span class="line">            ret = s;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">while</span>(ret.size() &gt; <span class="number">0</span>) &#123;</span><br><span class="line">        <span class="keyword">bool</span> is = <span class="literal">true</span>;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">auto</span> &amp;s:strs)&#123;</span><br><span class="line">            <span class="keyword">if</span> (s.substr(<span class="number">0</span>,ret.size()) != ret) &#123;</span><br><span class="line">                is = <span class="literal">false</span>;</span><br><span class="line">                <span class="keyword">break</span>;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span> (!is) ret = ret.substr(<span class="number">0</span>,ret.size() - <span class="number">1</span>);</span><br><span class="line">        <span class="keyword">else</span> <span class="keyword">return</span> ret;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="string">""</span>;</span><br><span class="line">    </span><br><span class="line">&#125;</span><br><span class="line">``` </span><br><span class="line"></span><br><span class="line">恩，我是没想到它会直接过的，思路相当简单，当然思路简单一般效率就不会很高。</span><br><span class="line"></span><br><span class="line">我的思路一开始是假定最短的串是我们要的结果，而在`dicuss`中别人的写法是另一种思路：</span><br><span class="line"></span><br><span class="line">```c++</span><br><span class="line"><span class="function"><span class="built_in">string</span> <span class="title">longestCommonPrefix</span><span class="params">(<span class="built_in">vector</span>&lt;<span class="built_in">string</span>&gt;&amp; strs)</span> </span>&#123;</span><br><span class="line">   <span class="built_in">string</span> prefix = <span class="string">""</span>;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> idx=<span class="number">0</span>; strs.size()&gt;<span class="number">0</span>; prefix+=strs[<span class="number">0</span>][idx], idx++)</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>; i&lt;strs.size(); i++)</span><br><span class="line">            <span class="keyword">if</span>(idx &gt;= strs[i].size() ||(i &gt; <span class="number">0</span> &amp;&amp; strs[i][idx] != strs[i<span class="number">-1</span>][idx]))</span><br><span class="line">                <span class="keyword">return</span> prefix;</span><br><span class="line">    <span class="keyword">return</span> prefix;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>比我的代码简洁很多，他是先假定最长前缀是空，然后在用动态规划的思路去做的（恩，要好好研究一下动态规划），而且他这种写法就不需要判断传入的<code>vector</code>是不是空了。</p>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">LeetCode</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">串</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/LeetCode//" class="article-tag-list-link color4">LeetCode</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2017/09/25/LongestCommonPrefix/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
   
     <nav id="page-nav">
       <a class="extend prev" rel="prev" href="/page/10/">&laquo; Prev</a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/9/">9</a><a class="page-number" href="/page/10/">10</a><span class="page-number current">11</span><a class="page-number" href="/page/12/">12</a><a class="extend next" rel="next" href="/page/12/">Next &raquo;</a>
@@ -1383,11 +1396,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">Linked-List</a>
+                <a href="javascript:void(0)" class="js-tag color2">串</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">串</a>
+                <a href="javascript:void(0)" class="js-tag color2">Linked-List</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1407,15 +1420,15 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">Search</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">Bit-Manipulation</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">sort</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">Search</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1443,15 +1456,19 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">杂事一堆</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">查找</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">LintCode</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">循环链表，双向链表，数据结构</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">查找</a>
               </li>
             
             <div class="clearfix"></div>

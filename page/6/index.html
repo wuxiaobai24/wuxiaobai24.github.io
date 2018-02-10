@@ -138,6 +138,113 @@
           <div id="js-content" class="content-ll">
             
   
+    <article id="post-House-Robber" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/11/19/House-Robber/">House Robber</a>
+    </h1>
+  
+
+        
+        <a href="/2017/11/19/House-Robber/" class="archive-article-date">
+  	<time datetime="2017-11-19T03:07:15.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-11-19</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>第53天。</p>
+<p>今天的题目是<a href="https://leetcode.com/problems/house-robber/description/" target="_blank" rel="noopener">House Robber</a>:</p>
+<blockquote>
+<p>You are a professional robber planning to rob houses along a street. Each house has a certain amount of money stashed, the only constraint stopping you from robbing each of them is that adjacent houses have security system connected and it will automatically contact the police if two adjacent houses were broken into on the same night.</p>
+<p>Given a list of non-negative integers representing the amount of money of each house, determine the maximum amount of money you can rob tonight without alerting the police.</p>
+</blockquote>
+<p>题目很长，大概的意思是给你一组非负数，代表每个房间中有的金额，你可以去任意一个房间取钱，但是不能在两个相邻的房间取，求出能取出的最大金额。</p>
+<p>一开始想的很简单，直接在单数号的房间取或者在双数号的房间取，这样的话，我就取了最多次，只要遍历求个和即可，然而这样会有一个问题，例如序列是这样的<code>[2,1,1,2]</code>,这样的话，应该是取第一个房间和最后一个房间才对。</p>
+<p>突然觉得好像很难求出来才是，因为可能性太多了，而且也不好构造这种可能性，突然想到这会不会是一道<code>dp</code>的题目，然后用<code>dp</code>的思路去想。</p>
+<p>如果有k个房间可以取钱，那么是不是对于第k个房间就只有两种可能，即取或不取：</p>
+<ul>
+<li>取，那么k-1我们就不能取了，我们只能取k-2个房间的钱，问题转换成求前k-2个房间能取多少</li>
+<li>不取，那么问题变成了求前k-1个房间能不能取。</li>
+</ul>
+<p>我们可以得到以下递推式：</p>
+<blockquote>
+<p>rob(nums,k) = max(rob(num,k-1),rob(nums,k-2) + nums[k])</p>
+</blockquote>
+<p>这样我们就可以很轻松的写出：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">rob1</span><span class="params">(self, nums)</span>:</span></span><br><span class="line">    <span class="string">"""</span></span><br><span class="line"><span class="string">    :type nums: List[int]</span></span><br><span class="line"><span class="string">    :rtype: int</span></span><br><span class="line"><span class="string">    """</span></span><br><span class="line">    dp = [<span class="number">0</span>]*(len(nums)+<span class="number">2</span>)</span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> range(len(nums)):</span><br><span class="line">        dp[i+<span class="number">2</span>] = max(dp[i+<span class="number">1</span>],dp[i]+nums[i])</span><br><span class="line">    <span class="keyword">return</span> dp[<span class="number">-1</span>]</span><br></pre></td></tr></table></figure>
+<p>很显然我们可以将空间复杂度从<code>O(n)</code>降到<code>O(1)</code>:</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">rob2</span><span class="params">(self, nums)</span>:</span></span><br><span class="line">    <span class="string">"""</span></span><br><span class="line"><span class="string">    :type nums: List[int]</span></span><br><span class="line"><span class="string">    :rtype: int</span></span><br><span class="line"><span class="string">    """</span></span><br><span class="line">    <span class="comment">#dp = [0]*(len(nums)+2)</span></span><br><span class="line">    dp1,dp2,dp3 = <span class="number">0</span>,<span class="number">0</span>,<span class="number">0</span></span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> nums:</span><br><span class="line">        dp3 = max(dp2,dp1+i)</span><br><span class="line">        dp1,dp2 = dp2,dp3</span><br><span class="line">    <span class="keyword">return</span> dp3</span><br></pre></td></tr></table></figure>
+<p>我们还可以在减少一点，但是时间复杂度还是<code>O(1)</code>:</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">rob</span><span class="params">(self, nums)</span>:</span></span><br><span class="line">    <span class="string">"""</span></span><br><span class="line"><span class="string">    :type nums: List[int]</span></span><br><span class="line"><span class="string">    :rtype: int</span></span><br><span class="line"><span class="string">    """</span></span><br><span class="line">    <span class="comment">#dp = [0]*(len(nums)+2)</span></span><br><span class="line">    dp1,dp2 = <span class="number">0</span>,<span class="number">0</span></span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> nums:</span><br><span class="line">        dp1,dp2 = dp2,max(dp2,dp1+i)</span><br><span class="line">    <span class="keyword">return</span> dp2</span><br></pre></td></tr></table></figure>
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">LeetCode</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+	<div class="article-category tagcloud">
+		<i class="icon-book icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="/categories/LeetCode//" class="article-tag-list-link color4">LeetCode</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2017/11/19/House-Robber/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
     <article id="post-Course-Schedule" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -1046,112 +1153,6 @@
 
 
   
-    <article id="post-Majority-Element" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2017/11/10/Majority-Element/">Majority Element</a>
-    </h1>
-  
-
-        
-        <a href="/2017/11/10/Majority-Element/" class="archive-article-date">
-  	<time datetime="2017-11-10T00:33:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-11-10</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>第45天。</p>
-<p>今天的题目是<a href="https://leetcode.com/problems/majority-element/discuss/" target="_blank" rel="noopener">Majority Element</a>:</p>
-<blockquote>
-<p>Given an array of size n, find the majority element. The majority element is the element that appears more than ⌊ n/2 ⌋ times.</p>
-<p>You may assume that the array is non-empty and the majority element always exist in the array.</p>
-</blockquote>
-<p>最简单的想法就是，遍历一遍序列，记录出现的次数，然后在遍历一遍刚才记录的次数，如果大于<code>k</code>就直接返回，这种时候一般会用到<code>hash table</code>，在<code>c++</code>中就是<code>unordered_map</code>:</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">majorityElement</span><span class="params">(<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&amp; nums)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">int</span> size = nums.size();</span><br><span class="line">    <span class="keyword">int</span> k = size/<span class="number">2</span>;</span><br><span class="line">    <span class="built_in">unordered_map</span>&lt;<span class="keyword">int</span>,<span class="keyword">int</span>&gt; <span class="built_in">map</span>;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">auto</span> i:nums) <span class="built_in">map</span>[i]++;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">auto</span> p:<span class="built_in">map</span>) <span class="keyword">if</span> (p.second &gt; k) <span class="keyword">return</span> p.first;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>这种方法的时间复杂度是<code>O(n)</code>,空间复杂度也是<code>O(n)</code>.</p>
-<p>虽然很简单，但是这道题目在<code>dicuss</code>中也有很多有趣的解法:</p>
-<ul>
-<li>因为<code>Majority Element</code>在序列中存在<code>n/2</code>个，所以假如这个序列时有序的话，他一定会出现在中间:</li>
-</ul>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">majorityElement</span><span class="params">(<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&amp; nums)</span> </span>&#123;</span><br><span class="line">    nth_element(nums.begin(), nums.begin() + nums.size() / <span class="number">2</span>, nums.end());</span><br><span class="line">    <span class="keyword">return</span> nums[nums.size() / <span class="number">2</span>];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>很<code>nice</code>的学到了一个新的函数。</p>
-<ul>
-<li>同样是因为出现了<code>k/2</code>次，所以我们如果随机选取一个元素的话，有一半的概率可以直接选到<code>Majority Element</code>:</li>
-</ul>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">majorityElement</span><span class="params">(<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&amp; nums)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">int</span> n = nums.size();</span><br><span class="line">    srand(<span class="keyword">unsigned</span>(time(<span class="literal">NULL</span>)));</span><br><span class="line">    <span class="keyword">while</span> (<span class="literal">true</span>) &#123;</span><br><span class="line">        <span class="keyword">int</span> idx = rand() % n;</span><br><span class="line">        <span class="keyword">int</span> candidate = nums[idx];</span><br><span class="line">        <span class="keyword">int</span> counts = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; n; i++)</span><br><span class="line">            <span class="keyword">if</span> (nums[i] == candidate)</span><br><span class="line">                counts++;</span><br><span class="line">        <span class="keyword">if</span> (counts &gt; n / <span class="number">2</span>) <span class="keyword">return</span> candidate;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<ul>
-<li><code>Moore Voting Algorithm</code>，这个方法的正确性我也不是很确定:</li>
-</ul>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">majorityElement</span><span class="params">(<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&amp; nums)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">int</span> major, counts = <span class="number">0</span>, n = nums.size();</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; n; i++) &#123;</span><br><span class="line">        <span class="keyword">if</span> (!counts) &#123;</span><br><span class="line">            major = nums[i];</span><br><span class="line">            counts = <span class="number">1</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">else</span> counts += (nums[i] == major) ? <span class="number">1</span> : <span class="number">-1</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> major;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">LeetCode</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/LeetCode//" class="article-tag-list-link color4">LeetCode</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2017/11/10/Majority-Element/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
   
     <nav id="page-nav">
       <a class="extend prev" rel="prev" href="/page/5/">&laquo; Prev</a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/4/">4</a><a class="page-number" href="/page/5/">5</a><span class="page-number current">6</span><a class="page-number" href="/page/7/">7</a><a class="page-number" href="/page/8/">8</a><span class="space">&hellip;</span><a class="page-number" href="/page/12/">12</a><a class="extend next" rel="next" href="/page/7/">Next &raquo;</a>
@@ -1298,11 +1299,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">Linked-List</a>
+                <a href="javascript:void(0)" class="js-tag color2">串</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">串</a>
+                <a href="javascript:void(0)" class="js-tag color2">Linked-List</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1322,15 +1323,15 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">Search</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">Bit-Manipulation</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">sort</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">Search</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1358,15 +1359,19 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">杂事一堆</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">查找</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">LintCode</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">循环链表，双向链表，数据结构</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">查找</a>
               </li>
             
             <div class="clearfix"></div>

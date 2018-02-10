@@ -2,6 +2,13 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>http://yoursite.com/2018/02/10/blog%E8%BF%81%E7%A7%BB/</loc>
+    
+    <lastmod>2018-02-10T15:04:05.321Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>http://yoursite.com/2018/01/27/Search-a-2D-Matrix-II/</loc>
     
     <lastmod>2018-01-27T02:38:34.981Z</lastmod>

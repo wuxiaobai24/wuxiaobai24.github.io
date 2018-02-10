@@ -138,6 +138,129 @@
           <div id="js-content" class="content-ll">
             
   
+    <article id="post-Unique-Binary-Search-Tree" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/10/22/Unique-Binary-Search-Tree/">Unique Binary Search Tree</a>
+    </h1>
+  
+
+        
+        <a href="/2017/10/22/Unique-Binary-Search-Tree/" class="archive-article-date">
+  	<time datetime="2017-10-22T00:48:53.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-10-22</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>第29天。</p>
+<p>今天的题目是<a href="https://leetcode.com/problems/unique-binary-search-trees/description/" target="_blank" rel="noopener">Unique Binary Search Trees</a>:</p>
+<blockquote>
+<p>Given n, how many structurally unique BST’s (binary search trees) that store values 1…n?</p>
+<p>For example,<br>Given n = 3, there are a total of 5 unique BST’s.</p>
+<pre><code>1         3     3      2      1
+\       /     /      / \      \
+3     2     1      1   3      2
+/     /       \                 \
+2     1         2                 3
+</code></pre></blockquote>
+<p>对于这种问题一般都可以用递归去做的，我们尝试的找一下递归式。</p>
+<p><code>n=1</code> -&gt; <code>1</code><br><code>n=2</code> -&gt; <code>2</code><br><code>n=3</code> -&gt; <code>5</code></p>
+<p>我们考虑<code>n=3</code>时的情况,这时这棵树种包含三个值<code>1,2,3</code>,这说明树根的可能是<code>1,2,3</code>中的一个值：</p>
+<ul>
+<li>当<code>root=1</code>时，<code>2,3</code>只能放在右子树。现在只考虑<code>2,3</code>两个值，由于<code>BST</code>的性质,右子树也必须是<code>BST</code>，则此时问题转换成求<code>numsTrees(2)</code>.</li>
+<li>当<code>root=2</code>时，左边必定是<code>1</code>,右边必定是<code>3</code>.</li>
+<li>当<code>root=3</code>时，左边必定是<code>1,2</code>，同样转换成<code>numsTrees(2)</code>.</li>
+</ul>
+<p>我们再考虑一下<code>n=5</code>时的情况：</p>
+<ul>
+<li><code>root=3</code>，左子树必定是是包含<code>1,2</code>的BST，右子树必定是包含<code>4,5</code>的BST，此时种类为<code>numsTree(5-3)*numsTrees(3-1)</code>。</li>
+</ul>
+<p>所以我们可以找到递推式：</p>
+<ul>
+<li><code>n &lt; 2</code> -&gt; <code>numsTrees(n) = 1</code></li>
+<li><code>n &gt;= 2</code> -&gt; <code>numsTrees(n) = numsTrees(1)*numsTrees(n-1) + numsTrees(2)*numTree(n-2) + ... + numsTree(n-1)*numsTrees(1)</code>;</li>
+</ul>
+<p>所以我们写出一个递归的解决方案:</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">numTrees</span><span class="params">(<span class="keyword">int</span> n)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (n &lt;= <span class="number">1</span>) <span class="keyword">return</span> <span class="number">1</span>;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">int</span> ret = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">1</span>;i &lt;= n;i++) &#123;</span><br><span class="line">        <span class="keyword">int</span> left = i<span class="number">-1</span>;</span><br><span class="line">        <span class="keyword">int</span> right = n-i;</span><br><span class="line">        ret += numTrees(left)*numTrees(right);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> ret;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>但是这里会超时，很明显这里可以用动态规划来优化:</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">numTrees</span><span class="params">(<span class="keyword">int</span> n)</span> </span>&#123;</span><br><span class="line">    <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; ret(n+<span class="number">1</span>);</span><br><span class="line">    ret[<span class="number">0</span>] = <span class="number">1</span>;</span><br><span class="line">    ret[<span class="number">1</span>] = <span class="number">1</span>;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">2</span>;i &lt;= n;i++) &#123;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> j = <span class="number">1</span>;j &lt;= i;j++)</span><br><span class="line">            ret[i] += ret[j<span class="number">-1</span>]*ret[i-j];</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> ret[n];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><code>dicuss</code>中基本都是和上面类似的解法，除了一个:</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">numTrees</span><span class="params">(<span class="keyword">int</span> n)</span> </span>&#123;</span><br><span class="line">    <span class="comment">//cantalan树</span></span><br><span class="line">    <span class="comment">//C(2n,n)/(n+1)</span></span><br><span class="line">    <span class="keyword">long</span> <span class="keyword">long</span> ans =<span class="number">1</span>;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i=n+<span class="number">1</span>;i&lt;=<span class="number">2</span>*n;i++)&#123;</span><br><span class="line">        ans = ans*i/(i-n);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> ans/(n+<span class="number">1</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>emmm,说实话，我没看懂，但是这个方法的确是最快的，只需要<code>O(n)</code>的时间，<code>O(1)</code>的空间。</p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">LeetCode</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">动态规划</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+	<div class="article-category tagcloud">
+		<i class="icon-book icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="/categories/LeetCode//" class="article-tag-list-link color4">LeetCode</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2017/10/22/Unique-Binary-Search-Tree/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
     <article id="post-Word-Search" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -1064,108 +1187,6 @@
 
 
   
-    <article id="post-Combination-Sum" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2017/10/12/Combination-Sum/">Combination-Sum</a>
-    </h1>
-  
-
-        
-        <a href="/2017/10/12/Combination-Sum/" class="archive-article-date">
-  	<time datetime="2017-10-12T03:24:59.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-10-12</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>第19天</p>
-<p>这道题是在起床到去上课前AC出来的，emmm，大概就10多分钟的样子。。。</p>
-<p>虽然后来尝试优化了一下，但是感觉效果都不怎么好。。</p>
-<p>题目描述：</p>
-<blockquote>
-<p>Given a set of candidate numbers (C) (without duplicates) and a target number (T), find all unique combinations in C where the candidate numbers sums to T.</p>
-<p>The same repeated number may be chosen from C unlimited number of times.</p>
-<p>Note:</p>
-<ul>
-<li>All numbers (including target) will be positive integers.</li>
-<li>The solution set must not contain duplicate combinations.</li>
-</ul>
-<p>For example, given candidate set [2, 3, 6, 7] and target 7,A solution set is: </p>
-</blockquote>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">[</span><br><span class="line">  [<span class="number">7</span>],</span><br><span class="line">  [<span class="number">2</span>, <span class="number">2</span>, <span class="number">3</span>]</span><br><span class="line">]</span><br></pre></td></tr></table></figure>
-<p>其实想法很简单，我既然想求<code>combinationSum(7)</code>，通过遍历数组，我们现在有了一个<code>[2]</code>，我只需要在求<code>combinatiomSum(7-2)</code>即可，然后组合起来：</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; cand;</span><br><span class="line"><span class="built_in">vector</span>&lt;<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; &gt; ret;</span><br><span class="line"><span class="built_in">vector</span>&lt;<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&gt; combinationSum(<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&amp; candidates, <span class="keyword">int</span> target) &#123;</span><br><span class="line">    cand = candidates;</span><br><span class="line">    sort(cand.begin(),cand.end());</span><br><span class="line">    <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; now;</span><br><span class="line">    combinationSumIter(now,<span class="number">0</span>,target);</span><br><span class="line">    <span class="keyword">return</span> ret;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">combinationSumIter</span><span class="params">(<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; &amp;now,<span class="keyword">int</span> beg,<span class="keyword">int</span> target)</span></span>&#123;</span><br><span class="line">    <span class="comment">//cout &lt;&lt; "target" &lt;&lt; target &lt;&lt; endl;</span></span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i = beg;i &lt; cand.size();++i) &#123;</span><br><span class="line">        <span class="keyword">if</span> (target &lt; cand[i])</span><br><span class="line">            <span class="keyword">break</span>;</span><br><span class="line">        <span class="keyword">else</span> <span class="keyword">if</span> (target == cand[i]) &#123;</span><br><span class="line">            <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; vec = now;</span><br><span class="line">            vec.push_back(cand[i]);</span><br><span class="line">            ret.push_back(vec);</span><br><span class="line">        &#125; <span class="keyword">else</span> <span class="keyword">if</span> (target - cand[i] &gt;= cand[<span class="number">0</span>] )&#123;</span><br><span class="line">            <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; vec = now;</span><br><span class="line">            vec.push_back(cand[i]);</span><br><span class="line">            combinationSumIter(vec,i,target-cand[i]);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>然后在<code>dicuss</code>中看到的也是类似的想法：</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="built_in">std</span>::<span class="built_in">vector</span>&lt;<span class="built_in">std</span>::<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; &gt; combinationSum(<span class="built_in">std</span>::<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; &amp;candidates, <span class="keyword">int</span> target) &#123;</span><br><span class="line">        <span class="built_in">std</span>::sort(candidates.begin(), candidates.end());</span><br><span class="line">        <span class="built_in">std</span>::<span class="built_in">vector</span>&lt;<span class="built_in">std</span>::<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; &gt; res;</span><br><span class="line">        <span class="built_in">std</span>::<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; combination;</span><br><span class="line">        combinationSum(candidates, target, res, combination, <span class="number">0</span>);</span><br><span class="line">        <span class="keyword">return</span> res;</span><br><span class="line">    &#125;</span><br><span class="line"><span class="keyword">private</span>:</span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">combinationSum</span><span class="params">(<span class="built_in">std</span>::<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; &amp;candidates, <span class="keyword">int</span> target, <span class="built_in">std</span>::<span class="built_in">vector</span>&lt;<span class="built_in">std</span>::<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; &gt; &amp;res, <span class="built_in">std</span>::<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; &amp;combination, <span class="keyword">int</span> begin)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (!target) &#123;</span><br><span class="line">            res.push_back(combination);</span><br><span class="line">            <span class="keyword">return</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = begin; i != candidates.size() &amp;&amp; target &gt;= candidates[i]; ++i) &#123;</span><br><span class="line">            combination.push_back(candidates[i]);</span><br><span class="line">            combinationSum(candidates, target - candidates[i], res, combination, i);</span><br><span class="line">            combination.pop_back();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">LeetCode</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/LeetCode//" class="article-tag-list-link color4">LeetCode</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2017/10/12/Combination-Sum/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
   
     <nav id="page-nav">
       <a class="extend prev" rel="prev" href="/page/8/">&laquo; Prev</a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/7/">7</a><a class="page-number" href="/page/8/">8</a><span class="page-number current">9</span><a class="page-number" href="/page/10/">10</a><a class="page-number" href="/page/11/">11</a><a class="page-number" href="/page/12/">12</a><a class="extend next" rel="next" href="/page/10/">Next &raquo;</a>
@@ -1312,11 +1333,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">Linked-List</a>
+                <a href="javascript:void(0)" class="js-tag color2">串</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">串</a>
+                <a href="javascript:void(0)" class="js-tag color2">Linked-List</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1336,15 +1357,15 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">Search</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">Bit-Manipulation</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">sort</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">Search</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1372,15 +1393,19 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">杂事一堆</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">查找</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">LintCode</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">循环链表，双向链表，数据结构</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">查找</a>
               </li>
             
             <div class="clearfix"></div>

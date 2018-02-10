@@ -138,6 +138,116 @@
           <div id="js-content" class="content-ll">
             
   
+    <article id="post-Find-Bottom-Left-Tree" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/12/07/Find-Bottom-Left-Tree/">Find-Bottom-Left-Tree</a>
+    </h1>
+  
+
+        
+        <a href="/2017/12/07/Find-Bottom-Left-Tree/" class="archive-article-date">
+  	<time datetime="2017-12-07T01:01:56.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-12-07</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>第71天。</p>
+<p>今天的题目是<a href="https://leetcode.com/problems/find-bottom-left-tree-value/description/" target="_blank" rel="noopener">Find Bottom Left Tree Value</a>:</p>
+<blockquote>
+<p>Given a binary tree, find the leftmost value in the last row of the tree.</p>
+<p>Example 1:<br>Input:</p>
+</blockquote>
+<pre><code>2
+</code></pre><p>   / \<br>  1   3</p>
+<blockquote>
+<p>Output:<br>1<br>Example 2:<br>Input:</p>
+</blockquote>
+<pre><code>    1
+   / \
+  2   3
+ /   / \
+4   5   6
+   /
+  7
+</code></pre><blockquote>
+<p>Output:<br>7<br>Note: You may assume the tree (i.e., the given root node) is not NULL.</p>
+</blockquote>
+<p>显然这可以用带高度的深度优先去做：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">findBottomLeftValue</span><span class="params">(TreeNode *root,<span class="keyword">int</span> &amp;height)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (root == <span class="literal">nullptr</span>) &#123;</span><br><span class="line">        height = <span class="number">-1</span>;</span><br><span class="line">        <span class="keyword">return</span> <span class="number">-1</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span> (root-&gt;left == <span class="literal">nullptr</span> &amp;&amp; root-&gt;right == <span class="literal">nullptr</span>)</span><br><span class="line">        <span class="keyword">return</span> root-&gt;val;</span><br><span class="line">    <span class="keyword">int</span> lefth,righth;</span><br><span class="line">    lefth = righth = height + <span class="number">1</span>;</span><br><span class="line">    <span class="keyword">int</span> left = findBottomLeftValue(root-&gt;left,lefth);</span><br><span class="line">    <span class="keyword">int</span> right = findBottomLeftValue(root-&gt;right,righth);</span><br><span class="line">    <span class="keyword">if</span> (lefth &gt;= righth) &#123;</span><br><span class="line">        height = lefth;</span><br><span class="line">        <span class="keyword">return</span> left;</span><br><span class="line">    &#125; <span class="keyword">else</span>&#123;</span><br><span class="line">        height = righth;</span><br><span class="line">        <span class="keyword">return</span> right;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">findBottomLeftValue</span><span class="params">(TreeNode* root)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">int</span> h = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">return</span> findBottomLeftValue(root,h);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>看起来就不优雅，而且很繁琐的样子,下面是<code>dicuss</code>中用广度优先去做的：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">findLeftMostNode</span><span class="params">(TreeNode root)</span> </span>&#123;</span><br><span class="line">    Queue&lt;TreeNode&gt; queue = <span class="keyword">new</span> LinkedList&lt;&gt;();</span><br><span class="line">    queue.add(root);</span><br><span class="line">    <span class="keyword">while</span> (!queue.isEmpty()) &#123;</span><br><span class="line">        root = queue.poll();</span><br><span class="line">        <span class="keyword">if</span> (root.right != <span class="keyword">null</span>)</span><br><span class="line">            queue.add(root.right);</span><br><span class="line">        <span class="keyword">if</span> (root.left != <span class="keyword">null</span>)</span><br><span class="line">            queue.add(root.left);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> root.val;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>以及<code>python</code>版本：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">findLeftMostNode</span><span class="params">(self, root)</span>:</span></span><br><span class="line">    queue = [root]</span><br><span class="line">    <span class="keyword">for</span> node <span class="keyword">in</span> queue:</span><br><span class="line">        queue += filter(<span class="keyword">None</span>, (node.right, node.left))</span><br><span class="line">    <span class="keyword">return</span> node.val</span><br></pre></td></tr></table></figure>
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">LeetCode</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+	<div class="article-category tagcloud">
+		<i class="icon-book icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="/categories/LeetCode//" class="article-tag-list-link color4">LeetCode</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2017/12/07/Find-Bottom-Left-Tree/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
     <article id="post-Count-Numbers-with-Unique-Digits" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -1033,114 +1143,6 @@
 
 
   
-    <article id="post-Single-Number-III" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2017/11/27/Single-Number-III/">Single Number III</a>
-    </h1>
-  
-
-        
-        <a href="/2017/11/27/Single-Number-III/" class="archive-article-date">
-  	<time datetime="2017-11-27T04:23:09.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-11-27</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>第61天。</p>
-<p>今天的题目是<a href="https://leetcode.com/problems/single-number-iii/description/" target="_blank" rel="noopener">Single Number III</a>:</p>
-<blockquote>
-<p>Given an array of numbers nums, in which exactly two elements appear only once and all the other elements appear exactly twice. Find the two elements that appear only once.</p>
-<p>For example:</p>
-<p>Given nums = [1, 2, 1, 3, 2, 5], return [3, 5].</p>
-<p>Note:<br>The order of the result is not important. So in the above example, [5, 3] is also correct.<br>Your algorithm should run in linear runtime complexity. Could you implement it using only constant space complexity?</p>
-</blockquote>
-<p>在求解这个问题之前，我们先考虑一下简化后的问题，如果只有一个Single Number的话，我们要怎么求解。</p>
-<p>如果熟悉异或运算的话，就很快的想出解决办法，这里用到了三个性质：</p>
-<ul>
-<li>0^a = a</li>
-<li>a^a = 0</li>
-<li>a^b^a = b</li>
-</ul>
-<p>假设现在序列有个数，分别为<code>n1,n2,n2...nk</code>,我们将它们异或起来：<br><code>t = n1^n2^n3^...^nk</code>,因为中间只有一个<code>single number</code>,所以t中只有一个数不能因为<code>a^a = 0</code>而消除掉。因此<code>t</code>就是这个序列中的<code>single number</code>.</p>
-<p>这是只有一个<code>single number</code>的情况，如果我们用类似的方法去做这道题的话，我们会得到<code>t = a1^a2</code>,但是显然我们无法快速的将a1和a2分解出来，除非我们知道其中一个数。</p>
-<p>那我们能不能把序列分成两部分来做，每部分都包含一个<code>single number</code>且其余的数都包含两个，我们可以从<code>bit</code>的角度来考虑，如果某个位（比如说最低位）为<code>1</code>,那我们就将它分到第一部分，否则我们就将它分到第二部分，这样的方法可以很好的区分除了<code>single number</code>之外的数（因为两个<code>single number</code>可能分到相同的部分）。现在的问题就是我们要怎么将两个<code>single number</code>分到不同部分。</p>
-<p>现在我们已经有了<code>t = a1^a2</code>,异或的定义是不同的bit为<code>1</code>,相同的bit为<code>0</code>,所以说t中为<code>1</code>的bit位（总是可以找到）可以作为我们上面那个算法的区分点了。</p>
-<p>然后现在就是找出<code>t</code>中一个为<code>1</code>的<code>bit</code>了，简单的可以遍历去做，比较只有32位，所以时间复杂度是<code>O(1)</code>的，但是我们有一个更快的方法：<br><code>t &amp; (t-1)</code>可以将第一个为<code>1</code>的bit位清0,然后我们再异或上原来的t,我们就可以得到对应的<code>mask</code>了。</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; singleNumber(<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&amp; nums) &#123;</span><br><span class="line">    <span class="keyword">int</span> t = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">auto</span> i:nums) t ^= i;</span><br><span class="line">    <span class="keyword">int</span> lastBit = (t &amp; (t<span class="number">-1</span>)) ^ t;</span><br><span class="line">    <span class="keyword">int</span> a = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">auto</span> i:nums) <span class="keyword">if</span> (i&amp;lastBit) a^=i;</span><br><span class="line">    <span class="keyword">return</span> &#123;a,a^t&#125;;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">LeetCode</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">Bit-Manipulation</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/LeetCode//" class="article-tag-list-link color4">LeetCode</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2017/11/27/Single-Number-III/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
   
     <nav id="page-nav">
       <a class="extend prev" rel="prev" href="/page/3/">&laquo; Prev</a><a class="page-number" href="/">1</a><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><span class="page-number current">4</span><a class="page-number" href="/page/5/">5</a><a class="page-number" href="/page/6/">6</a><span class="space">&hellip;</span><a class="page-number" href="/page/12/">12</a><a class="extend next" rel="next" href="/page/5/">Next &raquo;</a>
@@ -1287,11 +1289,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">Linked-List</a>
+                <a href="javascript:void(0)" class="js-tag color2">串</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">串</a>
+                <a href="javascript:void(0)" class="js-tag color2">Linked-List</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1311,15 +1313,15 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">Search</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">Bit-Manipulation</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">sort</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">Search</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1347,15 +1349,19 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">杂事一堆</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">查找</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">LintCode</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">循环链表，双向链表，数据结构</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">查找</a>
               </li>
             
             <div class="clearfix"></div>

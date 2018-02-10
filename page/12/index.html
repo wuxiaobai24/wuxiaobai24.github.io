@@ -138,6 +138,108 @@
           <div id="js-content" class="content-ll">
             
   
+    <article id="post-LongestCommonPrefix" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/09/25/LongestCommonPrefix/">Longest Common Prefix</a>
+    </h1>
+  
+
+        
+        <a href="/2017/09/25/LongestCommonPrefix/" class="archive-article-date">
+  	<time datetime="2017-09-25T01:59:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-09-25</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>恩，今天早上1,2节没课，闲来无事就先把今天的题刷了（你的算法分析实验呢？）今天的题目是<a href="https://leetcode.com/problems/longest-common-prefix/description/" target="_blank" rel="noopener">Longest Common Prefix</a>,恩，比那个什么最长公共子串简单多了，很容易就可以找到思路（虽然写出来的代码很难看）</p>
+<p>大概的解题思路是：</p>
+<ul>
+<li>先找出最短的字符串，假定他就是我们要的答案</li>
+<li>遍历所有字符串，看他们是否有这个字符串<ul>
+<li>如果有就直接返回</li>
+<li>如果没有就把子串长度减小，再进行重复操作</li>
+</ul>
+</li>
+</ul>
+<p>思路很简单，但我写的很渣（直接过，我也是很懵，我还想再敲多一下的）</p>
+<p>先上我的代码吧：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="built_in">string</span> <span class="title">longestCommonPrefix</span><span class="params">(<span class="built_in">vector</span>&lt;<span class="built_in">string</span>&gt;&amp; strs)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (strs.empty()) <span class="keyword">return</span> <span class="string">""</span>;</span><br><span class="line">    <span class="keyword">else</span> <span class="keyword">if</span> (strs.size() == <span class="number">1</span>) <span class="keyword">return</span> strs[<span class="number">0</span>];</span><br><span class="line">    <span class="built_in">string</span> ret =  strs[<span class="number">0</span>];</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">auto</span> &amp;s:strs) &#123;</span><br><span class="line">        <span class="keyword">if</span> (ret.size() &gt; s.size())</span><br><span class="line">            ret = s;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">while</span>(ret.size() &gt; <span class="number">0</span>) &#123;</span><br><span class="line">        <span class="keyword">bool</span> is = <span class="literal">true</span>;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">auto</span> &amp;s:strs)&#123;</span><br><span class="line">            <span class="keyword">if</span> (s.substr(<span class="number">0</span>,ret.size()) != ret) &#123;</span><br><span class="line">                is = <span class="literal">false</span>;</span><br><span class="line">                <span class="keyword">break</span>;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span> (!is) ret = ret.substr(<span class="number">0</span>,ret.size() - <span class="number">1</span>);</span><br><span class="line">        <span class="keyword">else</span> <span class="keyword">return</span> ret;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="string">""</span>;</span><br><span class="line">    </span><br><span class="line">&#125;</span><br><span class="line">``` </span><br><span class="line"></span><br><span class="line">恩，我是没想到它会直接过的，思路相当简单，当然思路简单一般效率就不会很高。</span><br><span class="line"></span><br><span class="line">我的思路一开始是假定最短的串是我们要的结果，而在`dicuss`中别人的写法是另一种思路：</span><br><span class="line"></span><br><span class="line">```c++</span><br><span class="line"><span class="function"><span class="built_in">string</span> <span class="title">longestCommonPrefix</span><span class="params">(<span class="built_in">vector</span>&lt;<span class="built_in">string</span>&gt;&amp; strs)</span> </span>&#123;</span><br><span class="line">   <span class="built_in">string</span> prefix = <span class="string">""</span>;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> idx=<span class="number">0</span>; strs.size()&gt;<span class="number">0</span>; prefix+=strs[<span class="number">0</span>][idx], idx++)</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>; i&lt;strs.size(); i++)</span><br><span class="line">            <span class="keyword">if</span>(idx &gt;= strs[i].size() ||(i &gt; <span class="number">0</span> &amp;&amp; strs[i][idx] != strs[i<span class="number">-1</span>][idx]))</span><br><span class="line">                <span class="keyword">return</span> prefix;</span><br><span class="line">    <span class="keyword">return</span> prefix;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>比我的代码简洁很多，他是先假定最长前缀是空，然后在用动态规划的思路去做的（恩，要好好研究一下动态规划），而且他这种写法就不需要判断传入的<code>vector</code>是不是空了。</p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">LeetCode</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">串</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+	<div class="article-category tagcloud">
+		<i class="icon-book icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="/categories/LeetCode//" class="article-tag-list-link color4">LeetCode</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2017/09/25/LongestCommonPrefix/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
     <article id="post-Valid-Parentheses" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -576,11 +678,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">Linked-List</a>
+                <a href="javascript:void(0)" class="js-tag color2">串</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">串</a>
+                <a href="javascript:void(0)" class="js-tag color2">Linked-List</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -600,15 +702,15 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">Search</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">Bit-Manipulation</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">sort</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">Search</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -636,15 +738,19 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">杂事一堆</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">查找</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">LintCode</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">循环链表，双向链表，数据结构</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">查找</a>
               </li>
             
             <div class="clearfix"></div>

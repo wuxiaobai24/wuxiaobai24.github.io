@@ -138,6 +138,103 @@
           <div id="js-content" class="content-ll">
             
   
+    <article id="post-Remove-Element" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/12/17/Remove-Element/">Remove-Element</a>
+    </h1>
+  
+
+        
+        <a href="/2017/12/17/Remove-Element/" class="archive-article-date">
+  	<time datetime="2017-12-17T02:54:14.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-12-17</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>第81天。</p>
+<p>今天的题目是<a href="https://leetcode.com/problems/remove-element/description/" target="_blank" rel="noopener">Remove Element</a>:</p>
+<blockquote>
+<p>Given an array and a value, remove all instances of that value in-place and return the new length.</p>
+<p>Do not allocate extra space for another array, you must do this by modifying the input array in-place with O(1) extra memory.</p>
+<p>The order of elements can be changed. It doesn’t matter what you leave beyond the new length.</p>
+<p>Example:</p>
+<p>Given nums = [3,2,2,3], val = 3,</p>
+<p>Your function should return length = 2, with the first two elements of nums being 2.</p>
+</blockquote>
+<p>简单的我们可以遍历数组，然后找到和<code>val</code>相同的元素，然后删除，但是这样对于多个相同的元素效率不高，所以我们先不删除元素，而是把他移动到最后面去，知道遍历完才删除。</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">removeElement</span><span class="params">(<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&amp; nums, <span class="keyword">int</span> val)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">int</span> last = nums.size();</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>;i &lt; last;i++) &#123;</span><br><span class="line">        <span class="keyword">if</span> (nums[i] == val) swap(nums[--last],nums[i--]);</span><br><span class="line">    &#125;</span><br><span class="line">    nums.erase(nums.begin() + last,nums.end());</span><br><span class="line">    <span class="keyword">return</span> nums.size();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><code>dicuss</code>中另一个方法也很精妙：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">removeElement</span><span class="params">(<span class="keyword">int</span> A[], <span class="keyword">int</span> n, <span class="keyword">int</span> elem)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">int</span> begin=<span class="number">0</span>;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;n;i++) <span class="keyword">if</span>(A[i]!=elem) A[begin++]=A[i];</span><br><span class="line">    <span class="keyword">return</span> begin;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">LeetCode</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+	<div class="article-category tagcloud">
+		<i class="icon-book icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="/categories/LeetCode//" class="article-tag-list-link color4">LeetCode</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2017/12/17/Remove-Element/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
     <article id="post-Reverse-String" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -1010,116 +1107,6 @@
 
 
   
-    <article id="post-Find-Bottom-Left-Tree" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2017/12/07/Find-Bottom-Left-Tree/">Find-Bottom-Left-Tree</a>
-    </h1>
-  
-
-        
-        <a href="/2017/12/07/Find-Bottom-Left-Tree/" class="archive-article-date">
-  	<time datetime="2017-12-07T01:01:56.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-12-07</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>第71天。</p>
-<p>今天的题目是<a href="https://leetcode.com/problems/find-bottom-left-tree-value/description/" target="_blank" rel="noopener">Find Bottom Left Tree Value</a>:</p>
-<blockquote>
-<p>Given a binary tree, find the leftmost value in the last row of the tree.</p>
-<p>Example 1:<br>Input:</p>
-</blockquote>
-<pre><code>2
-</code></pre><p>   / \<br>  1   3</p>
-<blockquote>
-<p>Output:<br>1<br>Example 2:<br>Input:</p>
-</blockquote>
-<pre><code>    1
-   / \
-  2   3
- /   / \
-4   5   6
-   /
-  7
-</code></pre><blockquote>
-<p>Output:<br>7<br>Note: You may assume the tree (i.e., the given root node) is not NULL.</p>
-</blockquote>
-<p>显然这可以用带高度的深度优先去做：</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">findBottomLeftValue</span><span class="params">(TreeNode *root,<span class="keyword">int</span> &amp;height)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (root == <span class="literal">nullptr</span>) &#123;</span><br><span class="line">        height = <span class="number">-1</span>;</span><br><span class="line">        <span class="keyword">return</span> <span class="number">-1</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span> (root-&gt;left == <span class="literal">nullptr</span> &amp;&amp; root-&gt;right == <span class="literal">nullptr</span>)</span><br><span class="line">        <span class="keyword">return</span> root-&gt;val;</span><br><span class="line">    <span class="keyword">int</span> lefth,righth;</span><br><span class="line">    lefth = righth = height + <span class="number">1</span>;</span><br><span class="line">    <span class="keyword">int</span> left = findBottomLeftValue(root-&gt;left,lefth);</span><br><span class="line">    <span class="keyword">int</span> right = findBottomLeftValue(root-&gt;right,righth);</span><br><span class="line">    <span class="keyword">if</span> (lefth &gt;= righth) &#123;</span><br><span class="line">        height = lefth;</span><br><span class="line">        <span class="keyword">return</span> left;</span><br><span class="line">    &#125; <span class="keyword">else</span>&#123;</span><br><span class="line">        height = righth;</span><br><span class="line">        <span class="keyword">return</span> right;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">findBottomLeftValue</span><span class="params">(TreeNode* root)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">int</span> h = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">return</span> findBottomLeftValue(root,h);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>看起来就不优雅，而且很繁琐的样子,下面是<code>dicuss</code>中用广度优先去做的：</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">findLeftMostNode</span><span class="params">(TreeNode root)</span> </span>&#123;</span><br><span class="line">    Queue&lt;TreeNode&gt; queue = <span class="keyword">new</span> LinkedList&lt;&gt;();</span><br><span class="line">    queue.add(root);</span><br><span class="line">    <span class="keyword">while</span> (!queue.isEmpty()) &#123;</span><br><span class="line">        root = queue.poll();</span><br><span class="line">        <span class="keyword">if</span> (root.right != <span class="keyword">null</span>)</span><br><span class="line">            queue.add(root.right);</span><br><span class="line">        <span class="keyword">if</span> (root.left != <span class="keyword">null</span>)</span><br><span class="line">            queue.add(root.left);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> root.val;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>以及<code>python</code>版本：</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">findLeftMostNode</span><span class="params">(self, root)</span>:</span></span><br><span class="line">    queue = [root]</span><br><span class="line">    <span class="keyword">for</span> node <span class="keyword">in</span> queue:</span><br><span class="line">        queue += filter(<span class="keyword">None</span>, (node.right, node.left))</span><br><span class="line">    <span class="keyword">return</span> node.val</span><br></pre></td></tr></table></figure>
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">LeetCode</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/LeetCode//" class="article-tag-list-link color4">LeetCode</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2017/12/07/Find-Bottom-Left-Tree/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
   
     <nav id="page-nav">
       <a class="extend prev" rel="prev" href="/page/2/">&laquo; Prev</a><a class="page-number" href="/">1</a><a class="page-number" href="/page/2/">2</a><span class="page-number current">3</span><a class="page-number" href="/page/4/">4</a><a class="page-number" href="/page/5/">5</a><span class="space">&hellip;</span><a class="page-number" href="/page/12/">12</a><a class="extend next" rel="next" href="/page/4/">Next &raquo;</a>
@@ -1266,11 +1253,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">Linked-List</a>
+                <a href="javascript:void(0)" class="js-tag color2">串</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">串</a>
+                <a href="javascript:void(0)" class="js-tag color2">Linked-List</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1290,15 +1277,15 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">Search</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">Bit-Manipulation</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">sort</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">Search</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1326,15 +1313,19 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">杂事一堆</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">查找</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">LintCode</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">循环链表，双向链表，数据结构</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">查找</a>
               </li>
             
             <div class="clearfix"></div>

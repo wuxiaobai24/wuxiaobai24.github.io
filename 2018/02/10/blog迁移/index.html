@@ -6,20 +6,20 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://yoursite.com">
-  <title>Move-Zeroes | 路还远着呢！</title>
+  <title>blog迁移 | 路还远着呢！</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="第44天。 今天的题目是Move Zeroes:  Given an array nums, write a function to move all 0’s to the end of it while maintaining the relative order of the non-zero elements. For example, given nums = [0, 1, 0, 3, 1">
-<meta name="keywords" content="LeetCode">
+  <meta name="description" content="今天把hexo从win搬到了Deepin下，准备长期驻扎Deepin了。然后有几篇文章的时间有点不对了。。whatever，不管了。 这篇blog只是一个测试： $$ \sum_{i=1}^n a_i = 0 $$">
+<meta name="keywords" content="杂事一堆">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Move-Zeroes">
-<meta property="og:url" content="http://yoursite.com/2017/11/09/Move-Zeroes/index.html">
+<meta property="og:title" content="blog迁移">
+<meta property="og:url" content="http://yoursite.com/2018/02/10/blog迁移/index.html">
 <meta property="og:site_name" content="路还远着呢！">
-<meta property="og:description" content="第44天。 今天的题目是Move Zeroes:  Given an array nums, write a function to move all 0’s to the end of it while maintaining the relative order of the non-zero elements. For example, given nums = [0, 1, 0, 3, 1">
+<meta property="og:description" content="今天把hexo从win搬到了Deepin下，准备长期驻扎Deepin了。然后有几篇文章的时间有点不对了。。whatever，不管了。 这篇blog只是一个测试： $$ \sum_{i=1}^n a_i = 0 $$">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2017-11-09T00:13:32.196Z">
+<meta property="og:updated_time" content="2018-02-10T15:04:05.321Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Move-Zeroes">
-<meta name="twitter:description" content="第44天。 今天的题目是Move Zeroes:  Given an array nums, write a function to move all 0’s to the end of it while maintaining the relative order of the non-zero elements. For example, given nums = [0, 1, 0, 3, 1">
+<meta name="twitter:title" content="blog迁移">
+<meta name="twitter:description" content="今天把hexo从win搬到了Deepin下，准备长期驻扎Deepin了。然后有几篇文章的时间有点不对了。。whatever，不管了。 这篇blog只是一个测试： $$ \sum_{i=1}^n a_i = 0 $$">
   
     <link rel="alternative" href="/atom.xml" title="路还远着呢！" type="application/atom+xml">
   
@@ -141,38 +141,30 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            <article id="post-Move-Zeroes" class="article article-type-post " itemscope itemprop="blogPost">
+            <article id="post-blog迁移" class="article article-type-post " itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 class="article-title" itemprop="name">
-      Move-Zeroes
+      blog迁移
     </h1>
   
 
         
-        <a href="/2017/11/09/Move-Zeroes/" class="archive-article-date">
-  	<time datetime="2017-11-09T00:07:21.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-11-09</time>
+        <a href="/2018/02/10/blog迁移/" class="archive-article-date">
+  	<time datetime="2018-02-10T14:52:09.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-02-10</time>
 </a>
         
       </header>
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>第44天。</p>
-<p>今天的题目是<a href="https://leetcode.com/problems/move-zeroes/description/" target="_blank" rel="noopener">Move Zeroes</a>:</p>
-<blockquote>
-<p>Given an array nums, write a function to move all 0’s to the end of it while maintaining the relative order of the non-zero elements.</p>
-<p>For example, given nums = [0, 1, 0, 3, 12], after calling your function, nums should be [1, 3, 12, 0, 0].</p>
-<p>Note:<br>You must do this in-place without making a copy of the array.<br>Minimize the total number of operations.</p>
-</blockquote>
-<p>这道题目要求我们原地的移动元素，而且还要保持序列本身的顺序。</p>
-<p>我们可以利用一下计数排序的思想，反正最后都是<code>0</code>,我只要算出有几个<code>0</code>要放在最后，我就可以很方便的产生后缀啦，所以这里先遍历一遍序列记录<code>0</code>的个数，然后我们发现其实每个元素向前移动多少格是和它前面有多少个<code>0</code>有关的,so ：</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">moveZeroes</span><span class="params">(<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&amp; nums)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">int</span> zero = <span class="number">0</span>,size = nums.size(),i,j;</span><br><span class="line">    <span class="keyword">for</span>(i = <span class="number">0</span>;i &lt; size;i++) &#123;</span><br><span class="line">        <span class="keyword">if</span> (nums[i] == <span class="number">0</span>) zero++;</span><br><span class="line">        <span class="keyword">else</span> <span class="keyword">if</span> (zero != <span class="number">0</span>) nums[i-zero] = nums[i];</span><br><span class="line">    &#125;</span><br><span class="line">    j = size - <span class="number">1</span>;</span><br><span class="line">    size -= zero;</span><br><span class="line">    <span class="keyword">while</span>(j &gt;= size) nums[j--] = <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>虽然写的不是很优雅的样子，但是这个思路是正确的，还有<code>dicuss</code>中的解法也是这个思路。</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">moveZeroes</span><span class="params">(<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&amp; nums)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">int</span> j = <span class="number">0</span>;</span><br><span class="line">    <span class="comment">// move all the nonzero elements advance</span></span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; nums.size(); i++) &#123;</span><br><span class="line">        <span class="keyword">if</span> (nums[i] != <span class="number">0</span>) &#123;</span><br><span class="line">            nums[j++] = nums[i];</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">for</span> (;j &lt; nums.size(); j++) &#123;</span><br><span class="line">        nums[j] = <span class="number">0</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+        <p>今天把hexo从win搬到了Deepin下，准备长期驻扎Deepin了。然后有几篇文章的时间有点不对了。。whatever，不管了。</p>
+<p>这篇blog只是一个测试：</p>
+<p>$$ \sum_{i=1}^n a_i = 0 $$</p>
+
       
 
       
@@ -216,24 +208,13 @@
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">LeetCode</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">杂事一堆</a>
         		</li>
       		
 		</ul>
 	</div>
 
       
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/LeetCode//" class="article-tag-list-link color4">LeetCode</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
 
       
 
@@ -283,7 +264,7 @@
     <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
     <p>扫一扫，分享到微信</p>
     <div class="wx-qrcode">
-      <img src="//pan.baidu.com/share/qrcode?url=http://yoursite.com/2017/11/09/Move-Zeroes/" alt="微信分享二维码">
+      <img src="//pan.baidu.com/share/qrcode?url=http://yoursite.com/2018/02/10/blog迁移/" alt="微信分享二维码">
     </div>
 </div>
 
@@ -297,18 +278,9 @@
   
 <nav id="article-nav">
   
-    <a href="/2017/11/10/Majority-Element/" id="article-nav-newer" class="article-nav-link-wrap">
-      <i class="icon-circle-left"></i>
-      <div class="article-nav-title">
-        
-          Majority Element
-        
-      </div>
-    </a>
   
-  
-    <a href="/2017/11/08/Product-of-Array-Except-Self/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title">Product of Array Except Self</div>
+    <a href="/2018/02/10/3Sum/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">3Sum</div>
       <i class="icon-circle-right"></i>
     </a>
   

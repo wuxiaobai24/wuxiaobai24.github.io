@@ -138,6 +138,112 @@
           <div id="js-content" class="content-ll">
             
   
+    <article id="post-Majority-Element" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/11/10/Majority-Element/">Majority Element</a>
+    </h1>
+  
+
+        
+        <a href="/2017/11/10/Majority-Element/" class="archive-article-date">
+  	<time datetime="2017-11-10T00:33:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-11-10</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>第45天。</p>
+<p>今天的题目是<a href="https://leetcode.com/problems/majority-element/discuss/" target="_blank" rel="noopener">Majority Element</a>:</p>
+<blockquote>
+<p>Given an array of size n, find the majority element. The majority element is the element that appears more than ⌊ n/2 ⌋ times.</p>
+<p>You may assume that the array is non-empty and the majority element always exist in the array.</p>
+</blockquote>
+<p>最简单的想法就是，遍历一遍序列，记录出现的次数，然后在遍历一遍刚才记录的次数，如果大于<code>k</code>就直接返回，这种时候一般会用到<code>hash table</code>，在<code>c++</code>中就是<code>unordered_map</code>:</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">majorityElement</span><span class="params">(<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&amp; nums)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">int</span> size = nums.size();</span><br><span class="line">    <span class="keyword">int</span> k = size/<span class="number">2</span>;</span><br><span class="line">    <span class="built_in">unordered_map</span>&lt;<span class="keyword">int</span>,<span class="keyword">int</span>&gt; <span class="built_in">map</span>;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">auto</span> i:nums) <span class="built_in">map</span>[i]++;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">auto</span> p:<span class="built_in">map</span>) <span class="keyword">if</span> (p.second &gt; k) <span class="keyword">return</span> p.first;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>这种方法的时间复杂度是<code>O(n)</code>,空间复杂度也是<code>O(n)</code>.</p>
+<p>虽然很简单，但是这道题目在<code>dicuss</code>中也有很多有趣的解法:</p>
+<ul>
+<li>因为<code>Majority Element</code>在序列中存在<code>n/2</code>个，所以假如这个序列时有序的话，他一定会出现在中间:</li>
+</ul>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">majorityElement</span><span class="params">(<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&amp; nums)</span> </span>&#123;</span><br><span class="line">    nth_element(nums.begin(), nums.begin() + nums.size() / <span class="number">2</span>, nums.end());</span><br><span class="line">    <span class="keyword">return</span> nums[nums.size() / <span class="number">2</span>];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>很<code>nice</code>的学到了一个新的函数。</p>
+<ul>
+<li>同样是因为出现了<code>k/2</code>次，所以我们如果随机选取一个元素的话，有一半的概率可以直接选到<code>Majority Element</code>:</li>
+</ul>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">majorityElement</span><span class="params">(<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&amp; nums)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">int</span> n = nums.size();</span><br><span class="line">    srand(<span class="keyword">unsigned</span>(time(<span class="literal">NULL</span>)));</span><br><span class="line">    <span class="keyword">while</span> (<span class="literal">true</span>) &#123;</span><br><span class="line">        <span class="keyword">int</span> idx = rand() % n;</span><br><span class="line">        <span class="keyword">int</span> candidate = nums[idx];</span><br><span class="line">        <span class="keyword">int</span> counts = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; n; i++)</span><br><span class="line">            <span class="keyword">if</span> (nums[i] == candidate)</span><br><span class="line">                counts++;</span><br><span class="line">        <span class="keyword">if</span> (counts &gt; n / <span class="number">2</span>) <span class="keyword">return</span> candidate;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ul>
+<li><code>Moore Voting Algorithm</code>，这个方法的正确性我也不是很确定:</li>
+</ul>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">majorityElement</span><span class="params">(<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&amp; nums)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">int</span> major, counts = <span class="number">0</span>, n = nums.size();</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; n; i++) &#123;</span><br><span class="line">        <span class="keyword">if</span> (!counts) &#123;</span><br><span class="line">            major = nums[i];</span><br><span class="line">            counts = <span class="number">1</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">else</span> counts += (nums[i] == major) ? <span class="number">1</span> : <span class="number">-1</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> major;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">LeetCode</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+	<div class="article-category tagcloud">
+		<i class="icon-book icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="/categories/LeetCode//" class="article-tag-list-link color4">LeetCode</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2017/11/10/Majority-Element/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
     <article id="post-Move-Zeroes" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -1081,103 +1187,6 @@ void expend(vector&lt;vector&lt;char&gt; &gt; &amp;grid,int x,int y) {
 
 
   
-    <article id="post-Sort-List" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2017/10/31/Sort-List/">Sort List</a>
-    </h1>
-  
-
-        
-        <a href="/2017/10/31/Sort-List/" class="archive-article-date">
-  	<time datetime="2017-10-31T02:35:28.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-10-31</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>第36天。</p>
-<p>今天的题目好像是之前就做过的了，<a href="https://leetcode.com/problems/sort-list/description/" target="_blank" rel="noopener">Sort List</a>:</p>
-<blockquote>
-<p>Sort a linked list in O(n log n) time using constant space complexity.</p>
-</blockquote>
-<p>要<code>O(nlogn)</code>的算法，显然就是要用归并或快排啦，但是因为他是链表，所以只能是归并排序。</p>
-<p>归并排序首先要解决的问题就是，如何分成两半，这里用的方法是快慢指针：</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">ListNode* <span class="title">sortList</span><span class="params">(ListNode* head)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (head == <span class="literal">nullptr</span> || head-&gt;next == <span class="literal">nullptr</span> ) <span class="keyword">return</span> head;</span><br><span class="line"></span><br><span class="line">    ListNode *slow = head;</span><br><span class="line">    ListNode *fast = head;</span><br><span class="line">    ListNode *pre = head;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">while</span>(fast &amp;&amp; fast-&gt;next) &#123;</span><br><span class="line">        pre = slow;</span><br><span class="line">        slow = slow-&gt;next;</span><br><span class="line">        fast = fast-&gt;next-&gt;next;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    pre-&gt;next = <span class="literal">nullptr</span>;</span><br><span class="line">    head = sortList(head);</span><br><span class="line">    slow = sortList(slow);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> mergeList(head,slow);</span><br><span class="line">&#125;</span><br><span class="line"><span class="function">ListNode *<span class="title">mergeList</span><span class="params">(ListNode *p1,ListNode *p2)</span> </span>&#123;</span><br><span class="line">    <span class="function">ListNode <span class="title">ret</span><span class="params">(<span class="number">0</span>)</span></span>;</span><br><span class="line">    ListNode *p = &amp;ret;</span><br><span class="line">    <span class="keyword">while</span>(p1&amp;&amp;p2) &#123;</span><br><span class="line">        <span class="keyword">if</span> (p1-&gt;val &gt; p2-&gt;val) &#123; p-&gt;next = p2; p2 = p2-&gt;next; &#125;</span><br><span class="line">        <span class="keyword">else</span> &#123;p-&gt;next = p1; p1 = p1-&gt;next; &#125;</span><br><span class="line">        p = p-&gt;next;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span> (p1) p-&gt;next = p1;</span><br><span class="line">    <span class="keyword">if</span> (p2) p-&gt;next = p2;</span><br><span class="line">    <span class="keyword">return</span> ret.next;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>因为是之前做过的，而且好像还写过<code>Blog</code>,所以就不详细写了。</p>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">LeetCode</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">List</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/LeetCode//" class="article-tag-list-link color4">LeetCode</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2017/10/31/Sort-List/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
   
     <nav id="page-nav">
       <a class="extend prev" rel="prev" href="/page/6/">&laquo; Prev</a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/5/">5</a><a class="page-number" href="/page/6/">6</a><span class="page-number current">7</span><a class="page-number" href="/page/8/">8</a><a class="page-number" href="/page/9/">9</a><span class="space">&hellip;</span><a class="page-number" href="/page/12/">12</a><a class="extend next" rel="next" href="/page/8/">Next &raquo;</a>
@@ -1324,11 +1333,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">Linked-List</a>
+                <a href="javascript:void(0)" class="js-tag color2">串</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">串</a>
+                <a href="javascript:void(0)" class="js-tag color2">Linked-List</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1348,15 +1357,15 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">Search</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">Bit-Manipulation</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">sort</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">Search</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1384,15 +1393,19 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">杂事一堆</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">查找</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">LintCode</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">循环链表，双向链表，数据结构</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">查找</a>
               </li>
             
             <div class="clearfix"></div>

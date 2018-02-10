@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://yoursite.com/"/>
-  <updated>2017-10-01T05:53:26.215Z</updated>
+  <updated>2018-02-10T15:04:05.321Z</updated>
   <id>http://yoursite.com/</id>
   
   <author>
@@ -15,6 +15,32 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>blog迁移</title>
+    <link href="http://yoursite.com/2018/02/10/blog%E8%BF%81%E7%A7%BB/"/>
+    <id>http://yoursite.com/2018/02/10/blog迁移/</id>
+    <published>2018-02-10T14:52:09.000Z</published>
+    <updated>2018-02-10T15:04:05.321Z</updated>
+    
+    <content type="html"><![CDATA[<p>今天把hexo从win搬到了Deepin下，准备长期驻扎Deepin了。然后有几篇文章的时间有点不对了。。whatever，不管了。</p><p>这篇blog只是一个测试：</p><p>$$ \sum_{i=1}^n a_i = 0 $$</p>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;p&gt;今天把hexo从win搬到了Deepin下，准备长期驻扎Deepin了。然后有几篇文章的时间有点不对了。。whatever，不管了。&lt;/p&gt;
+&lt;p&gt;这篇blog只是一个测试：&lt;/p&gt;
+&lt;p&gt;$$ \sum_{i=1}^n a_i = 0 $$&lt;/p&gt;
+
+      
+    
+    </summary>
+    
+    
+      <category term="杂事一堆" scheme="http://yoursite.com/tags/%E6%9D%82%E4%BA%8B%E4%B8%80%E5%A0%86/"/>
+    
+  </entry>
   
   <entry>
     <title>3Sum</title>
@@ -63,6 +89,27 @@
   </entry>
   
   <entry>
+    <title>Hello World</title>
+    <link href="http://yoursite.com/2018/02/10/hello-world/"/>
+    <id>http://yoursite.com/2018/02/10/hello-world/</id>
+    <published>2018-02-10T14:45:38.928Z</published>
+    <updated>2017-09-17T13:53:54.631Z</updated>
+    
+    <content type="html"><![CDATA[<p>Welcome to <a href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/" target="_blank" rel="noopener">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html" target="_blank" rel="noopener">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="noopener">GitHub</a>.</p><h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new <span class="string">"My New Post"</span></span><br></pre></td></tr></table></figure><p>More info: <a href="https://hexo.io/docs/writing.html" target="_blank" rel="noopener">Writing</a></p><h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure><p>More info: <a href="https://hexo.io/docs/server.html" target="_blank" rel="noopener">Server</a></p><h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure><p>More info: <a href="https://hexo.io/docs/generating.html" target="_blank" rel="noopener">Generating</a></p><h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure><p>More info: <a href="https://hexo.io/docs/deployment.html" target="_blank" rel="noopener">Deployment</a></p>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;p&gt;Welcome to &lt;a href=&quot;https://hexo.io/&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;Hexo&lt;/a&gt;! This is your very first post. Check &lt;a href=&quot;https://hexo.
+      
+    
+    </summary>
+    
+    
+  </entry>
+  
+  <entry>
     <title>约瑟夫环</title>
     <link href="http://yoursite.com/2018/02/10/%E7%BA%A6%E7%91%9F%E5%A4%AB%E7%8E%AF%E5%AE%9E%E7%8E%B0/"/>
     <id>http://yoursite.com/2018/02/10/约瑟夫环实现/</id>
@@ -86,27 +133,6 @@
     
     
       <category term="循环链表，双向链表，数据结构" scheme="http://yoursite.com/tags/%E5%BE%AA%E7%8E%AF%E9%93%BE%E8%A1%A8%EF%BC%8C%E5%8F%8C%E5%90%91%E9%93%BE%E8%A1%A8%EF%BC%8C%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Hello World</title>
-    <link href="http://yoursite.com/2018/02/10/hello-world/"/>
-    <id>http://yoursite.com/2018/02/10/hello-world/</id>
-    <published>2018-02-10T14:45:38.928Z</published>
-    <updated>2017-09-17T13:53:54.631Z</updated>
-    
-    <content type="html"><![CDATA[<p>Welcome to <a href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/" target="_blank" rel="noopener">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html" target="_blank" rel="noopener">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="noopener">GitHub</a>.</p><h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new <span class="string">"My New Post"</span></span><br></pre></td></tr></table></figure><p>More info: <a href="https://hexo.io/docs/writing.html" target="_blank" rel="noopener">Writing</a></p><h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure><p>More info: <a href="https://hexo.io/docs/server.html" target="_blank" rel="noopener">Server</a></p><h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure><p>More info: <a href="https://hexo.io/docs/generating.html" target="_blank" rel="noopener">Generating</a></p><h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure><p>More info: <a href="https://hexo.io/docs/deployment.html" target="_blank" rel="noopener">Deployment</a></p>]]></content>
-    
-    <summary type="html">
-    
-      
-      
-        &lt;p&gt;Welcome to &lt;a href=&quot;https://hexo.io/&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;Hexo&lt;/a&gt;! This is your very first post. Check &lt;a href=&quot;https://hexo.
-      
-    
-    </summary>
-    
     
   </entry>
   
@@ -494,32 +520,6 @@
       
         &lt;p&gt;第82天。&lt;/p&gt;
 &lt;p&gt;今天的题目是&lt;a href=&quot;https://leetcode.com/problems/intersection-of-two-arrays/description/&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;Interse
-      
-    
-    </summary>
-    
-      <category term="LeetCode" scheme="http://yoursite.com/categories/LeetCode/"/>
-    
-    
-      <category term="LeetCode" scheme="http://yoursite.com/tags/LeetCode/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Remove-Element</title>
-    <link href="http://yoursite.com/2017/12/17/Remove-Element/"/>
-    <id>http://yoursite.com/2017/12/17/Remove-Element/</id>
-    <published>2017-12-17T02:54:14.000Z</published>
-    <updated>2017-12-17T04:19:29.797Z</updated>
-    
-    <content type="html"><![CDATA[<p>第81天。</p><p>今天的题目是<a href="https://leetcode.com/problems/remove-element/description/" target="_blank" rel="noopener">Remove Element</a>:</p><blockquote><p>Given an array and a value, remove all instances of that value in-place and return the new length.</p><p>Do not allocate extra space for another array, you must do this by modifying the input array in-place with O(1) extra memory.</p><p>The order of elements can be changed. It doesn’t matter what you leave beyond the new length.</p><p>Example:</p><p>Given nums = [3,2,2,3], val = 3,</p><p>Your function should return length = 2, with the first two elements of nums being 2.</p></blockquote><p>简单的我们可以遍历数组，然后找到和<code>val</code>相同的元素，然后删除，但是这样对于多个相同的元素效率不高，所以我们先不删除元素，而是把他移动到最后面去，知道遍历完才删除。</p><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">removeElement</span><span class="params">(<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&amp; nums, <span class="keyword">int</span> val)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">int</span> last = nums.size();</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>;i &lt; last;i++) &#123;</span><br><span class="line">        <span class="keyword">if</span> (nums[i] == val) swap(nums[--last],nums[i--]);</span><br><span class="line">    &#125;</span><br><span class="line">    nums.erase(nums.begin() + last,nums.end());</span><br><span class="line">    <span class="keyword">return</span> nums.size();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><p><code>dicuss</code>中另一个方法也很精妙：</p><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">removeElement</span><span class="params">(<span class="keyword">int</span> A[], <span class="keyword">int</span> n, <span class="keyword">int</span> elem)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">int</span> begin=<span class="number">0</span>;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;n;i++) <span class="keyword">if</span>(A[i]!=elem) A[begin++]=A[i];</span><br><span class="line">    <span class="keyword">return</span> begin;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>]]></content>
-    
-    <summary type="html">
-    
-      
-      
-        &lt;p&gt;第81天。&lt;/p&gt;
-&lt;p&gt;今天的题目是&lt;a href=&quot;https://leetcode.com/problems/remove-element/description/&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;Remove Element&lt;/a&gt;:
       
     
     </summary>
