@@ -1,6 +1,6 @@
 ---
 title: 3Sum
-date: 2017-09-20:12
+date: 2017-09-20 12:00:00
 categories: LeetCode
 tags:
 - LeetCode
