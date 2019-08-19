@@ -15,7 +15,7 @@ before_install:
 
 install:
     - npm install
-    - npm install hexo-deplopyer-git --save
+    - npm install hexo-deployer-git --save
     
 script:
     - mv _next_config.yml themes/next/_config.yml
