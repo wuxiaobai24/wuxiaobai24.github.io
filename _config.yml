@@ -102,6 +102,21 @@ jsonContent:
     categories: false
     tags: true
 
+# RSS
+feed:
+    type: atom
+    path: atom.xml
+    limit: false
+    hub:
+    content: true
+    content_limit:
+    content_limit_delim: ' '
+
+# sitemap
+sitemap:
+    path: sitemap.xml
+
+
 # for cattus
 theme_config:
   colorscheme: white
@@ -115,6 +130,7 @@ theme_config:
     Categories: /categories/
     Tags: /tags/
     Resume: /resume/
+    RSS: /atom.xml
     # projects: projects_url
 
   tags_overview: false
