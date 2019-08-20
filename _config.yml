@@ -3,11 +3,12 @@
 ## Source: https://github.com/hexojs/hexo/
 
 # Site
-title: DONE IS BETTER THAN PERFECT
-subtitle:
+title: Code & Fun
+subtitle: wuxiaobai24's blog
 description: wuxiaobai24's blog
 author: wuxiaobai24
-language: zh-CN
+# language: zh-CN
+language: en
 timezone:
 
 # URL
@@ -72,7 +73,7 @@ pagination_dir: page
 # Extensions
 ## Plugins: https://hexo.io/plugins/
 ## Themes: https://hexo.io/themes/
-theme: next
+theme: cactus
 
 # Deployment
 ## Docs: https://hexo.io/docs/deployment.html
@@ -101,10 +102,36 @@ jsonContent:
     categories: false
     tags: true
 
-# for next
+# for cattus
+theme_config:
+  colorscheme: white
 
-search:
-  path: search.xml
-  field: post
-  format: html
-  limit: 10000
+  # projects_url: https://github.com/wuxiaobai24
+  projects_url: https://github.com/wuxiaobai24
+
+  nav:
+    home: /
+    Writing: /archives/
+    Categories: /categories/
+    Tags: /tags/
+    Resume: /resume/
+    # projects: projects_url
+
+  tags_overview: false
+
+  social_links:
+    github: https://github.com/wuxiaobai24/
+    mail: wuxiaobai24:wuxiaobai24@foxmail.com
+
+  rss:
+
+  highlight: github
+
+  google_analytics:
+    enabled: true
+    id: UA-108019665-1
+
+  baidu_analytics:
+    enabled: true
+    id: 982a9aab3ae091f714959d159f31e232
+
