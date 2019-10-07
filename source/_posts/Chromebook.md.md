@@ -10,7 +10,7 @@ categories:
 
 ## 起因
 
-大概是暑假的时候，刷手机的时候刷到了和Chromebook有点关系的东西吧，
+大概是暑假的时候，刷手机的时候刷到了和Chromebook有点关系的东西吧，好像是在v2ex上看到了FydeOS的软文，然后去了解了一下，当时就有点心动了，然而下载FydeOS的ISO，在U盘上体验了一番，gan j
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbLTE1ODE1NjMwODhdfQ==
+eyJoaXN0b3J5IjpbLTExODU1ODU5NDJdfQ==
 -->
