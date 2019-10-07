@@ -8,8 +8,9 @@ categories:
 - 杂事一堆
 ---
 
+## 起因
 
-
+大概是暑假的时候，刷手机的时候刷到了和Chromebook有点关系的东西吧，
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbLTE3MjM0NzkxOTddfQ==
+eyJoaXN0b3J5IjpbLTE1ODE1NjMwODhdfQ==
 -->
