@@ -2,9 +2,9 @@
 title: String-to-Integer(atoi)
 date: 2019-02-14 21:39:48
 tags:
-- Leetcode
+- LeetCode
 categories:
-- Leetcode
+- LeetCode
 ---
 
 > hhh, 开始一天一道LeetCode吧, 恩, 忘记了之前算到第几天了, 那么从头开始吧, 今天是第一天.
