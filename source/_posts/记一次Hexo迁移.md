@@ -2,7 +2,7 @@
 title: 记一次Hexo迁移
 date: 2019-02-14 09:08:44
 tags: 
-- hexo
+- Hexo
 - blog
 categories:
 - 杂事一堆
