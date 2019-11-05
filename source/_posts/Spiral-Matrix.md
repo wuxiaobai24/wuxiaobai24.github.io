@@ -5,7 +5,7 @@ tags:
 - LeetCode
 - Array
 categories:
-- Leetcode
+- LeetCode
 ---
 
 > 第四天，这又是一道之前没AC掉的题目。
