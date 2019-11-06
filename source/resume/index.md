@@ -10,6 +10,7 @@ comments: false
 
  - 吴坤汉/男/1997
  - 本科/深圳大学计算机科学与技术2015级
+ - 研究生/深圳大学软件工程2019级
  - Blog：[https://wuxiaobai24.github.io](https://wuxiaobai24.github.io)
  - Github：[https://github.com/wuxiaobai24](https://github.com/wuxiaobai24)
 
@@ -18,7 +19,7 @@ comments: false
 ## 联系方式
 
 - 手机：MTM3NTEwMTU5MTk=
-- Email：wuxiaobai24@foxmail.com
+- Email：wuxiaobai24#foxmail.com
 - WeChat： d3V4aWFvYmFpMjQ=
 - QQ：OTkyMDI5MDM2
 
