@@ -13,7 +13,7 @@ timezone:
 
 # URL
 ## If your site is put in a subdirectory, set url as 'http://yoursite.com/child' and root as '/child/'
-url: http://wuxiaobai24.github.io
+url: http://blog.codeand.fun
 root: /
 permalink: :year/:month/:day/:title/
 permalink_defaults:
@@ -137,7 +137,7 @@ theme_config:
 
   social_links:
     github: https://github.com/wuxiaobai24/
-    mail: wuxiaobai24:wuxiaobai24@foxmail.com
+    mail: wuxiaobai24#foxmail.com
 
   rss:
 
