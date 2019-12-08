@@ -116,6 +116,13 @@ feed:
 sitemap:
     path: sitemap.xml
 
+# hexo math
+math:
+    engine: 'katex'
+    katex:
+        css: "https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.6.0/katex.min.css"
+        js: "https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.6.0/katex.min.js"
+
 
 # for cattus
 theme_config:
