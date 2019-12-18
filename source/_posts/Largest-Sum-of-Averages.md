@@ -18,7 +18,7 @@ $$
 dp[i, j] = \left\{
     \begin{aligned}
         \sum_{z=0}^j A[z] & & i = 1\\
-        \underset{{i-1 \leq t \leq n-1}}{max} \{ dp[i-1, t] + \frac {\sum_{z=t+1}^n A[z]} {n-t+1}  \} & & others
+        \underset{ {i-1 \leq t \leq n-1} }{max} \{ dp[i-1, t] + \frac {\sum_{z=t+1}^n A[z]} {n-t+1}  \} & & others
     \end{aligned}
 \right.
 $$

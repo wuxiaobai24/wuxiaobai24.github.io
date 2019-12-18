@@ -6,7 +6,7 @@ tags:
 categories: LeetCode
 ---
 
-> 第40天。
+> 第41天。
 
 今天的题目是[Validate Stack Sequences](https://leetcode.com/problems/validate-stack-sequences/):
 

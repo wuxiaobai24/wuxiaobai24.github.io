@@ -6,7 +6,7 @@ tags:
 categories: LeetCode
 ---
 
-> 第39天。
+> 第40天。
 
 今天的题目是[Network Delay Time](https://leetcode.com/problems/network-delay-time/):
 
