@@ -13,6 +13,11 @@ categories: LeetCode
 我们做一次后序遍历，维护一个子树的最大值和最小值，用当前节点的值与最大最小值求距离，并返回距离的最大值即可。
 
 ```c++
+int maxAncestorDiff(TreeNode* root) {
+    if (root == nullptr) return -1;
+    int minVal, maxVal;
+    return maxAncestorDiff(root, minVal, maxVal);
+}
 int maxAncestorDiff1(TreeNode *root, int &minVal, int &maxVal) {
     if (root == nullptr) return -1;
     minVal = maxVal = root->val;
