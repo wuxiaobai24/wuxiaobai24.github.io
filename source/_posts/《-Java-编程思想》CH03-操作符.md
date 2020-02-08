@@ -1,6 +1,7 @@
 ---
 title: 《 Java 编程思想》CH03 操作符
 date: 2020-02-08 17:57:48
+tags:
 - Java
 - 阅读笔记
 - 《Java编程思想》
@@ -8,10 +9,6 @@ date: 2020-02-08 17:57:48
 categories: 《Java编程思想》
 mathjax: true
 ---
-
-# 《 Java 编程思想》CH03 操作符
-
-@(后端开发)[Java, 阅读笔记]
 
 > **在最底层，Java中的数据是通过操作符来操作的。**
 

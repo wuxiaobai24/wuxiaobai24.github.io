@@ -1,7 +1,7 @@
 ---
-title: tags
-date: 2019-02-14 10:49:34
-type: "tags"
-layout: "tags"
+title: categories
+date: 2019-02-14 11:18:45
+type: "category"
+layout: category
 comments: false
 ---
