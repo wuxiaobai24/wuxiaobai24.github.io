@@ -7,8 +7,8 @@ title: Code & Fun
 subtitle: wuxiaobai24's blog
 description: wuxiaobai24's blog
 author: wuxiaobai24
-# language: zh-CN
-language: en
+language: zh-CN
+# language: en
 timezone:
 
 # URL
@@ -39,18 +39,23 @@ post_asset_folder: false
 relative_link: false
 future: true
 highlight:
-  enable: true
+  enable: false
   line_number: true
   auto_detect: false
   tab_replace:
-  
+
+prism_plugin:
+  mode: 'preprocess'    # realtime/preprocess
+  theme: 'tomorrow'
+  line_number: true    # default false
+  custom_css:
 # Home page setting
 # path: Root path for your blogs index page. (default = '')
 # per_page: Posts displayed per page. (0 = disable pagination)
 # order_by: Posts order. (Order by date descending by default)
 index_generator:
   path: ''
-  per_page: 10
+  per_page: 6
   order_by: -date
   
 # Category & Tag
@@ -73,7 +78,7 @@ pagination_dir: page
 # Extensions
 ## Plugins: https://hexo.io/plugins/
 ## Themes: https://hexo.io/themes/
-theme: cactus
+theme: hexo-theme-matery
 
 # Deployment
 ## Docs: https://hexo.io/docs/deployment.html
@@ -106,11 +111,12 @@ jsonContent:
 feed:
     type: atom
     path: atom.xml
-    limit: false
+    limit: 20
     hub:
     content: true
     content_limit:
     content_limit_delim: ' '
+    order_by: -date
 
 # sitemap
 sitemap:
@@ -157,4 +163,13 @@ theme_config:
   baidu_analytics:
     enabled: true
     id: 982a9aab3ae091f714959d159f31e232
+
+
+search:
+  path: search.xml
+  field: post
+
+permalink_pinyin:
+  enable: true
+  separator: '-' # default: '-'
 
