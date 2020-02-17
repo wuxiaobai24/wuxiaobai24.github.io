@@ -7,7 +7,7 @@ branches:
 
 before_install:
     - npm install -g hexo-cli
-    - git clone https://github.com/xaoxuu/hexo-theme-material-x themes/material-x
+    - git clone https://github.com/xaoxuu/hexo-theme-material-x.git themes/material-x -b 1.2.7
 
 install:
     - npm install
@@ -16,7 +16,7 @@ install:
     - npm i -S hexo-related-popular-posts
     - npm i -S hexo-helper-qrcode
     # - npm install hexo-math --save
-    # - npm install hexo-generator-feed --save
+    - npm install hexo-generator-feed --save
     
 script:
     - mv theme_config.yml ./themes/material-x/_config.yml
