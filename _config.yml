@@ -133,7 +133,8 @@ sitemap:
 #         css: "https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.6.0/katex.min.css"
 #         js: "https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.6.0/katex.min.js"
 
-
+baidu_analytics_key: 619db192db740fa55405964e311db922
+google_analytics_key: UA-108019665-2
 
 use_cdn: true
 
