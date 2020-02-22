@@ -87,10 +87,18 @@ theme: material-x
 # Deployment
 ## Docs: https://hexo.io/docs/deployment.html
 deploy:
-  type: git
+- type: git
   repo: https://GITHUB_TOKEN@github.com/wuxiaobai24/wuxiaobai24.github.io.git
   branch: master
   message: '站点更新：{{now("YYYY-MM-DD HH:mm:ss")}}'
+
+- type: baidu
+
+baidu_url_submit:
+  count: 20
+  host: blog.codeand.fun
+  token: your_token
+  path: baidu_urls.txt
 
 # jsonContent:
 #   meta: false
@@ -123,6 +131,8 @@ feed:
   order_by: -date
 
 # sitemap
+baidusitemap:
+  path: baidusitemap.xml
 sitemap:
   path: sitemap.xml
 
