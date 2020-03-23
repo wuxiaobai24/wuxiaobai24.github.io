@@ -2,6 +2,9 @@
 title: Valid Parentheses
 date: 2017-09-24 23:23:00
 categories: LeetCode
+tags:
+- Stack
+- String
 ---
 
  恩，照常打个卡（差点忘记）。。。。

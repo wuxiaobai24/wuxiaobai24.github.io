@@ -3,6 +3,9 @@ title: Simplify Path
 date: 2019-03-02 23:27:32
 tags:
 - LeetCode
+- Stack
+- FSM
+- String
 categories:
 - LeetCode
 ---
@@ -59,8 +62,6 @@ public:
         string res;
         
         // some flag to kepp state.
-        bool point = false;
-        bool slash = false;
         int state = 0;  // 0: last char is [char]
                         // 1: last char is '/'
                         // 2: last char is '.'
@@ -113,4 +114,66 @@ public:
         return res;
     }
 };
+```
+
+> update at 2020-03-23
+
+状态转移图：
+
+![FSM](https://g.gravizo.com/svg?%20digraph%20G%20{%20State0%20[shape%20=%20circle]%20State1%20[shape%20=%20circle]%20State2%20[shape%20=%20circle]%20State3%20[shape%20=%20circle]%20State0%20-%3E%20State1%20[label%20=%20%22slash%22];%20State0%20-%3E%20State0%20[label%20=%20%22char%22];%20State0%20-%3E%20State2%20[label%20=%20%22point%22];%20State1%20-%3E%20State0%20[label%20=%20%22char%22];%20State1%20-%3E%20State1%20[label%20=%20%22slash%22];%20State1%20-%3E%20State2%20[label%20=%20%22point%22];%20State2%20-%3E%20State3%20[label%20=%20%22point%22];%20State2%20-%3E%20State0%20[label%20=%20%22char%22];%20State2%20-%3E%20State1%20[label%20=%20%22slash%22];%20State3%20-%3E%20State0%20[label%20=%20%22char%20and%20point%22];%20State3%20-%3E%20State1%20[label%20=%20%22slash%22];%20})
+
+这道题其实用栈会更简单一点：
+
+```c++
+string simplifyPath(string path) {
+    
+    vector<string> st;
+    int beg = 0;
+    path.push_back('/');
+    for(int i = 0, sz = path.size(); i < sz; i++) {
+        if (path[i] == '/') {
+            auto s = path.substr(beg, i-beg);
+            beg = i + 1;
+            if (s == "." || s.size() == 0) {
+                // do nothing
+            } else if (s == "..") {
+                if (st.size() != 0) st.pop_back(); // make sure '/../' is ok
+            } else st.push_back(s);
+        }
+    }
+    string res;
+    for(auto &s: st) {
+        // cout << s << endl;
+        res.push_back('/');
+        res += s;
+    }
+    if (res.size() == 0) res.push_back('/'); 
+    return res;
+}
+```
+
+用`stringstream`和`getline`来进行字符串分割：
+
+```c++
+string simplifyPath(string path) {
+    string buf;
+    istringstream ss(path);
+    vector<string> st;
+    while(getline(ss, buf, '/')) {
+        // cout << buf << endl;
+        if (buf == "." || buf.size() == 0) {
+
+        } else if (buf == ".."){
+            if (st.size() != 0) st.pop_back();
+        }
+        else st.push_back(buf);
+    }
+    string res;
+    for (auto &s: st) {
+        res.push_back('/');
+        res += s;
+    }
+    if (res.size() == 0) res.push_back('/');
+    return res;
+}
 ```
