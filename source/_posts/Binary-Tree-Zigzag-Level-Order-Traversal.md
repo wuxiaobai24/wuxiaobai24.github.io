@@ -3,7 +3,11 @@ title: Binary-Tree-Zigzag-Level-Order-Traversal
 date: 2018-02-11 22:45:59
 tags: 
 - LeetCode
-- 二叉树
+- Tree
+- Queues
+- Stack
+- BFS
+categories: sLeetCode
 ---
 
 第97天。
@@ -43,7 +47,7 @@ void levelTra(TreeNode *root) {
     queue<TreeNode *> q;
     q.push(root);
     while(!q.empty()) {
-        root = q.top(); q.pop();
+        root = q.front(); q.pop();
         cout << root->val;
         if (root->left) q.push(root->left);
         if (root->right) q.push(root->right);
@@ -68,7 +72,7 @@ void levelTra(TreeNode *root) {
             q.push(nullptr);
         }
 
-        cout << root->val;
+        cout << root->val << endl;
         if (root->left) q.push(root->left);
         if (root->right) q.push(root->right);
     }
@@ -138,4 +142,38 @@ vector<vector<int> > zigzagLevelOrder(TreeNode *root) {
     return ret;
 }
 
+```
+
+---
+
+> Update as 2020-03-28
+
+最近在总结 Stack Tag 的算法，然后发现这道题可以用双栈来解，和前面队列的做法有点类似，某种意义上也是在模拟层次遍历，但是因为栈后进先出的特性，所以很直接的实现了逆序的操作，不需要额外做`reverse`。
+
+```c++
+vector<vector<int>> zigzagLevelOrder(TreeNode* root) {
+    vector<vector<int> > res;
+    int level = 0;
+    stack<TreeNode*> st_even, st_odd;
+    if (root) st_even.push(root);
+    while(!st_even.empty() || !st_odd.empty()) {
+        stack<TreeNode*> &st1 = level % 2 == 0 ? st_even : st_odd;
+        stack<TreeNode*> &st2 = level % 2 == 0 ? st_odd : st_even;
+        vector<int> temp;
+        for(int i = 0, size = st1.size(); i < size; i++) {
+            root = st1.top(); st1.pop();
+            temp.push_back(root->val);
+
+            TreeNode *left = root->left, *right = root->right;
+            if (level % 2) swap(left, right);
+            
+            if (left) st2.push(left);
+            if (right) st2.push(right);
+        }
+        //cout << st1.size() << " " << st2.size() << endl;
+        res.push_back(temp);
+        level++;
+    }
+    return res;
+}
 ```

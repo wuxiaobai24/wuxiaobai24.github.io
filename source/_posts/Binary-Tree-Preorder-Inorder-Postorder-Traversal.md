@@ -4,6 +4,7 @@ date: 2020-03-24 12:10:21
 tags:
 - LeetCode
 - Tree
+- Stack
 categories: LeetCode
 ---
 
