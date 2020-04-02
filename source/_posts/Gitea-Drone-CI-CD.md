@@ -5,7 +5,8 @@ tags:
 - Gitea
 - Drone
 - CI/CD
-categories: CI/CD
+categories: 
+- DevOps
 ---
 
 最近想实践一下 DevOps，所以准备搭建一套代码托管和CI/CD 系统。

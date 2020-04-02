@@ -5,7 +5,7 @@ tags:
 - CI/CD
 - Hexo
 categories:
-- CI/CD
+- DevOps
 ---
 
 今天简单使用了一下[Travis CI](https://travis-ci.org)。
