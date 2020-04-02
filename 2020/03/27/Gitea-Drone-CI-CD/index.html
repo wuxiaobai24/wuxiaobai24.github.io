@@ -1,0 +1,1130 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  
+  <title>Gitea + Drone CI/CD | Code &amp; Fun</title>
+  
+  
+  <meta name="description" content="wuxiaobai24's blog">
+  
+
+  
+  <link rel="alternate" href="/atom.xml" title="Code & Fun">
+  
+
+  <meta name="HandheldFriendly" content="True" />
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <!-- meta -->
+  
+
+  <!-- link -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css" />
+  
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/node-waves@0.7.6/dist/waves.min.css">
+  
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.10.1/css/all.min.css">
+  
+
+  
+
+  
+    
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/xaoxuu/cdn-material-x@20.2.8/css/style.css">
+
+  
+
+  <script>
+    function setLoadingBarProgress(num) {
+      document.getElementById('loading-bar').style.width=num+"%";
+    }
+  </script>
+
+  
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-108019665-2"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'UA-108019665-2');
+    </script>
+  
+  
+    <!-- ba -->
+    <script>
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?619db192db740fa55405964e311db922";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+    </script>
+  
+<meta name="generator" content="Hexo 4.2.0"><link rel="alternate" href="/atom.xml" title="Code & Fun" type="application/atom+xml">
+</head>
+
+<body>
+  
+  
+  <div class="cover-wrapper">
+    <cover class='cover post half'>
+      
+        
+  <h1 class='title'>Code & Fun</h1>
+
+
+  <div class="m_search">
+    <form name="searchform" class="form u-search-form">
+      <input type="text" class="input u-search-input" placeholder="" />
+      <i class="icon fas fa-search fa-fw"></i>
+    </form>
+  </div>
+
+<div class='menu navgation'>
+  <ul class='h-list'>
+    
+      
+        <li>
+          <a class="nav home" href="/"
+            
+            
+            id="home">
+            <i class='fas fa-rss fa-fw'></i>&nbsp;Home
+          </a>
+        </li>
+      
+        <li>
+          <a class="nav home" href="/archives/"
+            
+            
+            id="archives">
+            <i class='fas fa-code-branch fa-fw'></i>&nbsp;Archives
+          </a>
+        </li>
+      
+        <li>
+          <a class="nav home" href="/categories/"
+            
+              rel="nofollow"
+            
+            
+            id="categories">
+            <i class='fas fa-folder-open fa-fw'></i>&nbsp;Categories
+          </a>
+        </li>
+      
+        <li>
+          <a class="nav home" href="/tags/"
+            
+              rel="nofollow"
+            
+            
+            id="tags">
+            <i class='fas fa-hashtag fa-fw'></i>&nbsp;Tags
+          </a>
+        </li>
+      
+        <li>
+          <a class="nav home" href="/resume/"
+            
+              rel="nofollow"
+            
+            
+            id="resume">
+            <i class='fas fa-info-circle fa-fw'></i>&nbsp;Resume
+          </a>
+        </li>
+      
+    
+  </ul>
+</div>
+
+      
+    </cover>
+    <header class="l_header pure">
+  <div id="loading-bar-wrapper">
+    <div id="loading-bar" class="pure"></div>
+  </div>
+
+	<div class='wrapper'>
+		<div class="nav-main container container--flex">
+      <a class="logo flat-box" target="_self" href='/' >
+        
+          Code & Fun
+        
+      </a>
+			<div class='menu navgation'>
+				<ul class='h-list'>
+          
+  					
+  						<li>
+								<a class="nav flat-box" href="/"
+                  
+                  
+                  id="home">
+									<i class='fas fa-grin fa-fw'></i>&nbsp;Home
+								</a>
+							</li>
+      			
+  						<li>
+								<a class="nav flat-box" href="/archives/"
+                  
+                    rel="nofollow"
+                  
+                  
+                  id="archives">
+									<i class='fas fa-archive fa-fw'></i>&nbsp;Archives
+								</a>
+							</li>
+      			
+  						<li>
+								<a class="nav flat-box" href="/categories/"
+                  
+                    rel="nofollow"
+                  
+                  
+                  id="categories">
+									<i class='fas fa-folder-open fa-fw'></i>&nbsp;Categories
+								</a>
+							</li>
+      			
+  						<li>
+								<a class="nav flat-box" href="/tags/"
+                  
+                    rel="nofollow"
+                  
+                  
+                  id="tags">
+									<i class='fas fa-hashtag fa-fw'></i>&nbsp;Tags
+								</a>
+							</li>
+      			
+      		
+				</ul>
+			</div>
+
+			
+				<div class="m_search">
+					<form name="searchform" class="form u-search-form">
+						<input type="text" class="input u-search-input" placeholder="搜索" />
+						<i class="icon fas fa-search fa-fw"></i>
+					</form>
+				</div>
+			
+			<ul class='switcher h-list'>
+				
+					<li class='s-search'><a class="fas fa-search fa-fw" target="_self" href='javascript:void(0)'></a></li>
+				
+				<li class='s-menu'><a class="fas fa-bars fa-fw" target="_self" href='javascript:void(0)'></a></li>
+			</ul>
+		</div>
+
+		<div class='nav-sub container container--flex'>
+			<a class="logo flat-box"></a>
+			<ul class='switcher h-list'>
+				<li class='s-comment'><a class="flat-btn fas fa-comments fa-fw" target="_self" href='javascript:void(0)'></a></li>
+        
+          <li class='s-toc'><a class="flat-btn fas fa-list fa-fw" target="_self" href='javascript:void(0)'></a></li>
+        
+			</ul>
+		</div>
+	</div>
+</header>
+	<aside class="menu-phone">
+    <header>
+		<nav class="menu navgation">
+      <ul>
+        
+          
+            <li>
+							<a class="nav flat-box" href="/"
+                
+                
+                id="home">
+								<i class='fas fa-clock fa-fw'></i>&nbsp;近期文章
+							</a>
+            </li>
+          
+            <li>
+							<a class="nav flat-box" href="/archives/"
+                
+                  rel="nofollow"
+                
+                
+                id="archives">
+								<i class='fas fa-archive fa-fw'></i>&nbsp;文章归档
+							</a>
+            </li>
+          
+            <li>
+							<a class="nav flat-box" href="/categories/"
+                
+                  rel="nofollow"
+                
+                
+                id="categories">
+								<i class='fas fa-folder-open fa-fw'></i>&nbsp;文章分类
+							</a>
+            </li>
+          
+            <li>
+							<a class="nav flat-box" href="/tags/"
+                
+                  rel="nofollow"
+                
+                
+                id="tags">
+								<i class='fas fa-hashtag fa-fw'></i>&nbsp;文章标签
+							</a>
+            </li>
+          
+            <li>
+							<a class="nav flat-box" href="/resume/"
+                
+                  rel="nofollow"
+                
+                
+                id="resume">
+								<i class='fas fa-info-circle fa-fw'></i>&nbsp;我的简历
+							</a>
+            </li>
+          
+       
+      </ul>
+		</nav>
+    </header>
+	</aside>
+<script>setLoadingBarProgress(40);</script>
+
+  </div>
+
+
+  <div class="l_body">
+    <div class='body-wrapper'>
+      <div class='l_main'>
+  
+
+  <article id="post" class="post white-box article-type-post" itemscope itemprop="blogPost">
+    
+
+
+  <section class='meta'>
+    
+    
+    <div class="meta" id="header-meta">
+      
+        
+  
+    <h1 class="title">
+      <a href="/2020/03/27/Gitea-Drone-CI-CD/">
+        Gitea + Drone CI/CD
+      </a>
+    </h1>
+  
+
+
+      
+      <div class='new-meta-box'>
+        
+          
+        
+          
+            
+  <div class='new-meta-item author'>
+    
+      <a href="http://blog.codeand.fun" rel="nofollow">
+        
+          <i class="fas fa-user" aria-hidden="true"></i>
+        
+        <p>wuxiaobai24</p>
+      </a>
+    
+  </div>
+
+
+          
+        
+          
+            <div class="new-meta-item date">
+  <a class='notlink'>
+    <i class="fas fa-calendar-alt" aria-hidden="true"></i>
+    <p>2020-03-27</p>
+  </a>
+</div>
+
+          
+        
+          
+            
+  
+  <div class='new-meta-item category'>
+    <a href='/categories/DevOps/' rel="nofollow">
+      <i class="fas fa-folder-open" aria-hidden="true"></i>
+      <p>DevOps</p>
+    </a>
+  </div>
+
+
+          
+        
+          
+            
+  
+    <div class="new-meta-item browse busuanzi">
+      <a class='notlink'>
+        <i class="fas fa-eye" aria-hidden="true"></i>
+        <p>
+          <span id="busuanzi_value_page_pv">
+            <i class="fas fa-spinner fa-spin fa-fw" aria-hidden="true"></i>
+          </span>
+        </p>
+      </a>
+    </div>
+  
+
+
+          
+        
+          
+            
+  
+    <div class="new-meta-item wordcount">
+      <a class='notlink'>
+        <i class="fas fa-keyboard" aria-hidden="true"></i>
+        <p>字数统计:</p>
+        <p>1.1k字</p>
+      </a>
+    </div>
+    <div class="new-meta-item readtime">
+      <a class='notlink'>
+        <i class="fas fa-hourglass-half" aria-hidden="true"></i>
+        <p>阅读时长≈</p>
+        <p>4分</p>
+      </a>
+    </div>
+  
+
+          
+        
+          
+            
+
+          
+        
+          
+            
+  
+  <div class="new-meta-item meta-tags"><a class="tag" href="/tags/Gitea/" rel="nofollow"><i class="fas fa-tag" aria-hidden="true"></i><p>Gitea</p></a></div> <div class="new-meta-item meta-tags"><a class="tag" href="/tags/Drone/" rel="nofollow"><i class="fas fa-tag" aria-hidden="true"></i><p>Drone</p></a></div> <div class="new-meta-item meta-tags"><a class="tag" href="/tags/CI-CD/" rel="nofollow"><i class="fas fa-tag" aria-hidden="true"></i><p>CI/CD</p></a></div>
+
+
+          
+        
+      </div>
+      
+        <hr>
+      
+    </div>
+  </section>
+
+
+    <section class="article typo">
+      <div class="article-entry" itemprop="articleBody">
+        <p>最近想实践一下 DevOps，所以准备搭建一套代码托管和CI/CD 系统。</p>
+<h2 id="技术选型"><a href="#技术选型" class="headerlink" title="技术选型"></a>技术选型</h2><h3 id="代码托管"><a href="#代码托管" class="headerlink" title="代码托管"></a>代码托管</h3><p>代码托管系统的选择其实并不多：</p>
+<ul>
+<li>Gitea</li>
+<li>Gogs</li>
+<li>GitLab</li>
+</ul>
+<p>由于 <code>Gitlab</code> 资源占用过大，所以可以直接去除（毕竟这个系统只有我一个人在用，而且只有一台1核2G的服务器）。</p>
+<p><code>Gitea</code>是脱胎于<code>Gogs</code>的，在<code>Gogs</code>上做了较多的扩展，而且迭代的也毕竟快。<code>Gitea</code>对现有的代码托管做了<a href="https://docs.gitea.io/zh-cn/comparison/" target="_blank" rel="noopener">横向对比</a>,<br>我们可以看出来<code>Gitea</code>几乎是最优选择。</p>
+<p><code>Gitea</code>有一个比较显著的缺点，它没有像<code>Gitlab</code>一样内置了<code>CI/CD</code>，所以我们必须搭另外一套<code>CI/CD</code>系统。</p>
+<h3 id="CI-CD"><a href="#CI-CD" class="headerlink" title="CI/CD"></a>CI/CD</h3><p>对现有的 CI/CD 进行了一下调研:</p>
+<ul>
+<li>Jenkins<ul>
+<li>优点：最为流行，出现坑的容易找到解决方案</li>
+<li>缺点：用 Java 编写，过于笨重</li>
+</ul>
+</li>
+<li>GitLab CI<ul>
+<li>优点：据说很好用</li>
+<li>缺点：笨重</li>
+</ul>
+</li>
+<li>Drone<ul>
+<li>优点：轻量级，支持<code>Gitea</code></li>
+<li>缺点：生态不够丰富，文档差</li>
+</ul>
+</li>
+</ul>
+<p>在这里我们选择<code>Drone</code>作为<code>CI/CD</code>，主要原因当然是因为只有它轻量级啊。</p>
+<h2 id="Gitea"><a href="#Gitea" class="headerlink" title="Gitea"></a>Gitea</h2><p>在安装<code>Gitea</code>和<code>Drone</code>时，我们都选择使用<code>docker-compose</code>来管理，因此需要先安装<code>docker</code>和<code>docker-compose</code>。</p>
+<p>创建一个<code>gitea</code>文件夹，并在该文件夹下创建<code>docker-compose.yml</code>文件：</p>
+<figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">version:</span> <span class="string">"2"</span></span><br><span class="line"></span><br><span class="line"><span class="attr">networks:</span></span><br><span class="line">  <span class="attr">gitea:</span></span><br><span class="line">    <span class="attr">external:</span> <span class="literal">false</span></span><br><span class="line"></span><br><span class="line"><span class="attr">services:</span></span><br><span class="line">  <span class="attr">server:</span></span><br><span class="line">    <span class="attr">image:</span> <span class="string">gitea/gitea:1.11</span></span><br><span class="line">    <span class="attr">environment:</span></span><br><span class="line">      <span class="bullet">-</span> <span class="string">USER_UID=1000</span></span><br><span class="line">      <span class="bullet">-</span> <span class="string">USER_GID=1000</span></span><br><span class="line">      <span class="bullet">-</span> <span class="string">RUN_MODE=prod</span></span><br><span class="line">      <span class="bullet">-</span> <span class="string">SSH_PORT=</span> <span class="number">3022</span> <span class="comment">#SSH端口</span></span><br><span class="line">      <span class="bullet">-</span> <span class="string">SSH_DOMAIN=</span> <span class="comment">#IP地址或URL</span></span><br><span class="line">      <span class="bullet">-</span> <span class="string">DISABLE_REGISTRATION=False</span> <span class="comment">#取消注册</span></span><br><span class="line">    <span class="attr">restart:</span> <span class="string">always</span></span><br><span class="line">    <span class="attr">networks:</span></span><br><span class="line">      <span class="bullet">-</span> <span class="string">gitea</span></span><br><span class="line">    <span class="attr">volumes:</span></span><br><span class="line">      <span class="bullet">-</span> <span class="string">./gitea:/data</span></span><br><span class="line">      <span class="bullet">-</span> <span class="string">/etc/timezone:/etc/timezone:ro</span></span><br><span class="line">      <span class="bullet">-</span> <span class="string">/etc/localtime:/etc/localtime:ro</span></span><br><span class="line">    <span class="attr">ports:</span></span><br><span class="line">      <span class="bullet">-</span> <span class="string">"3000:3000"</span></span><br><span class="line">      <span class="bullet">-</span> <span class="string">"3022:3022"</span></span><br></pre></td></tr></table></figure>
+
+<p>这里面需要注意的是，设置<code>SSH_PORT</code>和<code>SSH_DOMAIN</code>，这样 gitea 生成的 repo SSH 链接才是能直接使用的形式。</p>
+<p>填写完后，直接<code>docker-compose up -d</code>开启服务即可，第一次登陆时，会跳出一个安装页面，可以设置所使用的数据库和管理员账号，同时要记得检查一下 SSH 端口和域名是否正确。</p>
+<h2 id="Drone"><a href="#Drone" class="headerlink" title="Drone"></a>Drone</h2><p><code>Drone</code>的安装比<code>Gitea</code>复杂的多，同时需要先在<code>Gitea</code>中创建<code>OAuth2</code>应用程序：</p>
+<p>打开<code>Gitea</code>的页面 -&gt; 个人信息 -&gt; 应用 -&gt; 管理 OAuth2 应用程序</p>
+<p><img src="http://imagehosting.wuxiaobai24.fun/blogGitea-Drone-CI-CD-20200327211442-2020-03-27" alt="Gitea-Drone-CI-CD-20200327211442-2020-03-27"></p>
+<p>应用名称填什么都无所谓，但是重定向 URL 比较重要，要填 <code>Drone</code>服务的地址（虽然现在还没启动），比如说，你的 Drone 的 <code>ip</code> 地址为<code>1.2.3.4</code>，<code>Drone</code>端口的为<code>8000</code>，<br>那么就可以填<code>http://1.2.3.4:8000</code>。</p>
+<p>创建后会得到一个客户端ID和客户端密钥。这时，<code>Gitea</code>的设置就已经完成了。</p>
+<p>为了让<code>Drone Server</code>和<code>Drone Runer</code>能够通过<code>RPC</code>连接，我们需要生成<code>RPC</code>密钥，可以在 shell 中使用该命令来生成随机数，用该随机数作为 RPC 的密钥</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ openssl rand -hex 16</span><br></pre></td></tr></table></figure>
+
+<p>上面的操作中可以得到：</p>
+<ul>
+<li>客户端 ID</li>
+<li>客户端密钥</li>
+<li>RPC 密钥</li>
+</ul>
+<p>创建一个<code>drone</code>文件夹并在其中创建一个<code>docker-compose.yml</code>文件：</p>
+<figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">version:</span> <span class="string">"3.5"</span></span><br><span class="line"></span><br><span class="line"><span class="attr">networks:</span></span><br><span class="line">  <span class="attr">drone:</span></span><br><span class="line">    <span class="attr">name:</span> <span class="string">drone_network</span></span><br><span class="line"></span><br><span class="line"><span class="attr">services:</span> </span><br><span class="line">  <span class="attr">drone-server:</span></span><br><span class="line">    <span class="attr">image:</span> <span class="string">drone/drone:1</span></span><br><span class="line">    <span class="attr">ports:</span></span><br><span class="line">      <span class="bullet">-</span> <span class="number">8000</span><span class="string">:80</span></span><br><span class="line">      <span class="bullet">-</span> <span class="number">443</span><span class="string">:443</span></span><br><span class="line">    <span class="attr">networks:</span></span><br><span class="line">      <span class="bullet">-</span> <span class="string">drone</span></span><br><span class="line">    <span class="attr">volumes:</span></span><br><span class="line">      <span class="bullet">-</span> <span class="string">./drone-data:/var/lib/drone</span></span><br><span class="line">      <span class="bullet">-</span> <span class="string">/var/run/docker.sock:/var/run/docker.sock</span></span><br><span class="line">    <span class="attr">restart:</span> <span class="string">always</span></span><br><span class="line">    <span class="attr">environment:</span> </span><br><span class="line">      <span class="bullet">-</span> <span class="string">DRONE_GITEA_CLIENT_ID=</span> <span class="comment"># Gitea 客户端ID</span></span><br><span class="line">      <span class="bullet">-</span> <span class="string">DRONE_GITEA_CLIENT_SECRET=</span> <span class="comment"># Gitea 客户端密钥</span></span><br><span class="line">      <span class="bullet">-</span> <span class="string">DRONE_GITEA_SERVER=</span> <span class="comment"># Gitea URL 地址</span></span><br><span class="line">      <span class="bullet">-</span> <span class="string">DRONE_GITEA=true</span></span><br><span class="line">      <span class="bullet">-</span> <span class="string">DRONE_RPC_SECRET=</span> <span class="comment"># Drone RPC 密钥</span></span><br><span class="line">      <span class="bullet">-</span> <span class="string">DRONE_SERVER_HOST=</span> <span class="comment"># Drone URL,可以填域名或 ip:port</span></span><br><span class="line">	  <span class="bullet">-</span> <span class="string">DRONE_SERVER_PROTO=http</span> <span class="comment"># Drone 所使用的协议 http 或者 https</span></span><br><span class="line">	  <span class="comment"># 由于我的 Gitea 的设置是只允许登陆用户访问代码的，所以 Git 需要 Auth</span></span><br><span class="line">      <span class="bullet">-</span> <span class="string">DRONE_GIT_ALWAYS_AUTH=true</span></span><br><span class="line">      <span class="bullet">-</span> <span class="string">DRONE_GIT_USERNAME=</span> <span class="comment"># Gitea 用户名</span></span><br><span class="line">      <span class="bullet">-</span> <span class="string">DRONE_GIT_PASSWORD=</span> <span class="comment"># Gitea 密码</span></span><br><span class="line">  <span class="attr">drone-agent:</span></span><br><span class="line">    <span class="attr">image:</span> <span class="string">drone/drone-runner-docker:1</span></span><br><span class="line">    <span class="attr">restart:</span> <span class="string">always</span></span><br><span class="line">    <span class="attr">depends_on:</span> </span><br><span class="line">      <span class="bullet">-</span> <span class="string">drone-server</span></span><br><span class="line">    <span class="attr">networks:</span></span><br><span class="line">      <span class="bullet">-</span> <span class="string">drone</span></span><br><span class="line">    <span class="attr">volumes:</span> </span><br><span class="line">      <span class="bullet">-</span> <span class="string">/var/run/docker.sock:/var/run/docker.sock</span></span><br><span class="line">    <span class="attr">environment:</span> </span><br><span class="line">      <span class="bullet">-</span> <span class="string">DRONE_RPC_SECRET=</span> <span class="comment"># 这里的密钥要和 Server 一样</span></span><br><span class="line">      <span class="bullet">-</span> <span class="string">DRONE_RPC_PROTO=http</span></span><br><span class="line">      <span class="bullet">-</span> <span class="string">DRONE_RPC_HOST=</span> <span class="comment"># 和上面的 DRONE_SERVER_HOST</span></span><br></pre></td></tr></table></figure>
+
+<p>和<code>Gitea</code>同理，我们只需要在<code>docker-compose up -d</code>即可。</p>
+<p>第一次打开 Drone 会先跳到 Gitea 进行验证。由于打开 Drone 会验证 Gitea 是否登陆，所以不用担心 Drone 的页面直接暴露到公网。</p>
+<h3 id="测试-Drone-和-Gitea"><a href="#测试-Drone-和-Gitea" class="headerlink" title="测试 Drone 和 Gitea"></a>测试 Drone 和 Gitea</h3><ol>
+<li>在 Gitea 中创建一个 repo</li>
+<li>在 Drone 激活该 repo</li>
+<li>创建公钥并加入到 gitea 中（这一步和 Github 类似）</li>
+<li>将 repo clone 到本地</li>
+<li>创建一个<code>.drone.yml</code>文件：</li>
+<li>git commit and push</li>
+</ol>
+<p><code>.drone.yml</code>的样例如下：</p>
+<figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">kind:</span> <span class="string">pipeline</span></span><br><span class="line"><span class="attr">type:</span> <span class="string">docker</span></span><br><span class="line"><span class="attr">name:</span> <span class="string">default</span></span><br><span class="line"></span><br><span class="line"><span class="attr">steps:</span></span><br><span class="line"><span class="bullet">-</span> <span class="attr">name:</span> <span class="string">greeting</span></span><br><span class="line">  <span class="attr">image:</span> <span class="string">alpine</span></span><br><span class="line">  <span class="attr">commands:</span></span><br><span class="line">  <span class="bullet">-</span> <span class="string">echo</span> <span class="string">hello</span></span><br><span class="line">  <span class="bullet">-</span> <span class="string">echo</span> <span class="string">world</span></span><br></pre></td></tr></table></figure>
+
+<p>关于<code>.drone.yml</code>的信息可以查看<a href="https://docs.drone.io/" target="_blank" rel="noopener">官方文档</a>。</p>
+<p>之后估计也会写一篇 blog 对 Drone 的使用进行下总结。</p>
+
+      </div>
+      
+        <br>
+        <p>本文首发于<a href="blog.wuxiaobai24" target="_blank" rel="noopener">Code &amp; Fun</a></p>
+
+      
+      
+        <br>
+        
+
+
+  <section class='meta' id="footer-meta">
+    <div class='new-meta-box'>
+      
+        
+          <div class="new-meta-item date" itemprop="dateUpdated" datetime="2020-04-02T14:43:48+00:00">
+  <a class='notlink'>
+    <i class="fas fa-clock" aria-hidden="true"></i>
+    <p>更新于 2020年4月2日</p>
+  </a>
+</div>
+
+        
+      
+        
+          
+  
+  <div class="new-meta-item meta-tags"><a class="tag" href="/tags/Gitea/" rel="nofollow"><i class="fas fa-tag" aria-hidden="true"></i><p>Gitea</p></a></div> <div class="new-meta-item meta-tags"><a class="tag" href="/tags/Drone/" rel="nofollow"><i class="fas fa-tag" aria-hidden="true"></i><p>Drone</p></a></div> <div class="new-meta-item meta-tags"><a class="tag" href="/tags/CI-CD/" rel="nofollow"><i class="fas fa-tag" aria-hidden="true"></i><p>CI/CD</p></a></div>
+
+
+        
+      
+    </div>
+  </section>
+
+
+      
+      
+          <div class="prev-next">
+              
+                  <section class="prev">
+                      <span class="art-item-left">
+                          <h6><i class="fas fa-chevron-left" aria-hidden="true"></i>&nbsp;上一页</h6>
+                          <h4>
+                              <a href="/2020/03/31/Evaluate-Reverse-Polish-Notation/" rel="prev" title="Evaluate Reverse Polish Notation">
+                                
+                                    Evaluate Reverse Polish Notation
+                                
+                              </a>
+                          </h4>
+                          
+                              
+                              <h6 class="tags">
+                                  <a class="tag" href="/tags/LeetCode/"><i class="fas fa-tag fa-fw" aria-hidden="true"></i> LeetCode</a> <a class="tag" href="/tags/Stack/"><i class="fas fa-tag fa-fw" aria-hidden="true"></i> Stack</a>
+                              </h6>
+                          
+                      </span>
+                  </section>
+              
+              
+                  <section class="next">
+                      <span class="art-item-right" aria-hidden="true">
+                          <h6>下一页&nbsp;<i class="fas fa-chevron-right" aria-hidden="true"></i></h6>
+                          <h4>
+                              <a href="/2020/03/24/Binary-Tree-Preorder-Inorder-Postorder-Traversal/" rel="prev" title="Binary Tree (Preorder|Inorder|Postorder) Traversal">
+                                  
+                                      Binary Tree (Preorder|Inorder|Postorder) Traversal
+                                  
+                              </a>
+                          </h4>
+                          
+                              
+                              <h6 class="tags">
+                                  <a class="tag" href="/tags/LeetCode/"><i class="fas fa-tag fa-fw" aria-hidden="true"></i> LeetCode</a> <a class="tag" href="/tags/Tree/"><i class="fas fa-tag fa-fw" aria-hidden="true"></i> Tree</a> <a class="tag" href="/tags/Stack/"><i class="fas fa-tag fa-fw" aria-hidden="true"></i> Stack</a>
+                              </h6>
+                          
+                      </span>
+                  </section>
+              
+          </div>
+      
+    </section>
+  </article>
+
+
+  
+    
+  
+    
+  
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+          
+  <section class='widget related_posts'>
+    
+<header class='pure'>
+  <div><i class="fas fa-bookmark fa-fw" aria-hidden="true"></i>&nbsp;&nbsp;相关文章</div>
+  
+</header>
+
+    <div class="content pure">
+      <ul class="popular-posts"><li class="popular-posts-item"><div class="popular-posts-title"><h3><a href="/2019/08/20/Use-Travis-CI/" title="Use Travis CI" rel="bookmark">Use Travis CI</a></h3></div></li></ul>
+    </div>
+  </section>
+
+
+        
+      
+    
+  
+
+
+  <!-- 显示推荐文章和评论 -->
+
+
+
+  
+
+
+
+
+
+
+<!-- 根据页面mathjax变量决定是否加载MathJax数学公式js -->
+
+
+
+  <script>
+    window.subData = {
+      title: 'Gitea + Drone CI/CD',
+      tools: true
+    }
+  </script>
+
+
+</div>
+<aside class='l_side'>
+  
+    
+    
+      
+      
+        
+          
+          
+            
+              <section class='widget author'>
+  <div class='content pure'>
+    
+      <div class='avatar'>
+        <img class='avatar' src='/assets/img/avatar.jpeg'/>
+      </div>
+    
+    
+    
+      <div class="social-wrapper">
+        
+          
+            <a href="/atom.xml"
+              class="social fas fa-rss flat-btn"
+              target="_blank"
+              rel="external nofollow noopener noreferrer">
+            </a>
+          
+        
+          
+            <a href="wuxiaobai24:wuxiaobai24@foxmail.com"
+              class="social fas fa-envelope flat-btn"
+              target="_blank"
+              rel="external nofollow noopener noreferrer">
+            </a>
+          
+        
+          
+            <a href="https://github.com/wuxiaobai24"
+              class="social fab fa-github flat-btn"
+              target="_blank"
+              rel="external nofollow noopener noreferrer">
+            </a>
+          
+        
+      </div>
+    
+  </div>
+</section>
+
+            
+          
+        
+          
+          
+        
+          
+          
+        
+          
+          
+        
+          
+          
+        
+      
+        
+          
+          
+        
+          
+          
+            
+              
+  <section class='widget toc-wrapper'>
+    
+<header class='pure'>
+  <div><i class="fas fa-list fa-fw" aria-hidden="true"></i>&nbsp;&nbsp;本文目录</div>
+  
+    <!-- <div class='wrapper'><a class="s-toc rightBtn" rel="external nofollow noopener noreferrer" href="javascript:void(0)"><i class="fas fa-thumbtack fa-fw"></i></a></div> -->
+  
+</header>
+
+    <div class='content pure'>
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#技术选型"><span class="toc-text">技术选型</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#代码托管"><span class="toc-text">代码托管</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#CI-CD"><span class="toc-text">CI&#x2F;CD</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Gitea"><span class="toc-text">Gitea</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Drone"><span class="toc-text">Drone</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#测试-Drone-和-Gitea"><span class="toc-text">测试 Drone 和 Gitea</span></a></li></ol></li></ol>
+    </div>
+  </section>
+
+
+            
+          
+        
+          
+          
+        
+          
+          
+        
+          
+          
+        
+      
+        
+          
+          
+        
+          
+          
+        
+          
+          
+            
+              
+  <section class='widget category'>
+    
+<header class='pure'>
+  <div><i class="fas fa-folder-open fa-fw" aria-hidden="true"></i>&nbsp;&nbsp;文章分类</div>
+  
+    <a class="rightBtn"
+    
+      rel="nofollow"
+    
+    
+    href="/categories/"
+    title="categories/">
+    <i class="fas fa-expand-arrows-alt fa-fw"></i></a>
+  
+</header>
+
+    <div class='content pure'>
+      <ul class="entry">
+        
+          <li><a class="flat-box" title="/categories/DevOps/" href="/categories/DevOps/"><div class='name'>DevOps</div><div class='badge'>(2)</div></a></li>
+        
+          <li><a class="flat-box" title="/categories/Flutter-%E5%AD%A6%E4%B9%A0/" href="/categories/Flutter-%E5%AD%A6%E4%B9%A0/"><div class='name'>Flutter 学习</div><div class='badge'>(1)</div></a></li>
+        
+          <li><a class="flat-box" title="/categories/LeetCode/" href="/categories/LeetCode/"><div class='name'>LeetCode</div><div class='badge'>(185)</div></a></li>
+        
+          <li><a class="flat-box" title="/categories/LintCode/" href="/categories/LintCode/"><div class='name'>LintCode</div><div class='badge'>(1)</div></a></li>
+        
+          <li><a class="flat-box" title="/categories/Machine-Learning/" href="/categories/Machine-Learning/"><div class='name'>Machine-Learning</div><div class='badge'>(1)</div></a></li>
+        
+          <li><a class="flat-box" title="/categories/Note/" href="/categories/Note/"><div class='name'>Note</div><div class='badge'>(1)</div></a></li>
+        
+          <li><a class="flat-box" title="/categories/Reading/" href="/categories/Reading/"><div class='name'>Reading</div><div class='badge'>(1)</div></a></li>
+        
+          <li><a class="flat-box" title="/categories/%E3%80%8AJava%E7%BC%96%E7%A8%8B%E6%80%9D%E6%83%B3%E3%80%8B/" href="/categories/%E3%80%8AJava%E7%BC%96%E7%A8%8B%E6%80%9D%E6%83%B3%E3%80%8B/"><div class='name'>《Java编程思想》</div><div class='badge'>(9)</div></a></li>
+        
+          <li><a class="flat-box" title="/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/" href="/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/"><div class='name'>数据结构</div><div class='badge'>(1)</div></a></li>
+        
+          <li><a class="flat-box" title="/categories/%E6%9D%82%E4%BA%8B%E4%B8%80%E5%A0%86/" href="/categories/%E6%9D%82%E4%BA%8B%E4%B8%80%E5%A0%86/"><div class='name'>杂事一堆</div><div class='badge'>(4)</div></a></li>
+        
+          <li><a class="flat-box" title="/categories/%E7%AE%97%E6%B3%95/" href="/categories/%E7%AE%97%E6%B3%95/"><div class='name'>算法</div><div class='badge'>(1)</div></a></li>
+        
+          <li><a class="flat-box" title="/categories/%E7%AE%97%E6%B3%95%E5%AE%9E%E7%8E%B0/" href="/categories/%E7%AE%97%E6%B3%95%E5%AE%9E%E7%8E%B0/"><div class='name'>算法实现</div><div class='badge'>(1)</div></a></li>
+        
+      </ul>
+    </div>
+  </section>
+
+
+            
+          
+        
+          
+          
+        
+          
+          
+        
+      
+        
+          
+          
+        
+          
+          
+        
+          
+          
+        
+          
+          
+            
+              
+  <section class='widget tagcloud'>
+    
+<header class='pure'>
+  <div><i class="fas fa-tags fa-fw" aria-hidden="true"></i>&nbsp;&nbsp;热门标签</div>
+  
+    <a class="rightBtn"
+    
+      rel="nofollow"
+    
+    
+    href="/tags/"
+    title="tags/">
+    <i class="fas fa-expand-arrows-alt fa-fw"></i></a>
+  
+</header>
+
+    <div class='content pure'>
+      <a href="/tags/Array/" style="font-size: 14px; color: #999">Array</a> <a href="/tags/BFS/" style="font-size: 14px; color: #999">BFS</a> <a href="/tags/Bit-Manipulation/" style="font-size: 14px; color: #999">Bit-Manipulation</a> <a href="/tags/CI-CD/" style="font-size: 15.11px; color: #919191">CI/CD</a> <a href="/tags/ChromeOS/" style="font-size: 14px; color: #999">ChromeOS</a> <a href="/tags/Chromebook/" style="font-size: 14px; color: #999">Chromebook</a> <a href="/tags/DP/" style="font-size: 19.56px; color: #737373">DP</a> <a href="/tags/Design/" style="font-size: 14px; color: #999">Design</a> <a href="/tags/Drone/" style="font-size: 14px; color: #999">Drone</a> <a href="/tags/FSM/" style="font-size: 14px; color: #999">FSM</a> <a href="/tags/Flutter/" style="font-size: 14px; color: #999">Flutter</a> <a href="/tags/Gitea/" style="font-size: 14px; color: #999">Gitea</a> <a href="/tags/Hash/" style="font-size: 14px; color: #999">Hash</a> <a href="/tags/Hexo/" style="font-size: 15.11px; color: #919191">Hexo</a> <a href="/tags/Java/" style="font-size: 21.78px; color: #646464">Java</a> <a href="/tags/LeetCode/" style="font-size: 24px; color: #555">LeetCode</a> <a href="/tags/Linked-List/" style="font-size: 14px; color: #999">Linked List</a> <a href="/tags/Linked-List/" style="font-size: 15.11px; color: #919191">Linked-List</a> <a href="/tags/LinkedList/" style="font-size: 15.11px; color: #919191">LinkedList</a> <a href="/tags/LintCode/" style="font-size: 14px; color: #999">LintCode</a> <a href="/tags/List/" style="font-size: 14px; color: #999">List</a> <a href="/tags/ListNode/" style="font-size: 14px; color: #999">ListNode</a> <a href="/tags/Machine-Learning/" style="font-size: 14px; color: #999">Machine-Learning</a> <a href="/tags/OpenGL/" style="font-size: 14px; color: #999">OpenGL</a> <a href="/tags/Queues/" style="font-size: 14px; color: #999">Queues</a> <a href="/tags/Reading/" style="font-size: 14px; color: #999">Reading</a> <a href="/tags/Search/" style="font-size: 14px; color: #999">Search</a> <a href="/tags/Stack/" style="font-size: 20.67px; color: #6c6c6c">Stack</a> <a href="/tags/String/" style="font-size: 17.33px; color: #828282">String</a> <a href="/tags/Tree/" style="font-size: 22.89px; color: #5d5d5d">Tree</a> <a href="/tags/blog/" style="font-size: 14px; color: #999">blog</a> <a href="/tags/note/" style="font-size: 14px; color: #999">note</a> <a href="/tags/sort/" style="font-size: 15.11px; color: #919191">sort</a> <a href="/tags/%E3%80%8AJava%E7%BC%96%E7%A8%8B%E6%80%9D%E6%83%B3%E3%80%8B/" style="font-size: 21.78px; color: #646464">《Java编程思想》</a> <a href="/tags/%E4%B8%B2/" style="font-size: 18.44px; color: #7b7b7b">串</a> <a href="/tags/%E4%BA%8C%E5%8F%89%E6%A0%91/" style="font-size: 16.22px; color: #8a8a8a">二叉树</a> <a href="/tags/%E5%88%86%E6%B2%BB%E6%B3%95/" style="font-size: 14px; color: #999">分治法</a> <a href="/tags/%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/" style="font-size: 20.67px; color: #6c6c6c">动态规划</a> <a href="/tags/%E5%90%8E%E7%AB%AF/" style="font-size: 21.78px; color: #646464">后端</a> <a href="/tags/%E5%9B%BE/" style="font-size: 14px; color: #999">图</a> <a href="/tags/%E5%BE%AA%E7%8E%AF%E9%93%BE%E8%A1%A8%EF%BC%8C%E5%8F%8C%E5%90%91%E9%93%BE%E8%A1%A8%EF%BC%8C%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/" style="font-size: 14px; color: #999">循环链表，双向链表，数据结构</a> <a href="/tags/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/" style="font-size: 14px; color: #999">机器学习</a> <a href="/tags/%E6%9D%82%E4%BA%8B%E4%B8%80%E5%A0%86/" style="font-size: 14px; color: #999">杂事一堆</a> <a href="/tags/%E6%9F%A5%E6%89%BE/" style="font-size: 14px; color: #999">查找</a> <a href="/tags/%E7%AE%97%E6%B3%95/" style="font-size: 16.22px; color: #8a8a8a">算法</a> <a href="/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%9B%BE%E5%BD%A2%E5%AD%A6/" style="font-size: 14px; color: #999">计算机图形学</a> <a href="/tags/%E8%B8%A9%E5%9D%91%E8%AE%B0%E5%BD%95/" style="font-size: 14px; color: #999">踩坑记录</a> <a href="/tags/%E9%93%BE%E8%A1%A8/" style="font-size: 17.33px; color: #828282">链表</a> <a href="/tags/%E9%98%85%E8%AF%BB%E7%AC%94%E8%AE%B0/" style="font-size: 21.78px; color: #646464">阅读笔记</a>
+    </div>
+  </section>
+
+
+            
+          
+        
+          
+          
+        
+      
+    
+
+  
+</aside>
+
+<footer id="footer" class="clearfix">
+  
+  
+    <div class="social-wrapper">
+      
+        
+          <a href="/atom.xml"
+            class="social fas fa-rss flat-btn"
+            target="_blank"
+            rel="external nofollow noopener noreferrer">
+          </a>
+        
+      
+        
+          <a href="wuxiaobai24:wuxiaobai24@foxmail.com"
+            class="social fas fa-envelope flat-btn"
+            target="_blank"
+            rel="external nofollow noopener noreferrer">
+          </a>
+        
+      
+        
+          <a href="https://github.com/wuxiaobai24"
+            class="social fab fa-github flat-btn"
+            target="_blank"
+            rel="external nofollow noopener noreferrer">
+          </a>
+        
+      
+    </div>
+  
+  <br>
+  <div><p>博客内容遵循 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" target="_blank" rel="noopener">署名-非商业性使用-相同方式共享 4.0 国际 (CC BY-NC-SA 4.0) 协议</a></p>
+</div>
+  <div>
+    本站使用
+    <a href="https://xaoxuu.com/wiki/material-x/" target="_blank" class="codename">Material X</a>
+    作为主题
+    
+      ，
+      总访问量为
+      <span id="busuanzi_value_site_pv"><i class="fas fa-spinner fa-spin fa-fw" aria-hidden="true"></i></span>
+      次
+    
+    。
+  </div>
+</footer>
+<script>setLoadingBarProgress(80);</script>
+
+
+      <script>setLoadingBarProgress(60);</script>
+    </div>
+    <a class="s-top fas fa-arrow-up fa-fw" href='javascript:void(0)'></a>
+  </div>
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.3.1/dist/jquery.min.js"></script>
+
+  <script>
+    
+    var SEARCH_SERVICE = "hexo" || "hexo";
+    var ROOT = "/" || "/";
+    if (!ROOT.endsWith('/')) ROOT += '/';
+  </script>
+
+<script src="//instant.page/1.2.2" type="module" integrity="sha384-2xV8M5griQmzyiY3CDqh1dn4z3llDVqZDqzjzcY+jCBCk/a5fXJmuZ/40JJAPeoU"></script>
+
+
+  <script src="https://cdn.jsdelivr.net/npm/scrollreveal@4.0.5/dist/scrollreveal.min.js"></script>
+  <script type="text/javascript">
+    $(function() {
+      const $reveal = $('.reveal');
+      if ($reveal.length === 0) return;
+      const sr = ScrollReveal({ distance: 0 });
+      sr.reveal('.reveal');
+    });
+  </script>
+
+
+  <script src="https://cdn.jsdelivr.net/npm/node-waves@0.7.6/dist/waves.min.js"></script>
+  <script type="text/javascript">
+    $(function() {
+      Waves.attach('.flat-btn', ['waves-button']);
+      Waves.attach('.float-btn', ['waves-button', 'waves-float']);
+      Waves.attach('.float-btn-light', ['waves-button', 'waves-float', 'waves-light']);
+      Waves.attach('.flat-box', ['waves-block']);
+      Waves.attach('.float-box', ['waves-block', 'waves-float']);
+      Waves.attach('.waves-image');
+      Waves.init();
+    });
+  </script>
+
+
+  <script async src="https://cdn.jsdelivr.net/gh/xaoxuu/cdn-busuanzi@2.3/js/busuanzi.pure.mini.js"></script>
+
+
+
+
+  
+  
+  
+    <script src="https://cdn.jsdelivr.net/gh/xaoxuu/cdn-material-x@20.2/js/backstretch.min.js"></script>
+    <script type="text/javascript">
+      $(function(){
+        if ('') {
+          $('').backstretch(
+          ["https://i.loli.net/2020/02/08/HNuVoted2mUxILl.jpg", "https://i.loli.net/2020/02/08/dNJyR4LHtarTqPu.jpg", "https://i.loli.net/2020/02/08/yXx4GwgZYdi81Qs.jpg", "https://i.loli.net/2020/02/08/RP7JpGvWaCYfuB6.jpg"],
+          {
+            duration: "6000",
+            fade: "2500"
+          });
+        } else {
+          $.backstretch(
+          ["https://i.loli.net/2020/02/08/HNuVoted2mUxILl.jpg", "https://i.loli.net/2020/02/08/dNJyR4LHtarTqPu.jpg", "https://i.loli.net/2020/02/08/yXx4GwgZYdi81Qs.jpg", "https://i.loli.net/2020/02/08/RP7JpGvWaCYfuB6.jpg"],
+          {
+            duration: "6000",
+            fade: "2500"
+          });
+        }
+      });
+    </script>
+  
+
+
+
+
+
+
+
+
+
+
+
+  
+<script src="https://cdn.jsdelivr.net/gh/xaoxuu/cdn-material-x@20.2.8/js/app.js"></script>
+
+
+
+  
+<script src="https://cdn.jsdelivr.net/gh/xaoxuu/cdn-material-x@20.2.8/js/search.js"></script>
+
+
+
+  
+    
+<script src="https://cdn.jsdelivr.net/gh/inkss/inkss.github.io/js/commentTyping.js"></script>
+
+  
+
+
+
+
+
+<!-- 复制 -->
+<script src="https://cdn.jsdelivr.net/npm/clipboard@2/dist/clipboard.min.js"></script>
+<script>
+  let COPY_SUCCESS = "复制成功";
+  let COPY_FAILURE = "复制失败";
+  /*页面载入完成后，创建复制按钮*/
+  !function (e, t, a) {
+    /* code */
+    var initCopyCode = function(){
+      var copyHtml = '';
+      copyHtml += '<button class="btn-copy" data-clipboard-snippet="">';
+      copyHtml += '  <i class="fa fa-copy"></i><span>复制</span>';
+      copyHtml += '</button>';
+      $(".highlight .code pre").before(copyHtml);
+      var clipboard = new ClipboardJS('.btn-copy', {
+        target: function(trigger) {
+          return trigger.nextElementSibling;
+        }
+      });
+
+      clipboard.on('success', function(e) {
+        //您可以加入成功提示
+        console.info('Action:', e.action);
+        console.info('Text:', e.text);
+        console.info('Trigger:', e.trigger);
+        success_prompt(COPY_SUCCESS);
+        e.clearSelection();
+      });
+      clipboard.on('error', function(e) {
+        //您可以加入失败提示
+        console.error('Action:', e.action);
+        console.error('Trigger:', e.trigger);
+        fail_prompt(COPY_FAILURE);
+      });
+    }
+    initCopyCode();
+
+  }(window, document);
+
+  /**
+   * 弹出式提示框，默认1.5秒自动消失
+   * @param message 提示信息
+   * @param style 提示样式，有alert-success、alert-danger、alert-warning、alert-info
+   * @param time 消失时间
+   */
+  var prompt = function (message, style, time)
+  {
+      style = (style === undefined) ? 'alert-success' : style;
+      time = (time === undefined) ? 1500 : time*1000;
+      $('<div>')
+          .appendTo('body')
+          .addClass('alert ' + style)
+          .html(message)
+          .show()
+          .delay(time)
+          .fadeOut();
+  };
+
+  // 成功提示
+  var success_prompt = function(message, time)
+  {
+      prompt(message, 'alert-success', time);
+  };
+
+  // 失败提示
+  var fail_prompt = function(message, time)
+  {
+      prompt(message, 'alert-danger', time);
+  };
+
+  // 提醒
+  var warning_prompt = function(message, time)
+  {
+      prompt(message, 'alert-warning', time);
+  };
+
+  // 信息提示
+  var info_prompt = function(message, time)
+  {
+      prompt(message, 'alert-info', time);
+  };
+
+</script>
+
+
+<!-- fancybox -->
+<script src="https://cdn.jsdelivr.net/gh/fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js"></script>
+<script>
+  let LAZY_LOAD_IMAGE = "";
+  $(".article-entry").find("fancybox").find("img").each(function () {
+      var element = document.createElement("a");
+      $(element).attr("data-fancybox", "gallery");
+      $(element).attr("href", $(this).attr("src"));
+      /* 图片采用懒加载处理时,
+       * 一般图片标签内会有个属性名来存放图片的真实地址，比如 data-original,
+       * 那么此处将原本的属性名src替换为对应属性名data-original,
+       * 修改如下
+       */
+       if (LAZY_LOAD_IMAGE) {
+         $(element).attr("href", $(this).attr("data-original"));
+       }
+      $(this).wrap(element);
+  });
+</script>
+
+
+
+
+
+  <script>setLoadingBarProgress(100);</script>
+</body>
+</html>

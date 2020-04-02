@@ -1,0 +1,1209 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  
+  <title>《 Java 编程思想》CH05 初始化与清理 | Code &amp; Fun</title>
+  
+  
+  <meta name="description" content="wuxiaobai24's blog">
+  
+
+  
+  <link rel="alternate" href="/atom.xml" title="Code & Fun">
+  
+
+  <meta name="HandheldFriendly" content="True" />
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <!-- meta -->
+  
+
+  <!-- link -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css" />
+  
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/node-waves@0.7.6/dist/waves.min.css">
+  
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.10.1/css/all.min.css">
+  
+
+  
+
+  
+    
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/xaoxuu/cdn-material-x@20.2.8/css/style.css">
+
+  
+
+  <script>
+    function setLoadingBarProgress(num) {
+      document.getElementById('loading-bar').style.width=num+"%";
+    }
+  </script>
+
+  
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-108019665-2"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'UA-108019665-2');
+    </script>
+  
+  
+    <!-- ba -->
+    <script>
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?619db192db740fa55405964e311db922";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+    </script>
+  
+<meta name="generator" content="Hexo 4.2.0"><link rel="alternate" href="/atom.xml" title="Code & Fun" type="application/atom+xml">
+</head>
+
+<body>
+  
+  
+  <div class="cover-wrapper">
+    <cover class='cover post half'>
+      
+        
+  <h1 class='title'>Code & Fun</h1>
+
+
+  <div class="m_search">
+    <form name="searchform" class="form u-search-form">
+      <input type="text" class="input u-search-input" placeholder="" />
+      <i class="icon fas fa-search fa-fw"></i>
+    </form>
+  </div>
+
+<div class='menu navgation'>
+  <ul class='h-list'>
+    
+      
+        <li>
+          <a class="nav home" href="/"
+            
+            
+            id="home">
+            <i class='fas fa-rss fa-fw'></i>&nbsp;Home
+          </a>
+        </li>
+      
+        <li>
+          <a class="nav home" href="/archives/"
+            
+            
+            id="archives">
+            <i class='fas fa-code-branch fa-fw'></i>&nbsp;Archives
+          </a>
+        </li>
+      
+        <li>
+          <a class="nav home" href="/categories/"
+            
+              rel="nofollow"
+            
+            
+            id="categories">
+            <i class='fas fa-folder-open fa-fw'></i>&nbsp;Categories
+          </a>
+        </li>
+      
+        <li>
+          <a class="nav home" href="/tags/"
+            
+              rel="nofollow"
+            
+            
+            id="tags">
+            <i class='fas fa-hashtag fa-fw'></i>&nbsp;Tags
+          </a>
+        </li>
+      
+        <li>
+          <a class="nav home" href="/resume/"
+            
+              rel="nofollow"
+            
+            
+            id="resume">
+            <i class='fas fa-info-circle fa-fw'></i>&nbsp;Resume
+          </a>
+        </li>
+      
+    
+  </ul>
+</div>
+
+      
+    </cover>
+    <header class="l_header pure">
+  <div id="loading-bar-wrapper">
+    <div id="loading-bar" class="pure"></div>
+  </div>
+
+	<div class='wrapper'>
+		<div class="nav-main container container--flex">
+      <a class="logo flat-box" target="_self" href='/' >
+        
+          Code & Fun
+        
+      </a>
+			<div class='menu navgation'>
+				<ul class='h-list'>
+          
+  					
+  						<li>
+								<a class="nav flat-box" href="/"
+                  
+                  
+                  id="home">
+									<i class='fas fa-grin fa-fw'></i>&nbsp;Home
+								</a>
+							</li>
+      			
+  						<li>
+								<a class="nav flat-box" href="/archives/"
+                  
+                    rel="nofollow"
+                  
+                  
+                  id="archives">
+									<i class='fas fa-archive fa-fw'></i>&nbsp;Archives
+								</a>
+							</li>
+      			
+  						<li>
+								<a class="nav flat-box" href="/categories/"
+                  
+                    rel="nofollow"
+                  
+                  
+                  id="categories">
+									<i class='fas fa-folder-open fa-fw'></i>&nbsp;Categories
+								</a>
+							</li>
+      			
+  						<li>
+								<a class="nav flat-box" href="/tags/"
+                  
+                    rel="nofollow"
+                  
+                  
+                  id="tags">
+									<i class='fas fa-hashtag fa-fw'></i>&nbsp;Tags
+								</a>
+							</li>
+      			
+      		
+				</ul>
+			</div>
+
+			
+				<div class="m_search">
+					<form name="searchform" class="form u-search-form">
+						<input type="text" class="input u-search-input" placeholder="搜索" />
+						<i class="icon fas fa-search fa-fw"></i>
+					</form>
+				</div>
+			
+			<ul class='switcher h-list'>
+				
+					<li class='s-search'><a class="fas fa-search fa-fw" target="_self" href='javascript:void(0)'></a></li>
+				
+				<li class='s-menu'><a class="fas fa-bars fa-fw" target="_self" href='javascript:void(0)'></a></li>
+			</ul>
+		</div>
+
+		<div class='nav-sub container container--flex'>
+			<a class="logo flat-box"></a>
+			<ul class='switcher h-list'>
+				<li class='s-comment'><a class="flat-btn fas fa-comments fa-fw" target="_self" href='javascript:void(0)'></a></li>
+        
+          <li class='s-toc'><a class="flat-btn fas fa-list fa-fw" target="_self" href='javascript:void(0)'></a></li>
+        
+			</ul>
+		</div>
+	</div>
+</header>
+	<aside class="menu-phone">
+    <header>
+		<nav class="menu navgation">
+      <ul>
+        
+          
+            <li>
+							<a class="nav flat-box" href="/"
+                
+                
+                id="home">
+								<i class='fas fa-clock fa-fw'></i>&nbsp;近期文章
+							</a>
+            </li>
+          
+            <li>
+							<a class="nav flat-box" href="/archives/"
+                
+                  rel="nofollow"
+                
+                
+                id="archives">
+								<i class='fas fa-archive fa-fw'></i>&nbsp;文章归档
+							</a>
+            </li>
+          
+            <li>
+							<a class="nav flat-box" href="/categories/"
+                
+                  rel="nofollow"
+                
+                
+                id="categories">
+								<i class='fas fa-folder-open fa-fw'></i>&nbsp;文章分类
+							</a>
+            </li>
+          
+            <li>
+							<a class="nav flat-box" href="/tags/"
+                
+                  rel="nofollow"
+                
+                
+                id="tags">
+								<i class='fas fa-hashtag fa-fw'></i>&nbsp;文章标签
+							</a>
+            </li>
+          
+            <li>
+							<a class="nav flat-box" href="/resume/"
+                
+                  rel="nofollow"
+                
+                
+                id="resume">
+								<i class='fas fa-info-circle fa-fw'></i>&nbsp;我的简历
+							</a>
+            </li>
+          
+       
+      </ul>
+		</nav>
+    </header>
+	</aside>
+<script>setLoadingBarProgress(40);</script>
+
+  </div>
+
+
+  <div class="l_body">
+    <div class='body-wrapper'>
+      <div class='l_main'>
+  
+
+  <article id="post" class="post white-box article-type-post" itemscope itemprop="blogPost">
+    
+
+
+  <section class='meta'>
+    
+    
+    <div class="meta" id="header-meta">
+      
+        
+  
+    <h1 class="title">
+      <a href="/2020/02/09/%E3%80%8A-Java-%E7%BC%96%E7%A8%8B%E6%80%9D%E6%83%B3%E3%80%8BCH05-%E5%88%9D%E5%A7%8B%E5%8C%96%E4%B8%8E%E6%B8%85%E7%90%86/">
+        《 Java 编程思想》CH05 初始化与清理
+      </a>
+    </h1>
+  
+
+
+      
+      <div class='new-meta-box'>
+        
+          
+        
+          
+            
+  <div class='new-meta-item author'>
+    
+      <a href="http://blog.codeand.fun" rel="nofollow">
+        
+          <i class="fas fa-user" aria-hidden="true"></i>
+        
+        <p>wuxiaobai24</p>
+      </a>
+    
+  </div>
+
+
+          
+        
+          
+            <div class="new-meta-item date">
+  <a class='notlink'>
+    <i class="fas fa-calendar-alt" aria-hidden="true"></i>
+    <p>2020-02-09</p>
+  </a>
+</div>
+
+          
+        
+          
+            
+  
+  <div class='new-meta-item category'>
+    <a href='/categories/%E3%80%8AJava%E7%BC%96%E7%A8%8B%E6%80%9D%E6%83%B3%E3%80%8B/' rel="nofollow">
+      <i class="fas fa-folder-open" aria-hidden="true"></i>
+      <p>《Java编程思想》</p>
+    </a>
+  </div>
+
+
+          
+        
+          
+            
+  
+    <div class="new-meta-item browse busuanzi">
+      <a class='notlink'>
+        <i class="fas fa-eye" aria-hidden="true"></i>
+        <p>
+          <span id="busuanzi_value_page_pv">
+            <i class="fas fa-spinner fa-spin fa-fw" aria-hidden="true"></i>
+          </span>
+        </p>
+      </a>
+    </div>
+  
+
+
+          
+        
+          
+            
+  
+    <div class="new-meta-item wordcount">
+      <a class='notlink'>
+        <i class="fas fa-keyboard" aria-hidden="true"></i>
+        <p>字数统计:</p>
+        <p>4k字</p>
+      </a>
+    </div>
+    <div class="new-meta-item readtime">
+      <a class='notlink'>
+        <i class="fas fa-hourglass-half" aria-hidden="true"></i>
+        <p>阅读时长≈</p>
+        <p>15分</p>
+      </a>
+    </div>
+  
+
+          
+        
+          
+            
+
+          
+        
+          
+            
+  
+  <div class="new-meta-item meta-tags"><a class="tag" href="/tags/Java/" rel="nofollow"><i class="fas fa-tag" aria-hidden="true"></i><p>Java</p></a></div> <div class="new-meta-item meta-tags"><a class="tag" href="/tags/%E9%98%85%E8%AF%BB%E7%AC%94%E8%AE%B0/" rel="nofollow"><i class="fas fa-tag" aria-hidden="true"></i><p>阅读笔记</p></a></div> <div class="new-meta-item meta-tags"><a class="tag" href="/tags/%E3%80%8AJava%E7%BC%96%E7%A8%8B%E6%80%9D%E6%83%B3%E3%80%8B/" rel="nofollow"><i class="fas fa-tag" aria-hidden="true"></i><p>《Java编程思想》</p></a></div> <div class="new-meta-item meta-tags"><a class="tag" href="/tags/%E5%90%8E%E7%AB%AF/" rel="nofollow"><i class="fas fa-tag" aria-hidden="true"></i><p>后端</p></a></div>
+
+
+          
+        
+      </div>
+      
+        <hr>
+      
+    </div>
+  </section>
+
+
+    <section class="article typo">
+      <div class="article-entry" itemprop="articleBody">
+        <h2 id="用构造器确保初始化"><a href="#用构造器确保初始化" class="headerlink" title="用构造器确保初始化"></a>用构造器确保初始化</h2><p>在 Java 中，通过提供构造器，类的设计者可确保每个对象都会得到初始化。Java 会保证初始化的进行。<strong>构造器采用与类相同的名称</strong>。</p>
+<ul>
+<li>由于构造器的名称必须与类名完全相同，所以“每个方法首字母小写”的风格在这里不适用。</li>
+<li>构造器方法可以有参数，这样可以在初始化对象时提供实际参数。</li>
+<li>不接受任何参数的构造器叫做“默认构造器”。</li>
+<li>构造器一种特殊类型的方法，<strong>它没有返回值</strong></li>
+</ul>
+<h2 id="方法重载"><a href="#方法重载" class="headerlink" title="方法重载"></a>方法重载</h2><p>因为可以要用多种方式来创建并初始化一个对象，所以就需要多个构造器，而构造器的名称又需要和类名相同，所以必须允许<strong>方法名相同而形式参数不同的构造器</strong>存在，所以 Java 中有<strong>方法重载</strong>。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Rock</span> </span>&#123;</span><br><span class="line">	Rock() &#123;</span><br><span class="line">		<span class="comment">// 默认构造器</span></span><br><span class="line">	&#125;</span><br><span class="line">	Rock(<span class="keyword">int</span> i) &#123;</span><br><span class="line">		<span class="comment">// 带参数的构造器</span></span><br><span class="line">		System.out.println(<span class="string">"i="</span> + i);</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="function"><span class="keyword">void</span> <span class="title">print</span><span class="params">()</span> </span>&#123;</span><br><span class="line">		System.out.println(<span class="string">"i = null"</span>);</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="function"><span class="keyword">void</span> <span class="title">print</span><span class="params">(<span class="keyword">int</span> i)</span> </span>&#123;</span><br><span class="line">		System.out.println(<span class="string">"i = "</span> + i);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 初始化</span></span><br><span class="line">Rock r1 = <span class="keyword">new</span> Rock(); <span class="comment">// 调用默认构造器</span></span><br><span class="line">Rock r2 = <span class="keyword">new</span> Rock(<span class="number">1</span>); <span class="comment">// 调用带参数的构造器</span></span><br><span class="line">r2.print();</span><br><span class="line">r2.print(<span class="number">1</span>);</span><br></pre></td></tr></table></figure>
+
+<h3 id="区分重载方法"><a href="#区分重载方法" class="headerlink" title="区分重载方法"></a>区分重载方法</h3><p><strong>方法签名是由方法名和参数类型列表构成的</strong>，所以用参数类型列表区分重载方法。<strong>不能用返回值区分重载方法</strong></p>
+<h3 id="设计基本类型的重载"><a href="#设计基本类型的重载" class="headerlink" title="设计基本类型的重载"></a>设计基本类型的重载</h3><p>由于基本类型可能会从一个“较小”的类型自动提升为一个“较大”的类型，所以在重载方法中需要特别注意：</p>
+<ul>
+<li>常数值当作<code>int</code>处理</li>
+<li>实参的数据类型小于形参的数据类型时，会自动提升</li>
+<li>对于 char 类型，如果找不到以 char 作为形参的方法的话，会把 char 类型提升成 int 类型</li>
+<li>如果实参大于形参的话，需要显式的强制转换否则会报编译错误</li>
+</ul>
+<h2 id="默认构造器"><a href="#默认构造器" class="headerlink" title="默认构造器"></a>默认构造器</h2><ul>
+<li>默认构造器是一个没有形式参数的构造器，其作用是创建一个“默认对象”</li>
+<li>如果类中没有构造器，编译器会自动创建一个默认构造器</li>
+<li>如果类中已经有了一个构造器了，编译器则不会自动创建默认构造器</li>
+</ul>
+<h2 id="this-关键字"><a href="#this-关键字" class="headerlink" title="this 关键字"></a>this 关键字</h2><p>由于同一类型的对象都可以调用相同的方法，为了在方法中区分不同的对象，会把对象的引用作为参数传递给方法，<code>a.fun(1)</code>在编译器内部会被翻译成<code>ClassName.fun(a, 1)</code>，我们可以通过<code>this</code>关键字在方法中访问到对象的引用。</p>
+<ul>
+<li>在方法内部调用同个类的另一个方法不需要使用<code>this</code>,直接调用即可。</li>
+<li>this 可以在方法内部作为参数传递给另一个方法，也可以作为返回值（可以构造出链式操作）</li>
+</ul>
+<h3 id="在构造器中调用构造器"><a href="#在构造器中调用构造器" class="headerlink" title="在构造器中调用构造器"></a>在构造器中调用构造器</h3><ul>
+<li>可以利用 this 来实现在构造器中调用构造器，这样可以避免重复代码。</li>
+<li>this 在一个构造器中只能调用一次构造器</li>
+<li>必须将构造器置于最开始处，否则编译器会报错</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Flower</span> </span>&#123;</span><br><span class="line">    <span class="keyword">int</span> petalCount = <span class="number">0</span>;</span><br><span class="line">    String s = <span class="string">"initial value"</span>;</span><br><span class="line"></span><br><span class="line">    Flower(<span class="keyword">int</span> petals) &#123;</span><br><span class="line">        petalCount = petals;</span><br><span class="line">        System.out.println(<span class="string">"int arg ,petalCount = "</span> + petalCount);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    Flower(String ss) &#123;</span><br><span class="line">        s = ss;</span><br><span class="line">        System.out.println(<span class="string">"string arg ,s = "</span> + s);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    Flower(String s, <span class="keyword">int</span> petals) &#123;</span><br><span class="line">        <span class="keyword">this</span>(petals);</span><br><span class="line">        <span class="comment">// this 只能调用一次构造器</span></span><br><span class="line">        <span class="keyword">this</span>.s = s;</span><br><span class="line">        System.out.println(<span class="string">"string &amp; int arg, s = "</span> + s + <span class="string">", petalCount = "</span> + petalCount);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    Flower() &#123;</span><br><span class="line">        <span class="keyword">this</span>(<span class="string">"hello"</span>, <span class="number">24</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        Flower flower = <span class="keyword">new</span> Flower();</span><br><span class="line">        System.out.println(<span class="string">"flower.petalCount = "</span> + flower.petalCount);</span><br><span class="line">        System.out.println(<span class="string">"flower.s = "</span> + flower.s);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// int arg ,petalCount = 24</span></span><br><span class="line"><span class="comment">// string &amp; int arg, s = hello, petalCount = 24</span></span><br><span class="line"><span class="comment">// flower.petalCount = 24</span></span><br><span class="line"><span class="comment">// flower.s = hello</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="static-的含义"><a href="#static-的含义" class="headerlink" title="static 的含义"></a>static 的含义</h3><p>static 方法就是没有 this 的方法，在 static 中不能调用非静态方法，但是反过来可以。</p>
+<h2 id="清理：终结处理和垃圾回收"><a href="#清理：终结处理和垃圾回收" class="headerlink" title="清理：终结处理和垃圾回收"></a>清理：终结处理和垃圾回收</h2><ol>
+<li>对象可能不会被垃圾回收</li>
+<li>垃圾回收不等于“析构”<ol>
+<li>Java 未提供“析构函数”或相似的概念，要做类似的清理工作，必须手动创建一下执行清理工作的普通方法</li>
+</ol>
+</li>
+<li>垃圾回收只与内存有关<ol>
+<li>对与垃圾回收有关的任何行为来说（尤其是 finalize() 方法），它们必须同内存及其回收相关</li>
+<li>finalize() 的需求通常是用于一种特殊情况，即通过某种创建对象方式以外的方式为对象分配了存储空间，这种情况主要发生在使用了“本地方法”的情况下，本地方法是一种在 Java 中调用非 Java 代码的方式。如在非 Java 代码中调用了 malloc，为了释放内存，我们需要在 finalize() 中调用对应的本地方法进行 free。</li>
+<li>finalize() 方法的执行机制：<strong>一旦垃圾回收器准备释放对象占用的存储空间，首先调用其 finalize() 方法，并且在下一次垃圾回收动作发生时，才会真正回收对象占用的内存。</strong></li>
+</ol>
+</li>
+</ol>
+<h3 id="你必须实施清理"><a href="#你必须实施清理" class="headerlink" title="你必须实施清理"></a>你必须实施清理</h3><p>Java 中没有用于释放对象的 delete，因为垃圾回收器会自动帮你释放存储空间，因此 Java 中没有析构函数。<strong>但是垃圾回收不能完全代替析构函数</strong>，如果希望进行除释放存储空间之外的清理工作，我们需要明确调用某个 Java 方法。例如某个类打开了一个文件，垃圾回收不能自动帮我们关闭这个文件。为什么这个工作不能有 finalize() 方法来完成呢，原因其实在上面已经说明了，<strong>对象可能不会被垃圾回收</strong>，也就是说 finalize() 方法可能永远都不会被调用。</p>
+<p>如果 JVM 没有面临内存耗尽的情况，它是不会浪费时间去执行垃圾回收以恢复内存的。</p>
+<h3 id="终结条件"><a href="#终结条件" class="headerlink" title="终结条件"></a>终结条件</h3><p>虽然我们不能用 finalize() 方法来进行“清理”，但是我们可以利用它验证某个对象的终结条件。还是刚才那个打开文件的例子，假设在文件没有关闭的时候，垃圾回收将对象回收了，这就会产生一些非常难找的 bug。而 finalize() 可以帮助我们发现这种 bug。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Book</span> </span>&#123;</span><br><span class="line">    <span class="keyword">boolean</span> checkedOut = <span class="keyword">false</span>;</span><br><span class="line">    Book(<span class="keyword">boolean</span> checkOut) &#123;</span><br><span class="line">        checkedOut = checkOut;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">checkIn</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        checkedOut = <span class="keyword">false</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title">finalize</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (checkedOut) &#123;</span><br><span class="line">            System.out.println(<span class="string">"Error: checked out"</span>);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="comment">// super.finalize();</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">TerminationCondition</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        Book novel = <span class="keyword">new</span> Book(<span class="keyword">true</span>);</span><br><span class="line">        novel.checkIn();</span><br><span class="line">        <span class="keyword">new</span> Book(<span class="keyword">true</span>);</span><br><span class="line">        System.gc();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// Error: checked out</span></span><br></pre></td></tr></table></figure>
+
+<p>如上面这个例子，我们希望 Book 在被回收前已经 checkIn 了，所以我们在 finalize() 中写了一个条件语句来判断。</p>
+<ul>
+<li><code>System.gc()</code>强制 GC</li>
+<li>应该总是假设基类的 finalize() 也需要做某些时间，所以我们应该在 finalize() 函数的末尾加入 <code>super.finalize();</code></li>
+</ul>
+<h3 id="垃圾回收器如何工作"><a href="#垃圾回收器如何工作" class="headerlink" title="垃圾回收器如何工作"></a>垃圾回收器如何工作</h3><p>垃圾回收器会提高对象在堆上创建的速度，这是因为 Java 的堆的实现与 C++ 的不同，其更像是一个传送带，每分配一个对象，它就往前移动一格，所以“堆指针” 只是简单的移动到尚未分配的空间，这意味 Java 中在堆上的分配速度非常快。当然，如果只是简单的像传送带一样工作的话，Java 的堆会占用大量的虚拟内存，进而导致频繁的页面调度，并可能会导致内存资源耗尽，因此需要有垃圾回收器的介入。垃圾回收会一边回收空间一边对堆进行“紧凑”操作。</p>
+<p>几种常见的垃圾回收机制：</p>
+<ul>
+<li>引用计数：一种简单但比较慢的垃圾回收机制。<ul>
+<li>每个对象都有一个引用计数器，当引用连接对象时，引用计数加一，当引用离开作用域或被置 null 时，引用计数减一。</li>
+<li>这种方法无法处理“循环引用”的情况。</li>
+</ul>
+</li>
+<li>停止-复制（stop-and-copy)：<ul>
+<li>其依据的思想是：对任何“活”的对象，一定能最终追溯到其存活在堆栈或静态存储区域之中。因此，可以从堆栈和静态存储区开始，遍历所有的引用，并递归查找该对象所包含的所有对象，即可找到所有“活”的对象。</li>
+<li>该机制会先暂停程序的运行，然后将所有存活的对象从当前堆复制到另一个堆，然后更新引用</li>
+<li>当对象被复制到新的堆中时，没复制的则相当于被回收了，同时可以实现“紧凑”的目标。</li>
+<li>该机制会有以下两个缺点：<ul>
+<li>需要两个堆，进而需要维护比之前大一倍的空间</li>
+<li>如果只有少量垃圾甚至没有垃圾，而这时如果进行垃圾回收的话，开销太大了。</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>标记-清扫（mark-and-sweep)：<ul>
+<li>与 stop-and-copy 机制依据的思想是一样的也是，用同样的方式找到“活”的对象</li>
+<li>每当它找到一个“活”的对象，就会给该对象一个标记，这个过程中不会回收任何对象。只有当全部标记工作完成时，才会进行清理。</li>
+<li>清理的过程中，没有被标记的对象被释放，但<strong>不会做任何复制动作</strong>。</li>
+<li>为了避免存储空间的“碎片化”，JVM 需要做紧凑操作</li>
+</ul>
+</li>
+</ul>
+<p>JVM 中采用的垃圾回收机制：</p>
+<ul>
+<li>一种结合的 stop-and-copy 和 mark-and-sweep 的自适应垃圾回收算法</li>
+<li>内存分配以较大的“快”作为单位，较大的对象可以独占一个块。每个块都有相应的代数（generation count）来记录它是否存活。</li>
+<li>垃圾回收会对上次回收操作之后新分配的快进行整理，这样有助于解决有大量短命对象的情况。</li>
+<li>垃圾回收机制会定期进行完整的清理——大型对象仍然不会被复制（只是其代数会增加），而那些含有大量小型对象的快会被复制并整理。</li>
+<li>当只有少量或没有垃圾产生时，则转为使用 mark-and-sweep 算法。</li>
+</ul>
+<p>Java 中 JIT（Just-In-Time）技术：</p>
+<p>这种技术可以把程序全部或部分翻译成本地机器码，而不是通过 JVM，进而提升程序的运行速度。</p>
+<p>当需要装载某个类时（第一次创建这个类时），编译器会找到其.class 文件，然后将该类的字节码装入内存，此时有两种做法：</p>
+<ul>
+<li>JIT 直接编译所有代码，但这个做法会有两个缺点：<ul>
+<li>加载动作分散在整个程序中，累加起来要话更多时间</li>
+<li>可能会增加可执行代码的长度，进而导致页面调度</li>
+</ul>
+</li>
+<li>惰性评估（lazy evaluation）：，即 JIT 只在必要时才编译，这样不会执行的代码就不会被 JIT 所编译。</li>
+</ul>
+<h2 id="成员初始化"><a href="#成员初始化" class="headerlink" title="成员初始化"></a>成员初始化</h2><p><strong>Java 尽力保证：所有变量在使用前都能得到适当的初始化。</strong></p>
+<p>局部变量没有默认初始值，如有在未初始化前使用它会报错编译错误，而类变量则有默认初始值。</p>
+<h3 id="指定初始化"><a href="#指定初始化" class="headerlink" title="指定初始化"></a>指定初始化</h3><p>Java 允许在定义类成员变量的时候为其赋值进行初始化。非基本类型也可以，同时可以使用已经函数或已经初始化好的变量进行初始化，但要保证初始化顺序的正确。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">InitialValues</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">boolean</span> t = <span class="keyword">false</span>;</span><br><span class="line">	<span class="keyword">char</span> c = <span class="string">'a'</span>;</span><br><span class="line">	<span class="keyword">byte</span> b = <span class="number">1</span>;</span><br><span class="line">	<span class="keyword">short</span> s = <span class="number">2</span>;</span><br><span class="line">	<span class="keyword">int</span> i = func(s);</span><br><span class="line">	<span class="keyword">long</span> l = <span class="number">4</span> + i;</span><br><span class="line">	<span class="keyword">float</span> f = (<span class="keyword">float</span>)<span class="number">5.0</span>; <span class="comment">// 浮点数字面量是 double 类型的</span></span><br><span class="line">	<span class="keyword">double</span> d = <span class="number">6.0</span>;</span><br><span class="line">	String reference = <span class="keyword">new</span> String(<span class="string">"hello world"</span>); <span class="comment">// 非基本类型也可以</span></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">func</span><span class="params">(<span class="keyword">short</span> s)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> s*<span class="number">2</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="构造器初始化"><a href="#构造器初始化" class="headerlink" title="构造器初始化"></a>构造器初始化</h2><ul>
+<li>无法阻止自动初始化的进行，它将在构造器之前执行。</li>
+<li>类变量的定义顺序决定了初始化的顺序</li>
+<li>静态数据的默认值与类变量一致</li>
+<li>对于静态变量，Java 可以将多个初始化语句组合成一个静态块，其和静态变量初始化一样在类加载时执行。顺序与定义时的顺序相同</li>
+<li>对于非静态变量，Java 中也可以将多个初始化语句组成一个块，在实例初始化执行。</li>
+<li>对于以上两种块，既可以可以把它当成一条初始化语句来看待。</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">InitialValues</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">boolean</span> t = <span class="keyword">false</span>;</span><br><span class="line">	<span class="keyword">char</span> c = <span class="string">'a'</span>;</span><br><span class="line">	<span class="keyword">byte</span> b = <span class="number">1</span>;</span><br><span class="line">	<span class="keyword">short</span> s = <span class="number">2</span>;</span><br><span class="line">	<span class="keyword">int</span> i = <span class="number">3</span>;</span><br><span class="line">	<span class="keyword">long</span> l = <span class="number">4</span>;</span><br><span class="line">	<span class="keyword">float</span> f;</span><br><span class="line">	<span class="keyword">double</span> d;</span><br><span class="line">	String reference;</span><br><span class="line"></span><br><span class="line">	&#123;</span><br><span class="line">		f = (<span class="keyword">float</span>) <span class="number">1.0</span>;</span><br><span class="line">		d = <span class="number">2</span>*f;</span><br><span class="line">		reference = <span class="keyword">new</span> String(<span class="string">"hello"</span>);</span><br><span class="line">		reference = reference + f + d;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">static</span> &#123;</span><br><span class="line">		System.out.println(<span class="string">"hello"</span>);</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">static</span> <span class="keyword">int</span> a;</span><br><span class="line">	<span class="keyword">static</span> &#123;</span><br><span class="line">		System.out.println(<span class="string">"A is "</span> + a);</span><br><span class="line">		a = <span class="number">2</span>;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>对象的创建过程：</p>
+<ol>
+<li>第一次创建类或者访问其静态数据或方法，JVM 会加载其 .class 文件，此时执行所有静态初始化（按定义的顺序执行）。</li>
+<li>当 new 该类时，首先会在堆上分配空间，因为堆在分配前被置零了，所以本类型的默认值都是 0，非基本类型的引用的默认值则是 null。</li>
+<li>按顺序执行非静态的初始化</li>
+<li>执行构造器</li>
+</ol>
+<h2 id="数组初始化"><a href="#数组初始化" class="headerlink" title="数组初始化"></a>数组初始化</h2><p>数组是同类型的、用一个标识符名称封装到一起的一个对象序列或基本类型数据序列。</p>
+<p>定义方式：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">int</span>[] a; <span class="comment">//建议使用这种</span></span><br><span class="line"><span class="keyword">int</span> a[]; <span class="comment">//这样也可以， 但是不能指定数组的类型。`int a[3];` 这样是不允许的</span></span><br></pre></td></tr></table></figure>
+
+<p><code>int[] a;</code>这样只是定义了一个数组的引用，我们可以使用<code>new</code>来创建一个数组，也可以直接初始化数组：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">int</span>[] a = <span class="keyword">new</span> <span class="keyword">int</span>[<span class="number">3</span>]; <span class="comment">// 使用 new 来创建一个数组，这时真实数据会分配在堆中，所以默认值都为“零”</span></span><br><span class="line"><span class="keyword">int</span>[] b = &#123;<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>&#125;; <span class="comment">// 直接初始化一个长度为3的数组</span></span><br><span class="line">Integer[] c = <span class="keyword">new</span> Integer[<span class="number">3</span>]; <span class="comment">// 创建一个对象数组，保存引用，这时初始值都为 null</span></span><br><span class="line">Random rand = <span class="keyword">new</span> Random(<span class="number">2</span>);</span><br><span class="line"><span class="keyword">int</span> len = rand.nextInt(<span class="number">20</span>);</span><br><span class="line"><span class="keyword">int</span>[] c = <span class="keyword">new</span> <span class="keyword">int</span>[len]; <span class="comment">// 长度不一定要是一个字面值，可以是变量</span></span><br></pre></td></tr></table></figure>
+
+<p>数组初始化的坑点：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">InitialValues initialValues = <span class="keyword">new</span> InitialValues();</span><br><span class="line">initialValues.printInitialValues();</span><br><span class="line">String[] stringArray = &#123;<span class="string">"hello"</span>, <span class="string">"world"</span>&#125;;</span><br><span class="line"><span class="comment">// initialValues.printStringArrary(&#123;"hello", "world"&#125;); // 编译错误</span></span><br><span class="line">initialValues.printStringArrary(stringArray);</span><br><span class="line">initialValues.printStringArrary(<span class="keyword">new</span> String[]&#123;<span class="string">"hello"</span>, <span class="string">"world"</span>&#125;); <span class="comment">//正确打开方式</span></span><br><span class="line"><span class="keyword">int</span>[] intArray = &#123;<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>&#125;;</span><br><span class="line"><span class="comment">// initialValues.printIntArray(&#123;1, 2, 3, 4&#125;); // 编译错误</span></span><br><span class="line">initialValues.printIntArray(intArray);</span><br><span class="line">initialValues.printIntArray(<span class="keyword">new</span> <span class="keyword">int</span>[]&#123;<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>&#125;);</span><br></pre></td></tr></table></figure>
+
+<h2 id="可变参数列表"><a href="#可变参数列表" class="headerlink" title="可变参数列表"></a>可变参数列表</h2><p>在方法中，用<code>ClassName... ArgName</code>的形式可以定义可变参数列表，在方法中，ArgName 本质上是一个数组。在可变列表中可以使用任何类型，包括基础类型。这里传入基本类型时，没有依赖自动装包和解包，这意味着，ClassName 为 int 时，ArgName 是一个 int[]，而不是 Integer。<strong>在重载方法时，应该只在一个方法中使用可变参数列表</strong></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">static</span> <span class="keyword">void</span> <span class="title">printArray</span><span class="params">(Object... args)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">for</span>(Object arg: args) &#123;</span><br><span class="line">        System.out.print(arg + <span class="string">" "</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    System.out.println();</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">static</span> <span class="keyword">void</span> <span class="title">f</span><span class="params">(<span class="keyword">int</span> required, <span class="keyword">int</span>... args)</span> </span>&#123;</span><br><span class="line">    System.out.println(<span class="string">"Required: "</span> + required);</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i: args) &#123;</span><br><span class="line">        System.out.print(i + <span class="string">" "</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    System.out.println();</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">    printArray(<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>, <span class="number">5</span>);</span><br><span class="line">    f(<span class="number">1</span>);</span><br><span class="line">    f(<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>);</span><br><span class="line">    Integ</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="枚举类型"><a href="#枚举类型" class="headerlink" title="枚举类型"></a>枚举类型</h2><ul>
+<li>按照命名习惯，枚举值一般用全大写字母</li>
+<li>为了使用 enum，需要创建一个该类型的引用</li>
+<li>enum 会自动创建一些实用的函数，如<code>toString()</code>显示其名称，<code>ordinal()</code>表示声明顺序</li>
+<li>enum 适合与 switch 一起使用</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">enum</span> EnumDemo &#123;</span><br><span class="line">	HELLO, WORLD, </span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">EnumDemo e1 = EnumDemo.HELLO;</span><br><span class="line">System.out.println(e1); <span class="comment">// 自动调用toString()</span></span><br><span class="line">System.out.println(e1.ordinal());</span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span>(EnumDemo e: EnumDemo.values()) &#123;</span><br><span class="line">    System.out.println(<span class="string">"EnumDemo: "</span> + e + <span class="string">" ordinal "</span> + e.ordinal());</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// HELLO</span></span><br><span class="line"><span class="comment">// 0</span></span><br><span class="line"><span class="comment">// EnumDemo: HELLO ordinal 0</span></span><br><span class="line"><span class="comment">// EnumDemo: WORLD ordinal 1</span></span><br></pre></td></tr></table></figure>
+      </div>
+      
+        <br>
+        <p>本文首发于<a href="blog.wuxiaobai24" target="_blank" rel="noopener">Code &amp; Fun</a></p>
+
+      
+      
+        <br>
+        
+
+
+  <section class='meta' id="footer-meta">
+    <div class='new-meta-box'>
+      
+        
+          <div class="new-meta-item date" itemprop="dateUpdated" datetime="2020-04-02T14:43:48+00:00">
+  <a class='notlink'>
+    <i class="fas fa-clock" aria-hidden="true"></i>
+    <p>更新于 2020年4月2日</p>
+  </a>
+</div>
+
+        
+      
+        
+          
+  
+  <div class="new-meta-item meta-tags"><a class="tag" href="/tags/Java/" rel="nofollow"><i class="fas fa-tag" aria-hidden="true"></i><p>Java</p></a></div> <div class="new-meta-item meta-tags"><a class="tag" href="/tags/%E9%98%85%E8%AF%BB%E7%AC%94%E8%AE%B0/" rel="nofollow"><i class="fas fa-tag" aria-hidden="true"></i><p>阅读笔记</p></a></div> <div class="new-meta-item meta-tags"><a class="tag" href="/tags/%E3%80%8AJava%E7%BC%96%E7%A8%8B%E6%80%9D%E6%83%B3%E3%80%8B/" rel="nofollow"><i class="fas fa-tag" aria-hidden="true"></i><p>《Java编程思想》</p></a></div> <div class="new-meta-item meta-tags"><a class="tag" href="/tags/%E5%90%8E%E7%AB%AF/" rel="nofollow"><i class="fas fa-tag" aria-hidden="true"></i><p>后端</p></a></div>
+
+
+        
+      
+    </div>
+  </section>
+
+
+      
+      
+          <div class="prev-next">
+              
+                  <section class="prev">
+                      <span class="art-item-left">
+                          <h6><i class="fas fa-chevron-left" aria-hidden="true"></i>&nbsp;上一页</h6>
+                          <h4>
+                              <a href="/2020/02/10/Flutter-%E5%AE%89%E8%A3%85%E8%AE%B0%E5%BD%95/" rel="prev" title="Flutter 安装记录">
+                                
+                                    Flutter 安装记录
+                                
+                              </a>
+                          </h4>
+                          
+                              
+                              <h6 class="tags">
+                                  <a class="tag" href="/tags/Flutter/"><i class="fas fa-tag fa-fw" aria-hidden="true"></i> Flutter</a> <a class="tag" href="/tags/%E8%B8%A9%E5%9D%91%E8%AE%B0%E5%BD%95/"><i class="fas fa-tag fa-fw" aria-hidden="true"></i> 踩坑记录</a>
+                              </h6>
+                          
+                      </span>
+                  </section>
+              
+              
+                  <section class="next">
+                      <span class="art-item-right" aria-hidden="true">
+                          <h6>下一页&nbsp;<i class="fas fa-chevron-right" aria-hidden="true"></i></h6>
+                          <h4>
+                              <a href="/2020/02/09/%E3%80%8A-Java-%E7%BC%96%E7%A8%8B%E6%80%9D%E6%83%B3%E3%80%8BCH04-%E6%8E%A7%E5%88%B6%E6%89%A7%E8%A1%8C%E6%B5%81%E7%A8%8B/" rel="prev" title="《 Java 编程思想》CH04 控制执行流程">
+                                  
+                                      《 Java 编程思想》CH04 控制执行流程
+                                  
+                              </a>
+                          </h4>
+                          
+                              
+                              <h6 class="tags">
+                                  <a class="tag" href="/tags/Java/"><i class="fas fa-tag fa-fw" aria-hidden="true"></i> Java</a> <a class="tag" href="/tags/%E9%98%85%E8%AF%BB%E7%AC%94%E8%AE%B0/"><i class="fas fa-tag fa-fw" aria-hidden="true"></i> 阅读笔记</a> <a class="tag" href="/tags/%E3%80%8AJava%E7%BC%96%E7%A8%8B%E6%80%9D%E6%83%B3%E3%80%8B/"><i class="fas fa-tag fa-fw" aria-hidden="true"></i> 《Java编程思想》</a> <a class="tag" href="/tags/%E5%90%8E%E7%AB%AF/"><i class="fas fa-tag fa-fw" aria-hidden="true"></i> 后端</a>
+                              </h6>
+                          
+                      </span>
+                  </section>
+              
+          </div>
+      
+    </section>
+  </article>
+
+
+  
+    
+  
+    
+  
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+          
+  <section class='widget related_posts'>
+    
+<header class='pure'>
+  <div><i class="fas fa-bookmark fa-fw" aria-hidden="true"></i>&nbsp;&nbsp;相关文章</div>
+  
+</header>
+
+    <div class="content pure">
+      <ul class="popular-posts"><li class="popular-posts-item"><div class="popular-posts-title"><h3><a href="/2020/02/06/《-Java-编程思想》CH01-对象的概念/" title="《 Java 编程思想》CH01 对象的概念" rel="bookmark">《 Java 编程思想》CH01 对象的概念</a></h3></div></li><li class="popular-posts-item"><div class="popular-posts-title"><h3><a href="/2020/02/08/《-Java-编程思想》CH02-一切都是对象/" title="《 Java 编程思想》CH02 一切都是对象" rel="bookmark">《 Java 编程思想》CH02 一切都是对象</a></h3></div></li><li class="popular-posts-item"><div class="popular-posts-title"><h3><a href="/2020/02/08/《-Java-编程思想》CH03-操作符/" title="《 Java 编程思想》CH03 操作符" rel="bookmark">《 Java 编程思想》CH03 操作符</a></h3></div></li><li class="popular-posts-item"><div class="popular-posts-title"><h3><a href="/2020/02/09/《-Java-编程思想》CH04-控制执行流程/" title="《 Java 编程思想》CH04 控制执行流程" rel="bookmark">《 Java 编程思想》CH04 控制执行流程</a></h3></div></li><li class="popular-posts-item"><div class="popular-posts-title"><h3><a href="/2020/02/14/《-Java-编程思想》CH06-访问权限控制/" title="《 Java 编程思想》CH06 访问权限控制" rel="bookmark">《 Java 编程思想》CH06 访问权限控制</a></h3></div></li><li class="popular-posts-item"><div class="popular-posts-title"><h3><a href="/2020/02/15/《-Java-编程思想》CH07-复用类/" title="《 Java 编程思想》CH07 复用类" rel="bookmark">《 Java 编程思想》CH07 复用类</a></h3></div></li><li class="popular-posts-item"><div class="popular-posts-title"><h3><a href="/2020/02/18/《-Java-编程思想》CH08-多态/" title="《 Java 编程思想》CH08 多态" rel="bookmark">《 Java 编程思想》CH08 多态</a></h3></div></li><li class="popular-posts-item"><div class="popular-posts-title"><h3><a href="/2020/02/19/《-Java-编程思想》CH09-接口/" title="《 Java 编程思想》CH09 接口" rel="bookmark">《 Java 编程思想》CH09 接口</a></h3></div></li></ul>
+    </div>
+  </section>
+
+
+        
+      
+    
+  
+
+
+  <!-- 显示推荐文章和评论 -->
+
+
+
+  
+
+
+
+
+
+
+<!-- 根据页面mathjax变量决定是否加载MathJax数学公式js -->
+
+
+
+  <script>
+    window.subData = {
+      title: '《 Java 编程思想》CH05 初始化与清理',
+      tools: true
+    }
+  </script>
+
+
+</div>
+<aside class='l_side'>
+  
+    
+    
+      
+      
+        
+          
+          
+            
+              <section class='widget author'>
+  <div class='content pure'>
+    
+      <div class='avatar'>
+        <img class='avatar' src='/assets/img/avatar.jpeg'/>
+      </div>
+    
+    
+    
+      <div class="social-wrapper">
+        
+          
+            <a href="/atom.xml"
+              class="social fas fa-rss flat-btn"
+              target="_blank"
+              rel="external nofollow noopener noreferrer">
+            </a>
+          
+        
+          
+            <a href="wuxiaobai24:wuxiaobai24@foxmail.com"
+              class="social fas fa-envelope flat-btn"
+              target="_blank"
+              rel="external nofollow noopener noreferrer">
+            </a>
+          
+        
+          
+            <a href="https://github.com/wuxiaobai24"
+              class="social fab fa-github flat-btn"
+              target="_blank"
+              rel="external nofollow noopener noreferrer">
+            </a>
+          
+        
+      </div>
+    
+  </div>
+</section>
+
+            
+          
+        
+          
+          
+        
+          
+          
+        
+          
+          
+        
+          
+          
+        
+      
+        
+          
+          
+        
+          
+          
+            
+              
+  <section class='widget toc-wrapper'>
+    
+<header class='pure'>
+  <div><i class="fas fa-list fa-fw" aria-hidden="true"></i>&nbsp;&nbsp;本文目录</div>
+  
+    <!-- <div class='wrapper'><a class="s-toc rightBtn" rel="external nofollow noopener noreferrer" href="javascript:void(0)"><i class="fas fa-thumbtack fa-fw"></i></a></div> -->
+  
+</header>
+
+    <div class='content pure'>
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#用构造器确保初始化"><span class="toc-text">用构造器确保初始化</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#方法重载"><span class="toc-text">方法重载</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#区分重载方法"><span class="toc-text">区分重载方法</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#设计基本类型的重载"><span class="toc-text">设计基本类型的重载</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#默认构造器"><span class="toc-text">默认构造器</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#this-关键字"><span class="toc-text">this 关键字</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#在构造器中调用构造器"><span class="toc-text">在构造器中调用构造器</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#static-的含义"><span class="toc-text">static 的含义</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#清理：终结处理和垃圾回收"><span class="toc-text">清理：终结处理和垃圾回收</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#你必须实施清理"><span class="toc-text">你必须实施清理</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#终结条件"><span class="toc-text">终结条件</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#垃圾回收器如何工作"><span class="toc-text">垃圾回收器如何工作</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#成员初始化"><span class="toc-text">成员初始化</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#指定初始化"><span class="toc-text">指定初始化</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#构造器初始化"><span class="toc-text">构造器初始化</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#数组初始化"><span class="toc-text">数组初始化</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#可变参数列表"><span class="toc-text">可变参数列表</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#枚举类型"><span class="toc-text">枚举类型</span></a></li></ol>
+    </div>
+  </section>
+
+
+            
+          
+        
+          
+          
+        
+          
+          
+        
+          
+          
+        
+      
+        
+          
+          
+        
+          
+          
+        
+          
+          
+            
+              
+  <section class='widget category'>
+    
+<header class='pure'>
+  <div><i class="fas fa-folder-open fa-fw" aria-hidden="true"></i>&nbsp;&nbsp;文章分类</div>
+  
+    <a class="rightBtn"
+    
+      rel="nofollow"
+    
+    
+    href="/categories/"
+    title="categories/">
+    <i class="fas fa-expand-arrows-alt fa-fw"></i></a>
+  
+</header>
+
+    <div class='content pure'>
+      <ul class="entry">
+        
+          <li><a class="flat-box" title="/categories/DevOps/" href="/categories/DevOps/"><div class='name'>DevOps</div><div class='badge'>(2)</div></a></li>
+        
+          <li><a class="flat-box" title="/categories/Flutter-%E5%AD%A6%E4%B9%A0/" href="/categories/Flutter-%E5%AD%A6%E4%B9%A0/"><div class='name'>Flutter 学习</div><div class='badge'>(1)</div></a></li>
+        
+          <li><a class="flat-box" title="/categories/LeetCode/" href="/categories/LeetCode/"><div class='name'>LeetCode</div><div class='badge'>(185)</div></a></li>
+        
+          <li><a class="flat-box" title="/categories/LintCode/" href="/categories/LintCode/"><div class='name'>LintCode</div><div class='badge'>(1)</div></a></li>
+        
+          <li><a class="flat-box" title="/categories/Machine-Learning/" href="/categories/Machine-Learning/"><div class='name'>Machine-Learning</div><div class='badge'>(1)</div></a></li>
+        
+          <li><a class="flat-box" title="/categories/Note/" href="/categories/Note/"><div class='name'>Note</div><div class='badge'>(1)</div></a></li>
+        
+          <li><a class="flat-box" title="/categories/Reading/" href="/categories/Reading/"><div class='name'>Reading</div><div class='badge'>(1)</div></a></li>
+        
+          <li><a class="flat-box" title="/categories/%E3%80%8AJava%E7%BC%96%E7%A8%8B%E6%80%9D%E6%83%B3%E3%80%8B/" href="/categories/%E3%80%8AJava%E7%BC%96%E7%A8%8B%E6%80%9D%E6%83%B3%E3%80%8B/"><div class='name'>《Java编程思想》</div><div class='badge'>(9)</div></a></li>
+        
+          <li><a class="flat-box" title="/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/" href="/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/"><div class='name'>数据结构</div><div class='badge'>(1)</div></a></li>
+        
+          <li><a class="flat-box" title="/categories/%E6%9D%82%E4%BA%8B%E4%B8%80%E5%A0%86/" href="/categories/%E6%9D%82%E4%BA%8B%E4%B8%80%E5%A0%86/"><div class='name'>杂事一堆</div><div class='badge'>(4)</div></a></li>
+        
+          <li><a class="flat-box" title="/categories/%E7%AE%97%E6%B3%95/" href="/categories/%E7%AE%97%E6%B3%95/"><div class='name'>算法</div><div class='badge'>(1)</div></a></li>
+        
+          <li><a class="flat-box" title="/categories/%E7%AE%97%E6%B3%95%E5%AE%9E%E7%8E%B0/" href="/categories/%E7%AE%97%E6%B3%95%E5%AE%9E%E7%8E%B0/"><div class='name'>算法实现</div><div class='badge'>(1)</div></a></li>
+        
+      </ul>
+    </div>
+  </section>
+
+
+            
+          
+        
+          
+          
+        
+          
+          
+        
+      
+        
+          
+          
+        
+          
+          
+        
+          
+          
+        
+          
+          
+            
+              
+  <section class='widget tagcloud'>
+    
+<header class='pure'>
+  <div><i class="fas fa-tags fa-fw" aria-hidden="true"></i>&nbsp;&nbsp;热门标签</div>
+  
+    <a class="rightBtn"
+    
+      rel="nofollow"
+    
+    
+    href="/tags/"
+    title="tags/">
+    <i class="fas fa-expand-arrows-alt fa-fw"></i></a>
+  
+</header>
+
+    <div class='content pure'>
+      <a href="/tags/Array/" style="font-size: 14px; color: #999">Array</a> <a href="/tags/BFS/" style="font-size: 14px; color: #999">BFS</a> <a href="/tags/Bit-Manipulation/" style="font-size: 14px; color: #999">Bit-Manipulation</a> <a href="/tags/CI-CD/" style="font-size: 15.11px; color: #919191">CI/CD</a> <a href="/tags/ChromeOS/" style="font-size: 14px; color: #999">ChromeOS</a> <a href="/tags/Chromebook/" style="font-size: 14px; color: #999">Chromebook</a> <a href="/tags/DP/" style="font-size: 19.56px; color: #737373">DP</a> <a href="/tags/Design/" style="font-size: 14px; color: #999">Design</a> <a href="/tags/Drone/" style="font-size: 14px; color: #999">Drone</a> <a href="/tags/FSM/" style="font-size: 14px; color: #999">FSM</a> <a href="/tags/Flutter/" style="font-size: 14px; color: #999">Flutter</a> <a href="/tags/Gitea/" style="font-size: 14px; color: #999">Gitea</a> <a href="/tags/Hash/" style="font-size: 14px; color: #999">Hash</a> <a href="/tags/Hexo/" style="font-size: 15.11px; color: #919191">Hexo</a> <a href="/tags/Java/" style="font-size: 21.78px; color: #646464">Java</a> <a href="/tags/LeetCode/" style="font-size: 24px; color: #555">LeetCode</a> <a href="/tags/Linked-List/" style="font-size: 14px; color: #999">Linked List</a> <a href="/tags/Linked-List/" style="font-size: 15.11px; color: #919191">Linked-List</a> <a href="/tags/LinkedList/" style="font-size: 15.11px; color: #919191">LinkedList</a> <a href="/tags/LintCode/" style="font-size: 14px; color: #999">LintCode</a> <a href="/tags/List/" style="font-size: 14px; color: #999">List</a> <a href="/tags/ListNode/" style="font-size: 14px; color: #999">ListNode</a> <a href="/tags/Machine-Learning/" style="font-size: 14px; color: #999">Machine-Learning</a> <a href="/tags/OpenGL/" style="font-size: 14px; color: #999">OpenGL</a> <a href="/tags/Queues/" style="font-size: 14px; color: #999">Queues</a> <a href="/tags/Reading/" style="font-size: 14px; color: #999">Reading</a> <a href="/tags/Search/" style="font-size: 14px; color: #999">Search</a> <a href="/tags/Stack/" style="font-size: 20.67px; color: #6c6c6c">Stack</a> <a href="/tags/String/" style="font-size: 17.33px; color: #828282">String</a> <a href="/tags/Tree/" style="font-size: 22.89px; color: #5d5d5d">Tree</a> <a href="/tags/blog/" style="font-size: 14px; color: #999">blog</a> <a href="/tags/note/" style="font-size: 14px; color: #999">note</a> <a href="/tags/sort/" style="font-size: 15.11px; color: #919191">sort</a> <a href="/tags/%E3%80%8AJava%E7%BC%96%E7%A8%8B%E6%80%9D%E6%83%B3%E3%80%8B/" style="font-size: 21.78px; color: #646464">《Java编程思想》</a> <a href="/tags/%E4%B8%B2/" style="font-size: 18.44px; color: #7b7b7b">串</a> <a href="/tags/%E4%BA%8C%E5%8F%89%E6%A0%91/" style="font-size: 16.22px; color: #8a8a8a">二叉树</a> <a href="/tags/%E5%88%86%E6%B2%BB%E6%B3%95/" style="font-size: 14px; color: #999">分治法</a> <a href="/tags/%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/" style="font-size: 20.67px; color: #6c6c6c">动态规划</a> <a href="/tags/%E5%90%8E%E7%AB%AF/" style="font-size: 21.78px; color: #646464">后端</a> <a href="/tags/%E5%9B%BE/" style="font-size: 14px; color: #999">图</a> <a href="/tags/%E5%BE%AA%E7%8E%AF%E9%93%BE%E8%A1%A8%EF%BC%8C%E5%8F%8C%E5%90%91%E9%93%BE%E8%A1%A8%EF%BC%8C%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/" style="font-size: 14px; color: #999">循环链表，双向链表，数据结构</a> <a href="/tags/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/" style="font-size: 14px; color: #999">机器学习</a> <a href="/tags/%E6%9D%82%E4%BA%8B%E4%B8%80%E5%A0%86/" style="font-size: 14px; color: #999">杂事一堆</a> <a href="/tags/%E6%9F%A5%E6%89%BE/" style="font-size: 14px; color: #999">查找</a> <a href="/tags/%E7%AE%97%E6%B3%95/" style="font-size: 16.22px; color: #8a8a8a">算法</a> <a href="/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%9B%BE%E5%BD%A2%E5%AD%A6/" style="font-size: 14px; color: #999">计算机图形学</a> <a href="/tags/%E8%B8%A9%E5%9D%91%E8%AE%B0%E5%BD%95/" style="font-size: 14px; color: #999">踩坑记录</a> <a href="/tags/%E9%93%BE%E8%A1%A8/" style="font-size: 17.33px; color: #828282">链表</a> <a href="/tags/%E9%98%85%E8%AF%BB%E7%AC%94%E8%AE%B0/" style="font-size: 21.78px; color: #646464">阅读笔记</a>
+    </div>
+  </section>
+
+
+            
+          
+        
+          
+          
+        
+      
+    
+
+  
+</aside>
+
+<footer id="footer" class="clearfix">
+  
+  
+    <div class="social-wrapper">
+      
+        
+          <a href="/atom.xml"
+            class="social fas fa-rss flat-btn"
+            target="_blank"
+            rel="external nofollow noopener noreferrer">
+          </a>
+        
+      
+        
+          <a href="wuxiaobai24:wuxiaobai24@foxmail.com"
+            class="social fas fa-envelope flat-btn"
+            target="_blank"
+            rel="external nofollow noopener noreferrer">
+          </a>
+        
+      
+        
+          <a href="https://github.com/wuxiaobai24"
+            class="social fab fa-github flat-btn"
+            target="_blank"
+            rel="external nofollow noopener noreferrer">
+          </a>
+        
+      
+    </div>
+  
+  <br>
+  <div><p>博客内容遵循 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" target="_blank" rel="noopener">署名-非商业性使用-相同方式共享 4.0 国际 (CC BY-NC-SA 4.0) 协议</a></p>
+</div>
+  <div>
+    本站使用
+    <a href="https://xaoxuu.com/wiki/material-x/" target="_blank" class="codename">Material X</a>
+    作为主题
+    
+      ，
+      总访问量为
+      <span id="busuanzi_value_site_pv"><i class="fas fa-spinner fa-spin fa-fw" aria-hidden="true"></i></span>
+      次
+    
+    。
+  </div>
+</footer>
+<script>setLoadingBarProgress(80);</script>
+
+
+      <script>setLoadingBarProgress(60);</script>
+    </div>
+    <a class="s-top fas fa-arrow-up fa-fw" href='javascript:void(0)'></a>
+  </div>
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.3.1/dist/jquery.min.js"></script>
+
+  <script>
+    
+    var SEARCH_SERVICE = "hexo" || "hexo";
+    var ROOT = "/" || "/";
+    if (!ROOT.endsWith('/')) ROOT += '/';
+  </script>
+
+<script src="//instant.page/1.2.2" type="module" integrity="sha384-2xV8M5griQmzyiY3CDqh1dn4z3llDVqZDqzjzcY+jCBCk/a5fXJmuZ/40JJAPeoU"></script>
+
+
+  <script src="https://cdn.jsdelivr.net/npm/scrollreveal@4.0.5/dist/scrollreveal.min.js"></script>
+  <script type="text/javascript">
+    $(function() {
+      const $reveal = $('.reveal');
+      if ($reveal.length === 0) return;
+      const sr = ScrollReveal({ distance: 0 });
+      sr.reveal('.reveal');
+    });
+  </script>
+
+
+  <script src="https://cdn.jsdelivr.net/npm/node-waves@0.7.6/dist/waves.min.js"></script>
+  <script type="text/javascript">
+    $(function() {
+      Waves.attach('.flat-btn', ['waves-button']);
+      Waves.attach('.float-btn', ['waves-button', 'waves-float']);
+      Waves.attach('.float-btn-light', ['waves-button', 'waves-float', 'waves-light']);
+      Waves.attach('.flat-box', ['waves-block']);
+      Waves.attach('.float-box', ['waves-block', 'waves-float']);
+      Waves.attach('.waves-image');
+      Waves.init();
+    });
+  </script>
+
+
+  <script async src="https://cdn.jsdelivr.net/gh/xaoxuu/cdn-busuanzi@2.3/js/busuanzi.pure.mini.js"></script>
+
+
+
+
+  
+  
+  
+    <script src="https://cdn.jsdelivr.net/gh/xaoxuu/cdn-material-x@20.2/js/backstretch.min.js"></script>
+    <script type="text/javascript">
+      $(function(){
+        if ('') {
+          $('').backstretch(
+          ["https://i.loli.net/2020/02/08/HNuVoted2mUxILl.jpg", "https://i.loli.net/2020/02/08/dNJyR4LHtarTqPu.jpg", "https://i.loli.net/2020/02/08/yXx4GwgZYdi81Qs.jpg", "https://i.loli.net/2020/02/08/RP7JpGvWaCYfuB6.jpg"],
+          {
+            duration: "6000",
+            fade: "2500"
+          });
+        } else {
+          $.backstretch(
+          ["https://i.loli.net/2020/02/08/HNuVoted2mUxILl.jpg", "https://i.loli.net/2020/02/08/dNJyR4LHtarTqPu.jpg", "https://i.loli.net/2020/02/08/yXx4GwgZYdi81Qs.jpg", "https://i.loli.net/2020/02/08/RP7JpGvWaCYfuB6.jpg"],
+          {
+            duration: "6000",
+            fade: "2500"
+          });
+        }
+      });
+    </script>
+  
+
+
+
+
+
+
+
+
+
+
+
+  
+<script src="https://cdn.jsdelivr.net/gh/xaoxuu/cdn-material-x@20.2.8/js/app.js"></script>
+
+
+
+  
+<script src="https://cdn.jsdelivr.net/gh/xaoxuu/cdn-material-x@20.2.8/js/search.js"></script>
+
+
+
+  
+    
+<script src="https://cdn.jsdelivr.net/gh/inkss/inkss.github.io/js/commentTyping.js"></script>
+
+  
+
+
+
+
+
+<!-- 复制 -->
+<script src="https://cdn.jsdelivr.net/npm/clipboard@2/dist/clipboard.min.js"></script>
+<script>
+  let COPY_SUCCESS = "复制成功";
+  let COPY_FAILURE = "复制失败";
+  /*页面载入完成后，创建复制按钮*/
+  !function (e, t, a) {
+    /* code */
+    var initCopyCode = function(){
+      var copyHtml = '';
+      copyHtml += '<button class="btn-copy" data-clipboard-snippet="">';
+      copyHtml += '  <i class="fa fa-copy"></i><span>复制</span>';
+      copyHtml += '</button>';
+      $(".highlight .code pre").before(copyHtml);
+      var clipboard = new ClipboardJS('.btn-copy', {
+        target: function(trigger) {
+          return trigger.nextElementSibling;
+        }
+      });
+
+      clipboard.on('success', function(e) {
+        //您可以加入成功提示
+        console.info('Action:', e.action);
+        console.info('Text:', e.text);
+        console.info('Trigger:', e.trigger);
+        success_prompt(COPY_SUCCESS);
+        e.clearSelection();
+      });
+      clipboard.on('error', function(e) {
+        //您可以加入失败提示
+        console.error('Action:', e.action);
+        console.error('Trigger:', e.trigger);
+        fail_prompt(COPY_FAILURE);
+      });
+    }
+    initCopyCode();
+
+  }(window, document);
+
+  /**
+   * 弹出式提示框，默认1.5秒自动消失
+   * @param message 提示信息
+   * @param style 提示样式，有alert-success、alert-danger、alert-warning、alert-info
+   * @param time 消失时间
+   */
+  var prompt = function (message, style, time)
+  {
+      style = (style === undefined) ? 'alert-success' : style;
+      time = (time === undefined) ? 1500 : time*1000;
+      $('<div>')
+          .appendTo('body')
+          .addClass('alert ' + style)
+          .html(message)
+          .show()
+          .delay(time)
+          .fadeOut();
+  };
+
+  // 成功提示
+  var success_prompt = function(message, time)
+  {
+      prompt(message, 'alert-success', time);
+  };
+
+  // 失败提示
+  var fail_prompt = function(message, time)
+  {
+      prompt(message, 'alert-danger', time);
+  };
+
+  // 提醒
+  var warning_prompt = function(message, time)
+  {
+      prompt(message, 'alert-warning', time);
+  };
+
+  // 信息提示
+  var info_prompt = function(message, time)
+  {
+      prompt(message, 'alert-info', time);
+  };
+
+</script>
+
+
+<!-- fancybox -->
+<script src="https://cdn.jsdelivr.net/gh/fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js"></script>
+<script>
+  let LAZY_LOAD_IMAGE = "";
+  $(".article-entry").find("fancybox").find("img").each(function () {
+      var element = document.createElement("a");
+      $(element).attr("data-fancybox", "gallery");
+      $(element).attr("href", $(this).attr("src"));
+      /* 图片采用懒加载处理时,
+       * 一般图片标签内会有个属性名来存放图片的真实地址，比如 data-original,
+       * 那么此处将原本的属性名src替换为对应属性名data-original,
+       * 修改如下
+       */
+       if (LAZY_LOAD_IMAGE) {
+         $(element).attr("href", $(this).attr("data-original"));
+       }
+      $(this).wrap(element);
+  });
+</script>
+
+
+
+
+
+  <script>setLoadingBarProgress(100);</script>
+</body>
+</html>

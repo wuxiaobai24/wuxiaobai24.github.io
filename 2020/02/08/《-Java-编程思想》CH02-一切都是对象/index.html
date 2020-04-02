@@ -1,0 +1,1181 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  
+  <title>《 Java 编程思想》CH02 一切都是对象 | Code &amp; Fun</title>
+  
+  
+  <meta name="description" content="wuxiaobai24's blog">
+  
+
+  
+  <link rel="alternate" href="/atom.xml" title="Code & Fun">
+  
+
+  <meta name="HandheldFriendly" content="True" />
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <!-- meta -->
+  
+
+  <!-- link -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css" />
+  
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/node-waves@0.7.6/dist/waves.min.css">
+  
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.10.1/css/all.min.css">
+  
+
+  
+
+  
+    
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/xaoxuu/cdn-material-x@20.2.8/css/style.css">
+
+  
+
+  <script>
+    function setLoadingBarProgress(num) {
+      document.getElementById('loading-bar').style.width=num+"%";
+    }
+  </script>
+
+  
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-108019665-2"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'UA-108019665-2');
+    </script>
+  
+  
+    <!-- ba -->
+    <script>
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?619db192db740fa55405964e311db922";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+    </script>
+  
+<meta name="generator" content="Hexo 4.2.0"><link rel="alternate" href="/atom.xml" title="Code & Fun" type="application/atom+xml">
+</head>
+
+<body>
+  
+  
+  <div class="cover-wrapper">
+    <cover class='cover post half'>
+      
+        
+  <h1 class='title'>Code & Fun</h1>
+
+
+  <div class="m_search">
+    <form name="searchform" class="form u-search-form">
+      <input type="text" class="input u-search-input" placeholder="" />
+      <i class="icon fas fa-search fa-fw"></i>
+    </form>
+  </div>
+
+<div class='menu navgation'>
+  <ul class='h-list'>
+    
+      
+        <li>
+          <a class="nav home" href="/"
+            
+            
+            id="home">
+            <i class='fas fa-rss fa-fw'></i>&nbsp;Home
+          </a>
+        </li>
+      
+        <li>
+          <a class="nav home" href="/archives/"
+            
+            
+            id="archives">
+            <i class='fas fa-code-branch fa-fw'></i>&nbsp;Archives
+          </a>
+        </li>
+      
+        <li>
+          <a class="nav home" href="/categories/"
+            
+              rel="nofollow"
+            
+            
+            id="categories">
+            <i class='fas fa-folder-open fa-fw'></i>&nbsp;Categories
+          </a>
+        </li>
+      
+        <li>
+          <a class="nav home" href="/tags/"
+            
+              rel="nofollow"
+            
+            
+            id="tags">
+            <i class='fas fa-hashtag fa-fw'></i>&nbsp;Tags
+          </a>
+        </li>
+      
+        <li>
+          <a class="nav home" href="/resume/"
+            
+              rel="nofollow"
+            
+            
+            id="resume">
+            <i class='fas fa-info-circle fa-fw'></i>&nbsp;Resume
+          </a>
+        </li>
+      
+    
+  </ul>
+</div>
+
+      
+    </cover>
+    <header class="l_header pure">
+  <div id="loading-bar-wrapper">
+    <div id="loading-bar" class="pure"></div>
+  </div>
+
+	<div class='wrapper'>
+		<div class="nav-main container container--flex">
+      <a class="logo flat-box" target="_self" href='/' >
+        
+          Code & Fun
+        
+      </a>
+			<div class='menu navgation'>
+				<ul class='h-list'>
+          
+  					
+  						<li>
+								<a class="nav flat-box" href="/"
+                  
+                  
+                  id="home">
+									<i class='fas fa-grin fa-fw'></i>&nbsp;Home
+								</a>
+							</li>
+      			
+  						<li>
+								<a class="nav flat-box" href="/archives/"
+                  
+                    rel="nofollow"
+                  
+                  
+                  id="archives">
+									<i class='fas fa-archive fa-fw'></i>&nbsp;Archives
+								</a>
+							</li>
+      			
+  						<li>
+								<a class="nav flat-box" href="/categories/"
+                  
+                    rel="nofollow"
+                  
+                  
+                  id="categories">
+									<i class='fas fa-folder-open fa-fw'></i>&nbsp;Categories
+								</a>
+							</li>
+      			
+  						<li>
+								<a class="nav flat-box" href="/tags/"
+                  
+                    rel="nofollow"
+                  
+                  
+                  id="tags">
+									<i class='fas fa-hashtag fa-fw'></i>&nbsp;Tags
+								</a>
+							</li>
+      			
+      		
+				</ul>
+			</div>
+
+			
+				<div class="m_search">
+					<form name="searchform" class="form u-search-form">
+						<input type="text" class="input u-search-input" placeholder="搜索" />
+						<i class="icon fas fa-search fa-fw"></i>
+					</form>
+				</div>
+			
+			<ul class='switcher h-list'>
+				
+					<li class='s-search'><a class="fas fa-search fa-fw" target="_self" href='javascript:void(0)'></a></li>
+				
+				<li class='s-menu'><a class="fas fa-bars fa-fw" target="_self" href='javascript:void(0)'></a></li>
+			</ul>
+		</div>
+
+		<div class='nav-sub container container--flex'>
+			<a class="logo flat-box"></a>
+			<ul class='switcher h-list'>
+				<li class='s-comment'><a class="flat-btn fas fa-comments fa-fw" target="_self" href='javascript:void(0)'></a></li>
+        
+          <li class='s-toc'><a class="flat-btn fas fa-list fa-fw" target="_self" href='javascript:void(0)'></a></li>
+        
+			</ul>
+		</div>
+	</div>
+</header>
+	<aside class="menu-phone">
+    <header>
+		<nav class="menu navgation">
+      <ul>
+        
+          
+            <li>
+							<a class="nav flat-box" href="/"
+                
+                
+                id="home">
+								<i class='fas fa-clock fa-fw'></i>&nbsp;近期文章
+							</a>
+            </li>
+          
+            <li>
+							<a class="nav flat-box" href="/archives/"
+                
+                  rel="nofollow"
+                
+                
+                id="archives">
+								<i class='fas fa-archive fa-fw'></i>&nbsp;文章归档
+							</a>
+            </li>
+          
+            <li>
+							<a class="nav flat-box" href="/categories/"
+                
+                  rel="nofollow"
+                
+                
+                id="categories">
+								<i class='fas fa-folder-open fa-fw'></i>&nbsp;文章分类
+							</a>
+            </li>
+          
+            <li>
+							<a class="nav flat-box" href="/tags/"
+                
+                  rel="nofollow"
+                
+                
+                id="tags">
+								<i class='fas fa-hashtag fa-fw'></i>&nbsp;文章标签
+							</a>
+            </li>
+          
+            <li>
+							<a class="nav flat-box" href="/resume/"
+                
+                  rel="nofollow"
+                
+                
+                id="resume">
+								<i class='fas fa-info-circle fa-fw'></i>&nbsp;我的简历
+							</a>
+            </li>
+          
+       
+      </ul>
+		</nav>
+    </header>
+	</aside>
+<script>setLoadingBarProgress(40);</script>
+
+  </div>
+
+
+  <div class="l_body">
+    <div class='body-wrapper'>
+      <div class='l_main'>
+  
+
+  <article id="post" class="post white-box article-type-post" itemscope itemprop="blogPost">
+    
+
+
+  <section class='meta'>
+    
+    
+    <div class="meta" id="header-meta">
+      
+        
+  
+    <h1 class="title">
+      <a href="/2020/02/08/%E3%80%8A-Java-%E7%BC%96%E7%A8%8B%E6%80%9D%E6%83%B3%E3%80%8BCH02-%E4%B8%80%E5%88%87%E9%83%BD%E6%98%AF%E5%AF%B9%E8%B1%A1/">
+        《 Java 编程思想》CH02 一切都是对象
+      </a>
+    </h1>
+  
+
+
+      
+      <div class='new-meta-box'>
+        
+          
+        
+          
+            
+  <div class='new-meta-item author'>
+    
+      <a href="http://blog.codeand.fun" rel="nofollow">
+        
+          <i class="fas fa-user" aria-hidden="true"></i>
+        
+        <p>wuxiaobai24</p>
+      </a>
+    
+  </div>
+
+
+          
+        
+          
+            <div class="new-meta-item date">
+  <a class='notlink'>
+    <i class="fas fa-calendar-alt" aria-hidden="true"></i>
+    <p>2020-02-08</p>
+  </a>
+</div>
+
+          
+        
+          
+            
+  
+  <div class='new-meta-item category'>
+    <a href='/categories/%E3%80%8AJava%E7%BC%96%E7%A8%8B%E6%80%9D%E6%83%B3%E3%80%8B/' rel="nofollow">
+      <i class="fas fa-folder-open" aria-hidden="true"></i>
+      <p>《Java编程思想》</p>
+    </a>
+  </div>
+
+
+          
+        
+          
+            
+  
+    <div class="new-meta-item browse busuanzi">
+      <a class='notlink'>
+        <i class="fas fa-eye" aria-hidden="true"></i>
+        <p>
+          <span id="busuanzi_value_page_pv">
+            <i class="fas fa-spinner fa-spin fa-fw" aria-hidden="true"></i>
+          </span>
+        </p>
+      </a>
+    </div>
+  
+
+
+          
+        
+          
+            
+  
+    <div class="new-meta-item wordcount">
+      <a class='notlink'>
+        <i class="fas fa-keyboard" aria-hidden="true"></i>
+        <p>字数统计:</p>
+        <p>2.6k字</p>
+      </a>
+    </div>
+    <div class="new-meta-item readtime">
+      <a class='notlink'>
+        <i class="fas fa-hourglass-half" aria-hidden="true"></i>
+        <p>阅读时长≈</p>
+        <p>10分</p>
+      </a>
+    </div>
+  
+
+          
+        
+          
+            
+
+          
+        
+          
+            
+  
+  <div class="new-meta-item meta-tags"><a class="tag" href="/tags/Java/" rel="nofollow"><i class="fas fa-tag" aria-hidden="true"></i><p>Java</p></a></div> <div class="new-meta-item meta-tags"><a class="tag" href="/tags/%E9%98%85%E8%AF%BB%E7%AC%94%E8%AE%B0/" rel="nofollow"><i class="fas fa-tag" aria-hidden="true"></i><p>阅读笔记</p></a></div> <div class="new-meta-item meta-tags"><a class="tag" href="/tags/%E3%80%8AJava%E7%BC%96%E7%A8%8B%E6%80%9D%E6%83%B3%E3%80%8B/" rel="nofollow"><i class="fas fa-tag" aria-hidden="true"></i><p>《Java编程思想》</p></a></div> <div class="new-meta-item meta-tags"><a class="tag" href="/tags/%E5%90%8E%E7%AB%AF/" rel="nofollow"><i class="fas fa-tag" aria-hidden="true"></i><p>后端</p></a></div>
+
+
+          
+        
+      </div>
+      
+        <hr>
+      
+    </div>
+  </section>
+
+
+    <section class="article typo">
+      <div class="article-entry" itemprop="articleBody">
+        <h2 id="用引用操纵对象"><a href="#用引用操纵对象" class="headerlink" title="用引用操纵对象"></a>用引用操纵对象</h2><p>尽管Java中一切都看作为对象，但是操纵的标识符实际上对象的一个“引用”。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">String s; <span class="comment">// 这里只是创建了一个引用，而不是一个对象</span></span><br><span class="line">String s = <span class="keyword">new</span> String(<span class="string">"abcd"</span>); <span class="comment">// 使用`new`操作符来创建一个对象，并将其与一个引用相关联</span></span><br><span class="line">String s = <span class="string">"abcd"</span>; <span class="comment">// 字符串可以直接用带引号的文本初始化</span></span><br></pre></td></tr></table></figure>
+<h2 id="必须由你创建所有对象"><a href="#必须由你创建所有对象" class="headerlink" title="必须由你创建所有对象"></a>必须由你创建所有对象</h2><p>使用<code>new</code>操作符创建一个对象</p>
+<h3 id="存储到什么位置"><a href="#存储到什么位置" class="headerlink" title="存储到什么位置"></a>存储到什么位置</h3><p>由五个地方可以存储数据：</p>
+<ol>
+<li>寄存器：由于寄存器数量有限，所有无法直接控制</li>
+<li>堆栈（栈）：RAM中，存储在栈中的数据必须明确知道其生命周期，通常局部存放对象引用和局部基本类型的变量。</li>
+<li>堆：存放所有的对象</li>
+<li>常量存储：通常直接存放在代码内部，其永远不会改变</li>
+<li>非RAM存储：数据存放在程序之外，不受程序的控制，如流对象（System.out）和持久化对象（存放在磁盘的文件）。</li>
+</ol>
+<h3 id="特例：基本类型"><a href="#特例：基本类型" class="headerlink" title="特例：基本类型"></a>特例：基本类型</h3><p>一些比较小的，简单的类型，如果放在堆中往往效率不高，所以这些类型不需要使用<code>new</code>来创建，而是创建一个“自动”变量来直接存储“值”，并置于栈中。</p>
+<p><strong>Java 中所有基本类型所占据存储空间的大小都是明确的</strong>.</p>
+<p><img src="http://imagehosting.wuxiaobai24.fun//blog/Java%E5%9F%BA%E6%9C%AC%E7%B1%BB%E5%9E%8B%E5%A4%A7%E5%B0%8F.png" alt="Java基本类型大小"></p>
+<ul>
+<li>所有数值类型都有正负号</li>
+<li><code>boolean</code>类型所占存储空间的大小没有明确，仅定义为能够去字面值<code>true</code>或<code>false</code></li>
+<li>基本类型和其对应的包装类之间可以自动装包、自动解包</li>
+<li>Java 提供了两个用于高精度计算的类：<code>BigInteger</code>和<code>BigDecimal</code></li>
+</ul>
+<h3 id="Java-中的数组"><a href="#Java-中的数组" class="headerlink" title="Java 中的数组"></a>Java 中的数组</h3><ul>
+<li>Java 确保数组会被初始化，且会进行范围检查</li>
+<li>当创建一个数组对象时实际就是创建一个引用数组，并且每个引用都会被自动初始化为一个特定值<code>null</code></li>
+<li>也可以创建用来存放基本数据类型的数组，此时的初始化则是置零</li>
+</ul>
+<h2 id="永远不需要销毁对象"><a href="#永远不需要销毁对象" class="headerlink" title="永远不需要销毁对象"></a>永远不需要销毁对象</h2><h3 id="作用域"><a href="#作用域" class="headerlink" title="作用域"></a>作用域</h3><ul>
+<li>作用域决定了在其内定义的变量的可见性和生命周期</li>
+<li>在作用域里定义的变量只可用于作用域结束前</li>
+<li>Java 中不允许“覆盖”变量的可见性</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">	<span class="keyword">int</span> x = <span class="number">12</span>;</span><br><span class="line">	<span class="comment">// x available</span></span><br><span class="line">	&#123;</span><br><span class="line">		<span class="keyword">int</span> q = <span class="number">96</span>;</span><br><span class="line">		<span class="comment">// Both x &amp; q available</span></span><br><span class="line">		<span class="keyword">int</span> x = <span class="number">96</span> <span class="comment">// Illegal</span></span><br><span class="line">	&#125;</span><br><span class="line">	<span class="comment">// only x available</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="对象的作用域"><a href="#对象的作用域" class="headerlink" title="对象的作用域"></a>对象的作用域</h3><ul>
+<li>Java 对象不具备和基本类型一样的生命周期，由<code>new</code>创建的对象，只要你需要，其会一直保留下去。</li>
+<li>Java 使用垃圾回收器来监视<code>new</code>创建的对象，辨别并释放那些不会再被引用的对象</li>
+</ul>
+<h2 id="创建新的数据类型：类"><a href="#创建新的数据类型：类" class="headerlink" title="创建新的数据类型：类"></a>创建新的数据类型：类</h2><p>使用<code>class</code>来创建一个新的类型：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">ATypeName</span> </span>&#123; &#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="字段和方法"><a href="#字段和方法" class="headerlink" title="字段和方法"></a>字段和方法</h2><p>一旦定义了一个类，就可以在类中设置两种元素：字段（数据成员）和方法（成员函数）。字段可以是任何类型的对象或基础类型。每个对象都有存储其字段的空间，即普通字段不在对象间共享。</p>
+<p>引用一个对象的成员的方式：<code>objectReference.member</code></p>
+<p>基本数据类型的变量只有是类的成员时，才确保其获得一个默认值，否则的话，与C++一样，该变量可能是任意值（其实就是在堆还是栈的问题嘛），不过这种情况下Java会报编译错误。</p>
+<h2 id="方法、参数和返回值"><a href="#方法、参数和返回值" class="headerlink" title="方法、参数和返回值"></a>方法、参数和返回值</h2><p>方法的基本组成部分包括：名称、参数、返回值和方法体：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">ReturnType <span class="title">methodName</span> <span class="params">( <span class="comment">/* Argument list */</span>)</span> </span>&#123;</span><br><span class="line">	<span class="comment">/* Method body */</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>方法名和参数列表唯一地标识某个方法（合起来称为“方法签名”）<strong>注意：方法签名不包含返回值</strong>。</p>
+<p>Java 中的方法只能作为类的一部分来创建，方法通常只有通过对象才能调用，且这个对象必须有这个方法。</p>
+<h3 id="参数列表"><a href="#参数列表" class="headerlink" title="参数列表"></a>参数列表</h3><p>方法的参数列表指定要传递给方法什么样的信息，这里采用的都是<strong>对象的类型</strong>，即包含指定的类型和名字，这里传递的实际上是<strong>引用</strong>，传递基础类型则通过自动包装来实现。</p>
+<h2 id="构建一个-Java-程序"><a href="#构建一个-Java-程序" class="headerlink" title="构建一个 Java 程序"></a>构建一个 Java 程序</h2><h3 id="名字可见性"><a href="#名字可见性" class="headerlink" title="名字可见性"></a>名字可见性</h3><p>为了防止不同类库中使用了相同的类名，Java 将反过来的域名作为唯一标识符（即包名），如我的域名为<code>codeand.fun</code>,则我的类库则使用<code>fun.codeand.utils</code>的形式。</p>
+<p><strong>包名使用小写</strong></p>
+<h3 id="运用其他构件"><a href="#运用其他构件" class="headerlink" title="运用其他构件"></a>运用其他构件</h3><p>使用<code>import</code>导入想要的包：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> java.util.ArrayList;</span><br><span class="line"><span class="keyword">import</span> java.util.*; <span class="comment">// 导入java.util下所有的类</span></span><br></pre></td></tr></table></figure>
+
+<p><code>java.lang</code>默认导入到每一个Java文件中。</p>
+<h3 id="static-关键字"><a href="#static-关键字" class="headerlink" title="static 关键字"></a>static 关键字</h3><p>当声明一个事物为<code>static</code>时，就意味着这个域或方法不会与包含它的类的任何对象实例关联在一起，可以理解为<em>类数据</em>和<em>类方法</em>。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">StaticTest</span> </span>&#123;</span><br><span class="line">	<span class="keyword">static</span> <span class="keyword">int</span> i = <span class="number">47</span>;</span><br><span class="line">	<span class="function"><span class="keyword">static</span> <span class="keyword">void</span> <span class="title">inc</span><span class="params">()</span> </span>&#123; i++; &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">int</span> j = StaticTest.i; <span class="comment">// 47</span></span><br><span class="line">StaticTest st1 = <span class="keyword">new</span> StaticTest();</span><br><span class="line">StaticTest.inc();</span><br><span class="line">StaticTest st2 = <span class="keyword">new</span> StaticTest();</span><br><span class="line"><span class="comment">// st1.i == st2.i == 48 // 所有i都指向同一个存储空间</span></span><br></pre></td></tr></table></figure>
+
+
+<h2 id="你的第一个-Java-程序"><a href="#你的第一个-Java-程序" class="headerlink" title="你的第一个 Java 程序"></a>你的第一个 Java 程序</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// HelloDate.java</span></span><br><span class="line"><span class="keyword">import</span> java.util.*;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">HelloDate</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        System.out.println(<span class="string">"Hello, it's"</span>);</span><br><span class="line">        System.out.println(<span class="keyword">new</span> Date());</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>要创建一个独立运行的程序，那么该文件中必须存在某个类与该文件同名，且那个类必须又一个<code>main</code>方法，其形式如<code>public static void main(String[] args)</code>。</p>
+<h2 id="编译和运行"><a href="#编译和运行" class="headerlink" title="编译和运行"></a>编译和运行</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ javac HelloDate.java // 编译，产生一个 HelloDate.class 文件</span><br><span class="line">$ java HelloDate // 运行</span><br></pre></td></tr></table></figure>
+
+<h2 id="注释和嵌入式文档"><a href="#注释和嵌入式文档" class="headerlink" title="注释和嵌入式文档"></a>注释和嵌入式文档</h2><ul>
+<li>多行注释：<code>/* something */</code></li>
+<li>单行注释：<code>// something</code></li>
+</ul>
+<h3 id="注释文档"><a href="#注释文档" class="headerlink" title="注释文档"></a>注释文档</h3><p>Java 中可以将代码与文档放到一个文件中，这样有利于文档的维护，为了实现这一目的，这里使用一种特殊的注释语法来标记文档，此外还有一个工具<code>javadoc</code>来提取注释。javadoc的输出是一个html</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># wuxiaobai24 @ wuxiaobai24-pc in ~/code/Java/ch2 [17:56:05] C:1</span></span><br><span class="line">$ javadoc HelloDate.java </span><br><span class="line">正在加载源文件HelloDate.java...</span><br><span class="line">正在构造 Javadoc 信息...</span><br><span class="line">标准 Doclet 版本 1.8.0_242</span><br><span class="line">正在构建所有程序包和类的树...</span><br><span class="line">正在生成./HelloDate.html...</span><br><span class="line">正在生成./package-frame.html...</span><br><span class="line">正在生成./package-summary.html...</span><br><span class="line">正在生成./package-tree.html...</span><br><span class="line">正在生成./constant-values.html...</span><br><span class="line">正在构建所有程序包和类的索引...</span><br><span class="line">正在生成./overview-tree.html...</span><br><span class="line">正在生成./index-all.html...</span><br><span class="line">正在生成./deprecated-list.html...</span><br><span class="line">正在构建所有类的索引...</span><br><span class="line">正在生成./allclasses-frame.html...</span><br><span class="line">正在生成./allclasses-noframe.html...</span><br><span class="line">正在生成./index.html...</span><br><span class="line">正在生成./<span class="built_in">help</span>-doc.html...</span><br><span class="line"></span><br><span class="line"><span class="comment"># wuxiaobai24 @ wuxiaobai24-pc in ~/code/Java/ch2 [17:56:11] </span></span><br><span class="line">$ ls</span><br><span class="line">allclasses-frame.html    HelloDate.class  index-all.html      package-list          stylesheet.css</span><br><span class="line">allclasses-noframe.html  HelloDate.html   index.html          package-summary.html</span><br><span class="line">constant-values.html     HelloDate.java   overview-tree.html  package-tree.html</span><br><span class="line">deprecated-list.html     <span class="built_in">help</span>-doc.html    package-frame.html  script.js</span><br></pre></td></tr></table></figure>
+
+<p><img src="http://imagehosting.wuxiaobai24.fun//blog/Index%E6%98%BE%E7%A4%BA.png" alt="打开index.html"></p>
+<h3 id="注释语法"><a href="#注释语法" class="headerlink" title="注释语法"></a>注释语法</h3><p>所有 javadoc 命令都只能在由<code>/**</code>和<code>*/</code>组成的注释中</p>
+<p>javadoc 的注释，只能为<code>public</code>和<code>protected</code>成员进行文档注释，而<code>private</code>和<code>defaule</code>成员的注释会被忽视掉</p>
+<p>javadoc 主要有两种形式：</p>
+<ul>
+<li>嵌入HTML</li>
+<li><strong>文档标签</strong>：<ul>
+<li><strong>独立文档标签</strong>是一些以<code>@</code>字符开头的命令，且置于注释行的最前面（除了前导的 <code>*</code>）</li>
+<li><strong>行内文档标签</strong>则可以在 javadoc 注释中的任何位置，同样以<code>@</code>开头，但要在花括号内。</li>
+</ul>
+</li>
+</ul>
+<p>常用的标签有：</p>
+<ul>
+<li><code>@see</code>：引用其他类，会生成一个超链接条目（不会校验该链接是否有效），超链接文本为“See Also”  <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@see</span> classname</span><br><span class="line"><span class="meta">@see</span> fully-qualified-classname</span><br><span class="line"><span class="meta">@see</span> fully-qualified-classname<span class="meta">@method</span>-name</span><br></pre></td></tr></table></figure></li>
+<li><code>{@link package.class#member label}</code>：与<code>@see</code>类似，不过是行内标签，使用“label”来处理作为超链接文本</li>
+<li><code>{@docRoot}</code>：该标签产生到文档根目录的相对路径</li>
+<li><code>{@inheritDoc}</code>：该标签从当前这个类最直接的基类继承相关文档到当前文档注释中</li>
+<li><code>@version</code>:版本信息</li>
+<li><code>@author</code>:作者信息</li>
+<li><code>@since</code>:指定JDK版本最低为多少</li>
+<li><code>@param</code>:表示参数含义，形式如<code>@param parameter-name description</code></li>
+<li><code>@return</code>:描述返回值，形式如<code>@return description</code></li>
+<li><code>@throws</code>:异常描述，该方法可能抛出的每个异常都需要说明，形式如<code>@throws fully-qualified-class-name description</code></li>
+<li><code>@deprecated</code>:指出一些旧特性已由改进的新特性所取代，不建议使用。调用一个标记为<code>@deprecated</code>的方法，编译器会发出警告。</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// HelloDate.java</span></span><br><span class="line"><span class="keyword">import</span> java.util.*;</span><br><span class="line"></span><br><span class="line"><span class="comment">/** A class comment</span></span><br><span class="line"><span class="comment"> * Test comment</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@author</span> wuxiaobai24</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@version</span> 0.1</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">HelloDate</span> </span>&#123;</span><br><span class="line">    <span class="comment">/** a field comment */</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">int</span> i;</span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * a &lt;strong&gt;protected&lt;/strong&gt; filed comment</span></span><br><span class="line"><span class="comment">     * &lt;ol&gt;</span></span><br><span class="line"><span class="comment">     *  &lt;li&gt;one&lt;/li&gt;</span></span><br><span class="line"><span class="comment">     *  &lt;li&gt;two&lt;/li&gt;</span></span><br><span class="line"><span class="comment">     *  &lt;li&gt;three&lt;/li&gt;</span></span><br><span class="line"><span class="comment">     * &lt;/ol&gt;</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">protected</span> <span class="keyword">int</span> p;</span><br><span class="line">    <span class="comment">/** a private field comment */</span></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">int</span> j;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/** A method comment</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> args args comment</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        System.out.println(<span class="string">"Hello, it's"</span>);</span><br><span class="line">        System.out.println(<span class="keyword">new</span> Date());</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><img src="http://imagehosting.wuxiaobai24.fun//blog%E3%80%8A-Java-%E7%BC%96%E7%A8%8B%E6%80%9D%E6%83%B3%E3%80%8BCH02-%E4%B8%80%E5%88%87%E9%83%BD%E6%98%AF%E5%AF%B9%E8%B1%A1-20200208150609-2020-2-8-15-6-9" alt="javadoc输出1"><br><img src="http://imagehosting.wuxiaobai24.fun//blog%E3%80%8A-Java-%E7%BC%96%E7%A8%8B%E6%80%9D%E6%83%B3%E3%80%8BCH02-%E4%B8%80%E5%88%87%E9%83%BD%E6%98%AF%E5%AF%B9%E8%B1%A1-javadoc%E8%BE%93%E5%87%BA-2020-2-8-15-7-31" alt="《-Java-编程思想》CH02-一切都是对象-javadoc输出-2020-2-8-15-7-31"><br><img src="http://imagehosting.wuxiaobai24.fun//blog%E3%80%8A-Java-%E7%BC%96%E7%A8%8B%E6%80%9D%E6%83%B3%E3%80%8BCH02-%E4%B8%80%E5%88%87%E9%83%BD%E6%98%AF%E5%AF%B9%E8%B1%A1-javadoc%E8%BE%93%E5%87%BA2-2020-2-8-15-7-59" alt="《-Java-编程思想》CH02-一切都是对象-javadoc输出2-2020-2-8-15-7-59"></p>
+<h2 id="编码风格"><a href="#编码风格" class="headerlink" title="编码风格"></a>编码风格</h2><ul>
+<li>驼峰式写法</li>
+<li>标识符的第一个字符采用小写，其余用大写</li>
+</ul>
+<h2 id="练习"><a href="#练习" class="headerlink" title="练习"></a>练习</h2><h3 id="练习1"><a href="#练习1" class="headerlink" title="练习1"></a>练习1</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// Ex1.java</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Ex1</span> </span>&#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">int</span> i;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">char</span> c;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        Ex1 e = <span class="keyword">new</span> Ex1();</span><br><span class="line">        System.out.println(e.i);</span><br><span class="line">        System.out.println(e.c);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="练习2"><a href="#练习2" class="headerlink" title="练习2"></a>练习2</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// Ex2.java</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Ex2</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        System.out.println(<span class="string">"Hello, World"</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="练习3-amp-练习4-amp-练习5"><a href="#练习3-amp-练习4-amp-练习5" class="headerlink" title="练习3 &amp; 练习4 &amp; 练习5"></a>练习3 &amp; 练习4 &amp; 练习5</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// Ex3.java</span></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">DataOnly</span> </span>&#123;</span><br><span class="line">    <span class="keyword">int</span> i;</span><br><span class="line">    <span class="keyword">double</span> d;</span><br><span class="line">    <span class="keyword">boolean</span> b;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">ATypeName</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Ex3</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        ATypeName a = <span class="keyword">new</span> ATypeName();</span><br><span class="line">        DataOnly d = <span class="keyword">new</span> DataOnly();</span><br><span class="line">        d.i = <span class="number">1</span>;</span><br><span class="line">        d.d = <span class="number">2.0</span>;</span><br><span class="line">        d.b = <span class="keyword">false</span>;</span><br><span class="line">        System.out.println(d.i);</span><br><span class="line">        System.out.println(d.d);</span><br><span class="line">        System.out.println(d.b);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="练习6"><a href="#练习6" class="headerlink" title="练习6"></a>练习6</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// Ex4.java</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Ex4</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">storage</span><span class="params">(String s)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> s.length() * <span class="number">2</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        String s = <span class="keyword">new</span> String(<span class="string">"Hello"</span>);</span><br><span class="line">        Ex4 e = <span class="keyword">new</span> Ex4();</span><br><span class="line">        <span class="keyword">int</span> len = e.storage(s);</span><br><span class="line">        System.out.println(len);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="练习7-amp-练习8"><a href="#练习7-amp-练习8" class="headerlink" title="练习7 &amp; 练习8"></a>练习7 &amp; 练习8</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// Ex7.java</span></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">StaticTest</span> </span>&#123;</span><br><span class="line">    <span class="keyword">static</span> <span class="keyword">int</span> i = <span class="number">47</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Incrementable</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">static</span> <span class="keyword">void</span> <span class="title">increment</span><span class="params">()</span> </span>&#123; StaticTest.i++; &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Ex7</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        StaticTest st1 = <span class="keyword">new</span> StaticTest();</span><br><span class="line">        Incrementable.increment();</span><br><span class="line">        StaticTest st2 = <span class="keyword">new</span> StaticTest();</span><br><span class="line">        System.out.println(st1.i);</span><br><span class="line">        System.out.println(st2.i);</span><br><span class="line">        System.out.println(StaticTest.i);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="练习9"><a href="#练习9" class="headerlink" title="练习9"></a>练习9</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// Ex9.java</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Ex9</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> i = <span class="number">24</span>;</span><br><span class="line">        Integer bi = i;</span><br><span class="line">        System.out.println(i);</span><br><span class="line">        System.out.println(bi);</span><br><span class="line">        <span class="comment">// ....</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="练习10"><a href="#练习10" class="headerlink" title="练习10"></a>练习10</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// Ex10.java</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Ex10</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (args.length == <span class="number">3</span>) &#123;</span><br><span class="line">            System.out.println(args[<span class="number">0</span>]);</span><br><span class="line">            System.out.println(args[<span class="number">1</span>]);</span><br><span class="line">            System.out.println(args[<span class="number">2</span>]);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="练习11"><a href="#练习11" class="headerlink" title="练习11"></a>练习11</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// Ex11.java</span></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">AllTheColorsOfTheRainbow</span> </span>&#123;</span><br><span class="line">    <span class="keyword">int</span> anIntegerRepresentingColors;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">changeTheHueOfTheColor</span><span class="params">(<span class="keyword">int</span> newHue)</span> </span>&#123;</span><br><span class="line">        anIntegerRepresentingColors = newHue;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Ex11</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        AllTheColorsOfTheRainbow allTheColorsOfTheRainbow = <span class="keyword">new</span> AllTheColorsOfTheRainbow();</span><br><span class="line">        allTheColorsOfTheRainbow.changeTheHueOfTheColor(<span class="number">1</span>);</span><br><span class="line">        System.out.println(allTheColorsOfTheRainbow.anIntegerRepresentingColors);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+      </div>
+      
+        <br>
+        <p>本文首发于<a href="blog.wuxiaobai24" target="_blank" rel="noopener">Code &amp; Fun</a></p>
+
+      
+      
+        <br>
+        
+
+
+  <section class='meta' id="footer-meta">
+    <div class='new-meta-box'>
+      
+        
+          <div class="new-meta-item date" itemprop="dateUpdated" datetime="2020-04-02T14:43:48+00:00">
+  <a class='notlink'>
+    <i class="fas fa-clock" aria-hidden="true"></i>
+    <p>更新于 2020年4月2日</p>
+  </a>
+</div>
+
+        
+      
+        
+          
+  
+  <div class="new-meta-item meta-tags"><a class="tag" href="/tags/Java/" rel="nofollow"><i class="fas fa-tag" aria-hidden="true"></i><p>Java</p></a></div> <div class="new-meta-item meta-tags"><a class="tag" href="/tags/%E9%98%85%E8%AF%BB%E7%AC%94%E8%AE%B0/" rel="nofollow"><i class="fas fa-tag" aria-hidden="true"></i><p>阅读笔记</p></a></div> <div class="new-meta-item meta-tags"><a class="tag" href="/tags/%E3%80%8AJava%E7%BC%96%E7%A8%8B%E6%80%9D%E6%83%B3%E3%80%8B/" rel="nofollow"><i class="fas fa-tag" aria-hidden="true"></i><p>《Java编程思想》</p></a></div> <div class="new-meta-item meta-tags"><a class="tag" href="/tags/%E5%90%8E%E7%AB%AF/" rel="nofollow"><i class="fas fa-tag" aria-hidden="true"></i><p>后端</p></a></div>
+
+
+        
+      
+    </div>
+  </section>
+
+
+      
+      
+          <div class="prev-next">
+              
+                  <section class="prev">
+                      <span class="art-item-left">
+                          <h6><i class="fas fa-chevron-left" aria-hidden="true"></i>&nbsp;上一页</h6>
+                          <h4>
+                              <a href="/2020/02/08/%E3%80%8A-Java-%E7%BC%96%E7%A8%8B%E6%80%9D%E6%83%B3%E3%80%8BCH03-%E6%93%8D%E4%BD%9C%E7%AC%A6/" rel="prev" title="《 Java 编程思想》CH03 操作符">
+                                
+                                    《 Java 编程思想》CH03 操作符
+                                
+                              </a>
+                          </h4>
+                          
+                              
+                              <h6 class="tags">
+                                  <a class="tag" href="/tags/Java/"><i class="fas fa-tag fa-fw" aria-hidden="true"></i> Java</a> <a class="tag" href="/tags/%E9%98%85%E8%AF%BB%E7%AC%94%E8%AE%B0/"><i class="fas fa-tag fa-fw" aria-hidden="true"></i> 阅读笔记</a> <a class="tag" href="/tags/%E3%80%8AJava%E7%BC%96%E7%A8%8B%E6%80%9D%E6%83%B3%E3%80%8B/"><i class="fas fa-tag fa-fw" aria-hidden="true"></i> 《Java编程思想》</a> <a class="tag" href="/tags/%E5%90%8E%E7%AB%AF/"><i class="fas fa-tag fa-fw" aria-hidden="true"></i> 后端</a>
+                              </h6>
+                          
+                      </span>
+                  </section>
+              
+              
+                  <section class="next">
+                      <span class="art-item-right" aria-hidden="true">
+                          <h6>下一页&nbsp;<i class="fas fa-chevron-right" aria-hidden="true"></i></h6>
+                          <h4>
+                              <a href="/2020/02/06/%E3%80%8A-Java-%E7%BC%96%E7%A8%8B%E6%80%9D%E6%83%B3%E3%80%8BCH01-%E5%AF%B9%E8%B1%A1%E7%9A%84%E6%A6%82%E5%BF%B5/" rel="prev" title="《 Java 编程思想》CH01 对象的概念">
+                                  
+                                      《 Java 编程思想》CH01 对象的概念
+                                  
+                              </a>
+                          </h4>
+                          
+                              
+                              <h6 class="tags">
+                                  <a class="tag" href="/tags/Java/"><i class="fas fa-tag fa-fw" aria-hidden="true"></i> Java</a> <a class="tag" href="/tags/%E9%98%85%E8%AF%BB%E7%AC%94%E8%AE%B0/"><i class="fas fa-tag fa-fw" aria-hidden="true"></i> 阅读笔记</a> <a class="tag" href="/tags/%E3%80%8AJava%E7%BC%96%E7%A8%8B%E6%80%9D%E6%83%B3%E3%80%8B/"><i class="fas fa-tag fa-fw" aria-hidden="true"></i> 《Java编程思想》</a> <a class="tag" href="/tags/%E5%90%8E%E7%AB%AF/"><i class="fas fa-tag fa-fw" aria-hidden="true"></i> 后端</a>
+                              </h6>
+                          
+                      </span>
+                  </section>
+              
+          </div>
+      
+    </section>
+  </article>
+
+
+  
+    
+  
+    
+  
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+          
+  <section class='widget related_posts'>
+    
+<header class='pure'>
+  <div><i class="fas fa-bookmark fa-fw" aria-hidden="true"></i>&nbsp;&nbsp;相关文章</div>
+  
+</header>
+
+    <div class="content pure">
+      <ul class="popular-posts"><li class="popular-posts-item"><div class="popular-posts-title"><h3><a href="/2020/02/06/《-Java-编程思想》CH01-对象的概念/" title="《 Java 编程思想》CH01 对象的概念" rel="bookmark">《 Java 编程思想》CH01 对象的概念</a></h3></div></li><li class="popular-posts-item"><div class="popular-posts-title"><h3><a href="/2020/02/08/《-Java-编程思想》CH03-操作符/" title="《 Java 编程思想》CH03 操作符" rel="bookmark">《 Java 编程思想》CH03 操作符</a></h3></div></li><li class="popular-posts-item"><div class="popular-posts-title"><h3><a href="/2020/02/09/《-Java-编程思想》CH04-控制执行流程/" title="《 Java 编程思想》CH04 控制执行流程" rel="bookmark">《 Java 编程思想》CH04 控制执行流程</a></h3></div></li><li class="popular-posts-item"><div class="popular-posts-title"><h3><a href="/2020/02/09/《-Java-编程思想》CH05-初始化与清理/" title="《 Java 编程思想》CH05 初始化与清理" rel="bookmark">《 Java 编程思想》CH05 初始化与清理</a></h3></div></li><li class="popular-posts-item"><div class="popular-posts-title"><h3><a href="/2020/02/14/《-Java-编程思想》CH06-访问权限控制/" title="《 Java 编程思想》CH06 访问权限控制" rel="bookmark">《 Java 编程思想》CH06 访问权限控制</a></h3></div></li><li class="popular-posts-item"><div class="popular-posts-title"><h3><a href="/2020/02/15/《-Java-编程思想》CH07-复用类/" title="《 Java 编程思想》CH07 复用类" rel="bookmark">《 Java 编程思想》CH07 复用类</a></h3></div></li><li class="popular-posts-item"><div class="popular-posts-title"><h3><a href="/2020/02/18/《-Java-编程思想》CH08-多态/" title="《 Java 编程思想》CH08 多态" rel="bookmark">《 Java 编程思想》CH08 多态</a></h3></div></li><li class="popular-posts-item"><div class="popular-posts-title"><h3><a href="/2020/02/19/《-Java-编程思想》CH09-接口/" title="《 Java 编程思想》CH09 接口" rel="bookmark">《 Java 编程思想》CH09 接口</a></h3></div></li></ul>
+    </div>
+  </section>
+
+
+        
+      
+    
+  
+
+
+  <!-- 显示推荐文章和评论 -->
+
+
+
+  
+
+
+
+
+
+
+<!-- 根据页面mathjax变量决定是否加载MathJax数学公式js -->
+
+
+
+  <script>
+    window.subData = {
+      title: '《 Java 编程思想》CH02 一切都是对象',
+      tools: true
+    }
+  </script>
+
+
+</div>
+<aside class='l_side'>
+  
+    
+    
+      
+      
+        
+          
+          
+            
+              <section class='widget author'>
+  <div class='content pure'>
+    
+      <div class='avatar'>
+        <img class='avatar' src='/assets/img/avatar.jpeg'/>
+      </div>
+    
+    
+    
+      <div class="social-wrapper">
+        
+          
+            <a href="/atom.xml"
+              class="social fas fa-rss flat-btn"
+              target="_blank"
+              rel="external nofollow noopener noreferrer">
+            </a>
+          
+        
+          
+            <a href="wuxiaobai24:wuxiaobai24@foxmail.com"
+              class="social fas fa-envelope flat-btn"
+              target="_blank"
+              rel="external nofollow noopener noreferrer">
+            </a>
+          
+        
+          
+            <a href="https://github.com/wuxiaobai24"
+              class="social fab fa-github flat-btn"
+              target="_blank"
+              rel="external nofollow noopener noreferrer">
+            </a>
+          
+        
+      </div>
+    
+  </div>
+</section>
+
+            
+          
+        
+          
+          
+        
+          
+          
+        
+          
+          
+        
+          
+          
+        
+      
+        
+          
+          
+        
+          
+          
+            
+              
+  <section class='widget toc-wrapper'>
+    
+<header class='pure'>
+  <div><i class="fas fa-list fa-fw" aria-hidden="true"></i>&nbsp;&nbsp;本文目录</div>
+  
+    <!-- <div class='wrapper'><a class="s-toc rightBtn" rel="external nofollow noopener noreferrer" href="javascript:void(0)"><i class="fas fa-thumbtack fa-fw"></i></a></div> -->
+  
+</header>
+
+    <div class='content pure'>
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#用引用操纵对象"><span class="toc-text">用引用操纵对象</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#必须由你创建所有对象"><span class="toc-text">必须由你创建所有对象</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#存储到什么位置"><span class="toc-text">存储到什么位置</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#特例：基本类型"><span class="toc-text">特例：基本类型</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Java-中的数组"><span class="toc-text">Java 中的数组</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#永远不需要销毁对象"><span class="toc-text">永远不需要销毁对象</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#作用域"><span class="toc-text">作用域</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#对象的作用域"><span class="toc-text">对象的作用域</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#创建新的数据类型：类"><span class="toc-text">创建新的数据类型：类</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#字段和方法"><span class="toc-text">字段和方法</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#方法、参数和返回值"><span class="toc-text">方法、参数和返回值</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#参数列表"><span class="toc-text">参数列表</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#构建一个-Java-程序"><span class="toc-text">构建一个 Java 程序</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#名字可见性"><span class="toc-text">名字可见性</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#运用其他构件"><span class="toc-text">运用其他构件</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#static-关键字"><span class="toc-text">static 关键字</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#你的第一个-Java-程序"><span class="toc-text">你的第一个 Java 程序</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#编译和运行"><span class="toc-text">编译和运行</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#注释和嵌入式文档"><span class="toc-text">注释和嵌入式文档</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#注释文档"><span class="toc-text">注释文档</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#注释语法"><span class="toc-text">注释语法</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#编码风格"><span class="toc-text">编码风格</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#练习"><span class="toc-text">练习</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#练习1"><span class="toc-text">练习1</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#练习2"><span class="toc-text">练习2</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#练习3-amp-练习4-amp-练习5"><span class="toc-text">练习3 &amp; 练习4 &amp; 练习5</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#练习6"><span class="toc-text">练习6</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#练习7-amp-练习8"><span class="toc-text">练习7 &amp; 练习8</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#练习9"><span class="toc-text">练习9</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#练习10"><span class="toc-text">练习10</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#练习11"><span class="toc-text">练习11</span></a></li></ol></li></ol>
+    </div>
+  </section>
+
+
+            
+          
+        
+          
+          
+        
+          
+          
+        
+          
+          
+        
+      
+        
+          
+          
+        
+          
+          
+        
+          
+          
+            
+              
+  <section class='widget category'>
+    
+<header class='pure'>
+  <div><i class="fas fa-folder-open fa-fw" aria-hidden="true"></i>&nbsp;&nbsp;文章分类</div>
+  
+    <a class="rightBtn"
+    
+      rel="nofollow"
+    
+    
+    href="/categories/"
+    title="categories/">
+    <i class="fas fa-expand-arrows-alt fa-fw"></i></a>
+  
+</header>
+
+    <div class='content pure'>
+      <ul class="entry">
+        
+          <li><a class="flat-box" title="/categories/DevOps/" href="/categories/DevOps/"><div class='name'>DevOps</div><div class='badge'>(2)</div></a></li>
+        
+          <li><a class="flat-box" title="/categories/Flutter-%E5%AD%A6%E4%B9%A0/" href="/categories/Flutter-%E5%AD%A6%E4%B9%A0/"><div class='name'>Flutter 学习</div><div class='badge'>(1)</div></a></li>
+        
+          <li><a class="flat-box" title="/categories/LeetCode/" href="/categories/LeetCode/"><div class='name'>LeetCode</div><div class='badge'>(185)</div></a></li>
+        
+          <li><a class="flat-box" title="/categories/LintCode/" href="/categories/LintCode/"><div class='name'>LintCode</div><div class='badge'>(1)</div></a></li>
+        
+          <li><a class="flat-box" title="/categories/Machine-Learning/" href="/categories/Machine-Learning/"><div class='name'>Machine-Learning</div><div class='badge'>(1)</div></a></li>
+        
+          <li><a class="flat-box" title="/categories/Note/" href="/categories/Note/"><div class='name'>Note</div><div class='badge'>(1)</div></a></li>
+        
+          <li><a class="flat-box" title="/categories/Reading/" href="/categories/Reading/"><div class='name'>Reading</div><div class='badge'>(1)</div></a></li>
+        
+          <li><a class="flat-box" title="/categories/%E3%80%8AJava%E7%BC%96%E7%A8%8B%E6%80%9D%E6%83%B3%E3%80%8B/" href="/categories/%E3%80%8AJava%E7%BC%96%E7%A8%8B%E6%80%9D%E6%83%B3%E3%80%8B/"><div class='name'>《Java编程思想》</div><div class='badge'>(9)</div></a></li>
+        
+          <li><a class="flat-box" title="/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/" href="/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/"><div class='name'>数据结构</div><div class='badge'>(1)</div></a></li>
+        
+          <li><a class="flat-box" title="/categories/%E6%9D%82%E4%BA%8B%E4%B8%80%E5%A0%86/" href="/categories/%E6%9D%82%E4%BA%8B%E4%B8%80%E5%A0%86/"><div class='name'>杂事一堆</div><div class='badge'>(4)</div></a></li>
+        
+          <li><a class="flat-box" title="/categories/%E7%AE%97%E6%B3%95/" href="/categories/%E7%AE%97%E6%B3%95/"><div class='name'>算法</div><div class='badge'>(1)</div></a></li>
+        
+          <li><a class="flat-box" title="/categories/%E7%AE%97%E6%B3%95%E5%AE%9E%E7%8E%B0/" href="/categories/%E7%AE%97%E6%B3%95%E5%AE%9E%E7%8E%B0/"><div class='name'>算法实现</div><div class='badge'>(1)</div></a></li>
+        
+      </ul>
+    </div>
+  </section>
+
+
+            
+          
+        
+          
+          
+        
+          
+          
+        
+      
+        
+          
+          
+        
+          
+          
+        
+          
+          
+        
+          
+          
+            
+              
+  <section class='widget tagcloud'>
+    
+<header class='pure'>
+  <div><i class="fas fa-tags fa-fw" aria-hidden="true"></i>&nbsp;&nbsp;热门标签</div>
+  
+    <a class="rightBtn"
+    
+      rel="nofollow"
+    
+    
+    href="/tags/"
+    title="tags/">
+    <i class="fas fa-expand-arrows-alt fa-fw"></i></a>
+  
+</header>
+
+    <div class='content pure'>
+      <a href="/tags/Array/" style="font-size: 14px; color: #999">Array</a> <a href="/tags/BFS/" style="font-size: 14px; color: #999">BFS</a> <a href="/tags/Bit-Manipulation/" style="font-size: 14px; color: #999">Bit-Manipulation</a> <a href="/tags/CI-CD/" style="font-size: 15.11px; color: #919191">CI/CD</a> <a href="/tags/ChromeOS/" style="font-size: 14px; color: #999">ChromeOS</a> <a href="/tags/Chromebook/" style="font-size: 14px; color: #999">Chromebook</a> <a href="/tags/DP/" style="font-size: 19.56px; color: #737373">DP</a> <a href="/tags/Design/" style="font-size: 14px; color: #999">Design</a> <a href="/tags/Drone/" style="font-size: 14px; color: #999">Drone</a> <a href="/tags/FSM/" style="font-size: 14px; color: #999">FSM</a> <a href="/tags/Flutter/" style="font-size: 14px; color: #999">Flutter</a> <a href="/tags/Gitea/" style="font-size: 14px; color: #999">Gitea</a> <a href="/tags/Hash/" style="font-size: 14px; color: #999">Hash</a> <a href="/tags/Hexo/" style="font-size: 15.11px; color: #919191">Hexo</a> <a href="/tags/Java/" style="font-size: 21.78px; color: #646464">Java</a> <a href="/tags/LeetCode/" style="font-size: 24px; color: #555">LeetCode</a> <a href="/tags/Linked-List/" style="font-size: 14px; color: #999">Linked List</a> <a href="/tags/Linked-List/" style="font-size: 15.11px; color: #919191">Linked-List</a> <a href="/tags/LinkedList/" style="font-size: 15.11px; color: #919191">LinkedList</a> <a href="/tags/LintCode/" style="font-size: 14px; color: #999">LintCode</a> <a href="/tags/List/" style="font-size: 14px; color: #999">List</a> <a href="/tags/ListNode/" style="font-size: 14px; color: #999">ListNode</a> <a href="/tags/Machine-Learning/" style="font-size: 14px; color: #999">Machine-Learning</a> <a href="/tags/OpenGL/" style="font-size: 14px; color: #999">OpenGL</a> <a href="/tags/Queues/" style="font-size: 14px; color: #999">Queues</a> <a href="/tags/Reading/" style="font-size: 14px; color: #999">Reading</a> <a href="/tags/Search/" style="font-size: 14px; color: #999">Search</a> <a href="/tags/Stack/" style="font-size: 20.67px; color: #6c6c6c">Stack</a> <a href="/tags/String/" style="font-size: 17.33px; color: #828282">String</a> <a href="/tags/Tree/" style="font-size: 22.89px; color: #5d5d5d">Tree</a> <a href="/tags/blog/" style="font-size: 14px; color: #999">blog</a> <a href="/tags/note/" style="font-size: 14px; color: #999">note</a> <a href="/tags/sort/" style="font-size: 15.11px; color: #919191">sort</a> <a href="/tags/%E3%80%8AJava%E7%BC%96%E7%A8%8B%E6%80%9D%E6%83%B3%E3%80%8B/" style="font-size: 21.78px; color: #646464">《Java编程思想》</a> <a href="/tags/%E4%B8%B2/" style="font-size: 18.44px; color: #7b7b7b">串</a> <a href="/tags/%E4%BA%8C%E5%8F%89%E6%A0%91/" style="font-size: 16.22px; color: #8a8a8a">二叉树</a> <a href="/tags/%E5%88%86%E6%B2%BB%E6%B3%95/" style="font-size: 14px; color: #999">分治法</a> <a href="/tags/%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/" style="font-size: 20.67px; color: #6c6c6c">动态规划</a> <a href="/tags/%E5%90%8E%E7%AB%AF/" style="font-size: 21.78px; color: #646464">后端</a> <a href="/tags/%E5%9B%BE/" style="font-size: 14px; color: #999">图</a> <a href="/tags/%E5%BE%AA%E7%8E%AF%E9%93%BE%E8%A1%A8%EF%BC%8C%E5%8F%8C%E5%90%91%E9%93%BE%E8%A1%A8%EF%BC%8C%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/" style="font-size: 14px; color: #999">循环链表，双向链表，数据结构</a> <a href="/tags/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/" style="font-size: 14px; color: #999">机器学习</a> <a href="/tags/%E6%9D%82%E4%BA%8B%E4%B8%80%E5%A0%86/" style="font-size: 14px; color: #999">杂事一堆</a> <a href="/tags/%E6%9F%A5%E6%89%BE/" style="font-size: 14px; color: #999">查找</a> <a href="/tags/%E7%AE%97%E6%B3%95/" style="font-size: 16.22px; color: #8a8a8a">算法</a> <a href="/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%9B%BE%E5%BD%A2%E5%AD%A6/" style="font-size: 14px; color: #999">计算机图形学</a> <a href="/tags/%E8%B8%A9%E5%9D%91%E8%AE%B0%E5%BD%95/" style="font-size: 14px; color: #999">踩坑记录</a> <a href="/tags/%E9%93%BE%E8%A1%A8/" style="font-size: 17.33px; color: #828282">链表</a> <a href="/tags/%E9%98%85%E8%AF%BB%E7%AC%94%E8%AE%B0/" style="font-size: 21.78px; color: #646464">阅读笔记</a>
+    </div>
+  </section>
+
+
+            
+          
+        
+          
+          
+        
+      
+    
+
+  
+</aside>
+
+<footer id="footer" class="clearfix">
+  
+  
+    <div class="social-wrapper">
+      
+        
+          <a href="/atom.xml"
+            class="social fas fa-rss flat-btn"
+            target="_blank"
+            rel="external nofollow noopener noreferrer">
+          </a>
+        
+      
+        
+          <a href="wuxiaobai24:wuxiaobai24@foxmail.com"
+            class="social fas fa-envelope flat-btn"
+            target="_blank"
+            rel="external nofollow noopener noreferrer">
+          </a>
+        
+      
+        
+          <a href="https://github.com/wuxiaobai24"
+            class="social fab fa-github flat-btn"
+            target="_blank"
+            rel="external nofollow noopener noreferrer">
+          </a>
+        
+      
+    </div>
+  
+  <br>
+  <div><p>博客内容遵循 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" target="_blank" rel="noopener">署名-非商业性使用-相同方式共享 4.0 国际 (CC BY-NC-SA 4.0) 协议</a></p>
+</div>
+  <div>
+    本站使用
+    <a href="https://xaoxuu.com/wiki/material-x/" target="_blank" class="codename">Material X</a>
+    作为主题
+    
+      ，
+      总访问量为
+      <span id="busuanzi_value_site_pv"><i class="fas fa-spinner fa-spin fa-fw" aria-hidden="true"></i></span>
+      次
+    
+    。
+  </div>
+</footer>
+<script>setLoadingBarProgress(80);</script>
+
+
+      <script>setLoadingBarProgress(60);</script>
+    </div>
+    <a class="s-top fas fa-arrow-up fa-fw" href='javascript:void(0)'></a>
+  </div>
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.3.1/dist/jquery.min.js"></script>
+
+  <script>
+    
+    var SEARCH_SERVICE = "hexo" || "hexo";
+    var ROOT = "/" || "/";
+    if (!ROOT.endsWith('/')) ROOT += '/';
+  </script>
+
+<script src="//instant.page/1.2.2" type="module" integrity="sha384-2xV8M5griQmzyiY3CDqh1dn4z3llDVqZDqzjzcY+jCBCk/a5fXJmuZ/40JJAPeoU"></script>
+
+
+  <script src="https://cdn.jsdelivr.net/npm/scrollreveal@4.0.5/dist/scrollreveal.min.js"></script>
+  <script type="text/javascript">
+    $(function() {
+      const $reveal = $('.reveal');
+      if ($reveal.length === 0) return;
+      const sr = ScrollReveal({ distance: 0 });
+      sr.reveal('.reveal');
+    });
+  </script>
+
+
+  <script src="https://cdn.jsdelivr.net/npm/node-waves@0.7.6/dist/waves.min.js"></script>
+  <script type="text/javascript">
+    $(function() {
+      Waves.attach('.flat-btn', ['waves-button']);
+      Waves.attach('.float-btn', ['waves-button', 'waves-float']);
+      Waves.attach('.float-btn-light', ['waves-button', 'waves-float', 'waves-light']);
+      Waves.attach('.flat-box', ['waves-block']);
+      Waves.attach('.float-box', ['waves-block', 'waves-float']);
+      Waves.attach('.waves-image');
+      Waves.init();
+    });
+  </script>
+
+
+  <script async src="https://cdn.jsdelivr.net/gh/xaoxuu/cdn-busuanzi@2.3/js/busuanzi.pure.mini.js"></script>
+
+
+
+
+  
+  
+  
+    <script src="https://cdn.jsdelivr.net/gh/xaoxuu/cdn-material-x@20.2/js/backstretch.min.js"></script>
+    <script type="text/javascript">
+      $(function(){
+        if ('') {
+          $('').backstretch(
+          ["https://i.loli.net/2020/02/08/HNuVoted2mUxILl.jpg", "https://i.loli.net/2020/02/08/dNJyR4LHtarTqPu.jpg", "https://i.loli.net/2020/02/08/yXx4GwgZYdi81Qs.jpg", "https://i.loli.net/2020/02/08/RP7JpGvWaCYfuB6.jpg"],
+          {
+            duration: "6000",
+            fade: "2500"
+          });
+        } else {
+          $.backstretch(
+          ["https://i.loli.net/2020/02/08/HNuVoted2mUxILl.jpg", "https://i.loli.net/2020/02/08/dNJyR4LHtarTqPu.jpg", "https://i.loli.net/2020/02/08/yXx4GwgZYdi81Qs.jpg", "https://i.loli.net/2020/02/08/RP7JpGvWaCYfuB6.jpg"],
+          {
+            duration: "6000",
+            fade: "2500"
+          });
+        }
+      });
+    </script>
+  
+
+
+
+
+
+
+
+
+
+
+
+  
+<script src="https://cdn.jsdelivr.net/gh/xaoxuu/cdn-material-x@20.2.8/js/app.js"></script>
+
+
+
+  
+<script src="https://cdn.jsdelivr.net/gh/xaoxuu/cdn-material-x@20.2.8/js/search.js"></script>
+
+
+
+  
+    
+<script src="https://cdn.jsdelivr.net/gh/inkss/inkss.github.io/js/commentTyping.js"></script>
+
+  
+
+
+
+
+
+<!-- 复制 -->
+<script src="https://cdn.jsdelivr.net/npm/clipboard@2/dist/clipboard.min.js"></script>
+<script>
+  let COPY_SUCCESS = "复制成功";
+  let COPY_FAILURE = "复制失败";
+  /*页面载入完成后，创建复制按钮*/
+  !function (e, t, a) {
+    /* code */
+    var initCopyCode = function(){
+      var copyHtml = '';
+      copyHtml += '<button class="btn-copy" data-clipboard-snippet="">';
+      copyHtml += '  <i class="fa fa-copy"></i><span>复制</span>';
+      copyHtml += '</button>';
+      $(".highlight .code pre").before(copyHtml);
+      var clipboard = new ClipboardJS('.btn-copy', {
+        target: function(trigger) {
+          return trigger.nextElementSibling;
+        }
+      });
+
+      clipboard.on('success', function(e) {
+        //您可以加入成功提示
+        console.info('Action:', e.action);
+        console.info('Text:', e.text);
+        console.info('Trigger:', e.trigger);
+        success_prompt(COPY_SUCCESS);
+        e.clearSelection();
+      });
+      clipboard.on('error', function(e) {
+        //您可以加入失败提示
+        console.error('Action:', e.action);
+        console.error('Trigger:', e.trigger);
+        fail_prompt(COPY_FAILURE);
+      });
+    }
+    initCopyCode();
+
+  }(window, document);
+
+  /**
+   * 弹出式提示框，默认1.5秒自动消失
+   * @param message 提示信息
+   * @param style 提示样式，有alert-success、alert-danger、alert-warning、alert-info
+   * @param time 消失时间
+   */
+  var prompt = function (message, style, time)
+  {
+      style = (style === undefined) ? 'alert-success' : style;
+      time = (time === undefined) ? 1500 : time*1000;
+      $('<div>')
+          .appendTo('body')
+          .addClass('alert ' + style)
+          .html(message)
+          .show()
+          .delay(time)
+          .fadeOut();
+  };
+
+  // 成功提示
+  var success_prompt = function(message, time)
+  {
+      prompt(message, 'alert-success', time);
+  };
+
+  // 失败提示
+  var fail_prompt = function(message, time)
+  {
+      prompt(message, 'alert-danger', time);
+  };
+
+  // 提醒
+  var warning_prompt = function(message, time)
+  {
+      prompt(message, 'alert-warning', time);
+  };
+
+  // 信息提示
+  var info_prompt = function(message, time)
+  {
+      prompt(message, 'alert-info', time);
+  };
+
+</script>
+
+
+<!-- fancybox -->
+<script src="https://cdn.jsdelivr.net/gh/fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js"></script>
+<script>
+  let LAZY_LOAD_IMAGE = "";
+  $(".article-entry").find("fancybox").find("img").each(function () {
+      var element = document.createElement("a");
+      $(element).attr("data-fancybox", "gallery");
+      $(element).attr("href", $(this).attr("src"));
+      /* 图片采用懒加载处理时,
+       * 一般图片标签内会有个属性名来存放图片的真实地址，比如 data-original,
+       * 那么此处将原本的属性名src替换为对应属性名data-original,
+       * 修改如下
+       */
+       if (LAZY_LOAD_IMAGE) {
+         $(element).attr("href", $(this).attr("data-original"));
+       }
+      $(this).wrap(element);
+  });
+</script>
+
+
+
+
+
+  <script>setLoadingBarProgress(100);</script>
+</body>
+</html>

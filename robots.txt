@@ -1,0 +1,23 @@
+User-agent: *
+Allow: /
+Allow: /2017/
+Allow: /2018/
+Allow: /2019/
+Allow: /2020/
+Allow: /2021/
+Allow: /2022/
+Allow: /home/
+Allow: /about/
+Allow: /archives/
+Allow: /categories/
+Allow: /tags/
+
+Disallow: /js/
+Disallow: /css/
+Disallow: /img/
+Disallow: /assets/
+Disallow: /fonts/
+Disallow: /resume/
+
+Sitemap: https://blog.codeand.fun/sitemap.xml
+Sitemap: https://blog.codeand.fun/baidusitemap.xml
