@@ -7,7 +7,7 @@ tags:
 - Queues
 - Stack
 - BFS
-categories: sLeetCode
+categories: LeetCode
 ---
 
 第97天。

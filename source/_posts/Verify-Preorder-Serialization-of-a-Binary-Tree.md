@@ -3,6 +3,8 @@ title: Verify-Preorder-Serialization-of-a-Binary-Tree
 date: 2018-02-19 11:54:41
 tags:
 - LeetCode
+- Stack
+categories: LeetCode
 ---
 
 第104天。
@@ -76,5 +78,22 @@ bool isValidSerialization(string preorder) {
         if (preorder[idx-1]!='#') capacity+=2;
     }
     return capacity==0;
+}
+```
+
+> Update at 2020-04-02
+
+补充一个自己的写法：
+
+```c++
+bool isValidSerialization(string preorder) {
+    int i, c, size; 
+    for(i = 0, c = 1, size = preorder.size(); i < size && c; i++){
+        if (preorder[i] == '#') c--;
+        else c++; // c--; c+=2;
+        // move next node
+        while(i < size && preorder[i]!=',') i++;
+    }
+    return c == 0 && i >= size;
 }
 ```
