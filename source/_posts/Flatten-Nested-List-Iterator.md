@@ -3,6 +3,10 @@ title: Flatten-Nested-List-Iterator
 date: 2018-02-14 15:27:39
 tags:
 - LeetCode
+- Stack
+- Design
+categories:
+- LeetCode
 ---
 
 第100天。
@@ -141,5 +145,41 @@ public:
 
 private:
     stack<vector<NestedInteger>::iterator> begins, ends;
+};
+```
+
+---
+
+> update at 2020-04-03
+
+和第二个解法有点像，但是只需要一个栈即可：
+
+```c++
+class NestedIterator {
+public:
+    stack<vector<NestedInteger>::iterator> st;
+    NestedIterator(vector<NestedInteger> &nestedList) {
+        reversePush(nestedList);
+    }
+    
+    void reversePush(vector<NestedInteger> &nestedList) {
+        auto beg = nestedList.begin();
+        for(int i = nestedList.size() - 1; i >= 0; --i) {
+            st.push(beg + i);
+        }
+    }
+
+    int next() {
+        auto top = st.top(); st.pop();
+        return top->getInteger();
+    }
+    
+    bool hasNext() {
+        while(!st.empty() && !st.top()->isInteger()) {
+            auto top = st.top(); st.pop();
+            reversePush(top->getList());
+        }
+        return !st.empty();
+    }
 };
 ```

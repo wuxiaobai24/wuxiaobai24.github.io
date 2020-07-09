@@ -22,5 +22,6 @@ categories: LeetCode
 | [Evaluate Reverse Polish Notation](https://leetcode-cn.com/problems/evaluate-reverse-polish-notation/) | 150  | Medium     | https://blog.codeand.fun/2020/03/31/Evaluate-Reverse-Polish-Notation/ |                                                              |
 | [Binary Search Tree Iterator](https://leetcode-cn.com/problems/binary-search-tree-iterator/) | 173  | Medium     | https://blog.codeand.fun/2020/03/31/Binary-Search-Tree-Iterator/ | 可以用递归、栈和莫里斯遍历来实现中序遍历                     |
 | [Verify Preorder Serialization of a Binary Tree](https://leetcode-cn.com/problems/verify-preorder-serialization-of-a-binary-tree/) | 331  | Medium     | https://blog.codeand.fun/2018/02/19/Verify-Preorder-Serialization-of-a-Binary-Tree/ | ??这道题和栈好像没有关系啊，不用栈去想反而更简单更快         |
-| [Flatten Nested List Iterator](https://leetcode-cn.com/problems/flatten-nested-list-iterator/) | 341  | Medium     |                                                              |                                                              |
+| [Flatten Nested List Iterator](https://leetcode-cn.com/problems/flatten-nested-list-iterator/) | 341  | Medium     | https://blog.codeand.fun/2018/02/14/Flatten-Nested-List-Iterator/ | 似乎很多用递归能解（但是比较复杂）的题目都可以用栈来简化。同时，用`iterator`可以有效减少内存消耗。 |
+| [Decode String](https://leetcode-cn.com/problems/decode-string/) | 394  | Medium     |                                                              |                                                              |
 

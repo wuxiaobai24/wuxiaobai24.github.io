@@ -1,11 +1,11 @@
 ---
 title: Decode String
 tags:
-  - LeetCode
+- LeetCode
+- Stack
+- Depth-first Search
 categories:
-  - LeetCode
-originContent: ''
-toc: false
+- LeetCode
 date: 2019-11-08 20:55:51
 ---
 
@@ -48,12 +48,14 @@ string decodeString(string s) {
         if (isdigit(s[i])) {
             num = num * 10 + s[i] - '0';
         } else if (s[i] == '[') {
+            res += temp;
            	temp = "";
         } else if (s[i] == ']') {
             for(int i = 0;i < num;i++)
             	res += temp;
+            temp = "";
         } else { // charar
-            res.push_back(s[i]);
+            temp.push_back(s[i]);
             num = 0;
         }
     }
@@ -88,5 +90,34 @@ string decodeString(string s) {
         }
     }
     return sst.top();
+}
+```
+
+> update at 2020-04-04
+
+似乎最上面那个代码是有问题的，emmm，不管了，更新一个用一个`stack`的版本：
+
+```c++
+string decodeString1(string s) {
+    stack<pair<int, string>> st;
+    st.push(make_pair(1, ""));
+    int num = 0;
+    for(auto c: s) {
+        if (isdigit(c)) {
+            num  = num * 10 + c - '0';
+        } else if (c == '[') {
+            st.push(make_pair(num, ""));
+            num = 0;
+        } else if (c == ']') {
+            auto p = st.top(); st.pop();
+            int n  = p.first;
+            auto s = p.second;
+            // cout << n << s << endl;
+            for(int i = 0; i < n; i++) st.top().second += s;
+        } else {
+            st.top().second.push_back(c);
+        }
+    }
+    return st.top().second;
 }
 ```
